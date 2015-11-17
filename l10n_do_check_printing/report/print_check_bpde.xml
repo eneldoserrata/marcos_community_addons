@@ -4,6 +4,59 @@
 
 <template id="print_check_bpde">
     <t t-call="report.html_container">
+        <style>
+            .ckus_top_page {
+                .ckus_check {
+                    top: 0.25in;
+                }
+                .ckus_stub_1 {
+                    top: 4in;
+                }
+                .ckus_stub_2 {
+                    top: 8.7in;
+                }
+
+                .ckus_check .sequence_number {
+                    top: 0.1in;
+                    left: 6.85in;
+                    width: 0.60in;
+                }
+                .ckus_date {
+                    top: 0.32in;
+                    left: 8.5in;
+                    width: 1.20in;
+                    text-align: center;
+                }
+                .ckus_payee_name {
+                    top: 0.97in;
+                    left: 1.2in;
+                    width: 4.0in;
+                    text-align: left;
+                }
+                .ckus_amount {
+                    top: 0.90in;
+                    left: 8.7in;
+                    width: 1.20in;
+                    text-align: center;
+                }
+                .ckus_amount_in_word {
+                    top: 1.43in;
+                    left: 0.25in;
+                    width: 4.5in;
+                    text-align: left;
+                    font-weight: bold;
+                    overflow: hidden;
+                }
+                .ckus_memo {
+                    top: 1.80in;
+                    left: 0.50in;
+                    width: 4.0in;
+                    text-align: left;
+                    font-size: 0.9em;
+                    overflow: hidden;
+                }
+            }
+        </style>
         <t t-foreach="docs" t-as="o">
             <div t-foreach="pages(o)" t-as="page" class="page ckus_page ckus_top_page" t-attf-style="top: {{ o.journal_id.do_check_margin_top }}in; left: {{ o.journal_id.do_check_margin_left }}in;">
                 <t t-call="l10n_do_check_printing.ckus_check" />

@@ -7,7 +7,7 @@
         <link href="/l10n_do_check_printing/static/src/less/report_check_commons.less" rel="stylesheet"/>
         <link href="/l10n_do_check_printing/static/src/less/report_check_bottom.less" rel="stylesheet"/>
         <link href="/l10n_do_check_printing/static/src/less/report_check_middle.less" rel="stylesheet"/>
-        <link href="/l10n_do_check_printing/static/src/less/report_check_top.less" rel="stylesheet"/>
+        <!--<link href="/l10n_do_check_printing/static/src/less/report_check_top.less" rel="stylesheet"/>-->
     </xpath>
 </template>
 
