@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="l10n_do_check_printing_view_account_journal_form_inherited" model="ir.ui.view">
+            <field name="name">l10n_do_check_printing_view_account_journal_form_inherited</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account_check_printing.view_account_journal_form_inherited"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='advanced_settings']/group" position="inside">
+                    <group name="do_check_printing" string="Configuración Impresión de cheques" attrs="{'invisible': [('check_printing_payment_method_selected', '=', False)]}">
+                        <field name="do_check_layout"/>
+                        <field name="do_check_multi_stub"/>
+                        <label for="do_check_margin_top"/>
+                        <div>
+                            <field name="do_check_margin_top" class="oe_inline"/>
+                            <label string="in" class="oe_inline" />
+                        </div>
+                        <label for="do_check_margin_left"/>
+                        <div>
+                            <field name="do_check_margin_left" class="oe_inline"/>
+                            <label string="in" class="oe_inline" />
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

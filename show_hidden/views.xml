@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+        <menuitem id="menu_finance_bank_and_cash" name="Banco y caja" parent="account.menu_finance" sequence="4"/>
+        <menuitem string="Bank Statements" action="account.action_bank_statement_tree" id="menu_bank_statement_tree" parent="menu_finance_bank_and_cash" sequence="7"/>
+        <menuitem action="account.action_view_bank_statement_tree" id="journal_cash_move_lines" parent="menu_finance_bank_and_cash"/>
+
+        <!--<menuitem action="stock.action_report_inventory" id="action_report_inventory_menu"/>-->
+        <!--<menuitem action="account.action_account_chart_template_form" id="action_account_chart_template_menu" parent="menu_finance_bank_and_cash"/>-->
+
+
+  </data>
+</openerp>

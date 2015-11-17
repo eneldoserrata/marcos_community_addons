@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="print_check_bpde">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <div t-foreach="pages(o)" t-as="page" class="page ckus_page ckus_top_page" t-attf-style="top: {{ o.journal_id.do_check_margin_top }}in; left: {{ o.journal_id.do_check_margin_left }}in;">
+                <t t-call="l10n_do_check_printing.ckus_check" />
+                <t t-call="l10n_do_check_printing.ckus_stub"><t t-set="stub_num" t-value="1"/></t>
+                <t t-call="l10n_do_check_printing.ckus_stub"><t t-set="stub_num" t-value="2"/></t>
+            </div>
+        </t>
+    </t>
+</template>
+
+</data>
+</openerp>

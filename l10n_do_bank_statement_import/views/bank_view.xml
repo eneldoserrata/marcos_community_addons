@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="ln10_do_view_res_bank_form" model="ir.ui.view">
+            <field name="name">ln10_do_view_res_bank_form</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="arch" type="xml">
+
+                <field name="active" position="after">
+                    <field name="statement_import_type"/>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>
