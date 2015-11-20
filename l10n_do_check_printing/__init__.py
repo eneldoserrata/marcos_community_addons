@@ -1,6 +1,3 @@
 # -*- coding: utf-8 -*-
-
-import account
-import account_payment
-
+import models
 import report
