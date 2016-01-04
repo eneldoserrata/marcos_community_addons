@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- author:jodoo v1.0:-->
+<openerp>
+  <data><!--layout inherit from jodoo--> 
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Jo cms assets" >
+      <xpath expr="/t" position="inside">
+        <link rel='stylesheet' href='/site_magic3brothers/static/src/css/default-fix.css'/>
+        <script type="text/javascript" src="/site_magic3brothers/static/src/js/carousel.js"></script>
+      </xpath>
+    </template> 
+
+    <template id="website.show_sign_in" customize_show="True" inherit_id="website.layout" name="Show Sign In" groups="base.group_no_one">
+      <xpath expr="//ul[@id='top_menu']" position="inside">
+      </xpath>
+    </template>
+
+    <template id="footer_default" name="Automatic Footer" inherit_id="website.footer_default">
+      <xpath expr="//div[@id='footer']" position="attributes">
+        <attribute name="class">hidden</attribute>
+      </xpath>
+    </template>
+    
+    <template id="layout" name="jo layout top and support" inherit_id="website.layout">
+      <xpath expr="//div[@id='wrapwrap']//header//div[1]" position="before">
+        <div class="topline hidden-xs"/>
+      </xpath>
+      <xpath expr="//footer//div[@class='pull-right']" position="replace">
+        <div class="pull-right" t-ignore="true" t-if="not editable">
+          技术支持
+          <a class="label label-danger" href="http://www.yunaio.com/">企业级应用#SaaS#</a>
+        </div>
+      </xpath>
+    </template> 
+        
+    <template id="company_description" name="Company Description" inherit_id="website.company_description">
+      <xpath expr="//a[@t-att-href='res_company.google_map_link()']" position="replace">
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=38d8c9f5e0a39c9e78577f8ee6b41733"></script>
+        <div id="allmap" class="thumbnail img-responsive" style="height:300px;"></div>        
+        <script type="text/javascript">
+          // 百度地图API功能
+          var map = new BMap.Map("allmap");
+          var point = new BMap.Point(116.331398,39.897445);
+          map.centerAndZoom(point,12);
+          // 创建地址解析器实例
+          var myGeo = new BMap.Geocoder();
+          // 将地址解析结果显示在地图上,并调整地图视野
+          myGeo.getPoint("南方休闲广场", function(point){
+            if (point) {
+              map.centerAndZoom(point, 32);
+              map.addOverlay(new BMap.Marker(point));
+            }
+          }, "上海市");
+        </script>       
+      </xpath>
+    </template>
+  </data>
+
+  <data><!--bizclouds templates-->
+    <template id="homepage_inherit" inherit_id="website.homepage" name="Homepage" >
+      <xpath expr="//div[@id='wrap']" position="replace">
+          <div id="wrap" class="oe_structure oe_empty">
+      <div id="carousel-thumbnail-indicators" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-thumbnail-indicators" data-slide-to="0" class="active">
+              <div class="thumbnail">
+                <img class="img-responsive" src="/site_magic3brothers/static/src/img/slide1.jpg"/>
+              </div>
+            </li>
+            <li data-target="#carousel-thumbnail-indicators" data-slide-to="1">
+            <div class="thumbnail">
+                <img class="img-responsive" src="/site_magic3brothers/static/src/img/slide2.jpg"/>
+              </div>
+            </li>
+            <li data-target="#carousel-thumbnail-indicators" data-slide-to="2">
+            <div class="thumbnail">
+                <img class="img-responsive" src="/site_magic3brothers/static/src/img/slide3.jpg"/>
+              </div>
+            </li>
+            <li data-target="#carousel-thumbnail-indicators" data-slide-to="3">
+            <div class="thumbnail">
+                <img class="img-responsive" src="/site_magic3brothers/static/src/img/slide4.jpg"/>
+              </div>
+            </li>                                   
+          </ol>
+          <div class="carousel-inner">
+            <div class="item slides active">
+              <div class="slide-1">
+                <a href="/p/aboutus"><img class="slide-img" src="/site_magic3brothers/static/src/img/slide1.jpg"/></a>
+              </div>
+              <div class="container">
+                <div class="carousel-caption">
+                  <h2>About Us</h2>
+                  <h3>Dedication to every client's success.</h3>
+                  <p><a class="btn btn-success btn-large" href="/p/aboutus">Click</a></p>                  
+                </div>
+              </div>
+            </div>
+            <div class="item slides">
+              <div class="slide-2">
+                <a href="/p/join"><img class="slide-img" src="/site_magic3brothers/static/src/img/slide2.jpg"/></a>
+              </div>
+              <div class="container">
+                <div class="carousel-caption">
+                  <h2>Join Us</h2>
+                  <h3>Make an impact.</h3>
+                  <a class="btn btn-success btn-large" href="/p/join">Join</a>                  
+                </div>
+              </div>
+            </div>
+            <div class="item slides">
+              <div class="slide-3">
+                <a href="/p/services"><img class="slide-img" src="/site_magic3brothers/static/src/img/slide3.jpg"/></a>
+              </div>
+              <div class="container">
+                <div class="carousel-caption">
+                  <h2>Products</h2>
+                  <h3>Magic city</h3>
+                </div>
+              </div>
+            </div>
+            <div class="item slides">
+              <div class="slide-4">
+                <a href="/p/services"><img class="slide-img" src="/site_magic3brothers/static/src/img/slide4.jpg"/></a>
+              </div>
+              <div class="container">
+                <div class="carousel-caption">
+                </div>
+              </div>
+            </div>                        
+          </div>
+          <a class="left carousel-control" href="#carousel-thumbnail-indicators" role="button" data-slide="prev"><img src="/site_magic3brothers/static/src/img/left.png"/></a>
+          <a class="right carousel-control" href="#carousel-thumbnail-indicators" role="button" data-slide="next"><img src="/site_magic3brothers/static/src/img/right.png"/></a>
+    </div> 
+        </div>  
+      </xpath>
+    </template> 
+<!-- Options: Blog Post: breadcrumb -->
+<template id="site-search" name="layout top search" inherit_id="website.layout" active="True" customize_show="True">
+  <xpath expr="//ul/li[@class='divider']" position="before">
+    <li class="divider search"></li>
+    <li>              
+      <form action="/article" method="get" class="pagination form-inline col-md-12 mt8">    
+        <div class="input-group">
+          <span class="input-group-btn">
+            <a class="btn btn-default a-submit"><i class="fa fa-search"></i></a>
+          </span>
+          <input type="text" name="search" class="search-query form-control" placeholder="Search..."/>
+        </div>
+      </form>
+     </li>
+  </xpath>  
+</template> 
+
+<template id="link-menu" name="CSS Menu">
+    <hr class="hr-menu"/>
+    <div class="container">
+      <div class="col-md-3">
+      </div>  
+      <div id='cssmenu' class="mb16">
+        <ul>
+           <li t-attf-class="#{ aboutus or '' }"><a href='/p/aboutus'><span>公司简介</span></a></li>
+           <li t-attf-class="#{ business or '' }"><a href='/p/business'><span>业务板块</span></a></li>
+           <li t-attf-class="#{ culture or '' }"><a href='/p/culture'><span>企业文化</span></a></li>
+           <li t-attf-class="#{ news or '' }"><a href='/p/news'><span>企业动态</span></a></li>
+        </ul>
+      </div>
+    </div>
+    
+</template>
+
+<template id="aboutus" name="About Us" page="True">
+    <t t-call="website.layout">
+      <t t-call="site_magic3brothers.link-menu"/>
+      <div id="wrap">
+        <div class="oe_structure"/>
+          <img src="/site_magic3brothers/static/src/img/aboutus.jpg" alt="About Us" width="100%"/>
+      </div>
+    </t>
+</template>    
+<template id="business" name="Business" page="True">
+    <t t-call="website.layout">
+      <t t-call="site_magic3brothers.link-menu"/>
+      <div id="wrap">
+        <div class="oe_structure"/>
+            <img src="/site_magic3brothers/static/src/img/about-2.jpg" alt="About Us" width="100%"/>
+      </div>
+    </t>
+</template>  
+<template id="culture" name="Culture" page="True">
+    <t t-call="website.layout">
+      <t t-call="site_magic3brothers.link-menu"/>
+      <div id="wrap">
+        <div class="oe_structure"/>
+            <img src="/site_magic3brothers/static/src/img/about-3.jpg" alt="About Us" width="100%"/>
+      </div>
+    </t>
+</template>  
+<template id="news" name="News" page="True">
+    <t t-call="website.layout">
+      <t t-call="site_magic3brothers.link-menu"/> 
+      <hr/>     
+      <div id="wrap">
+        <div class="oe_structure"/>
+          <div class="container">  
+            <div class="row">
+              <div t-foreach="articles" t-as="article" class="col-md-4">  
+                <div class="news-list">            
+                  <a class="text-center" t-attf-href="/news/#{ slug(article) }">
+                      <h2 t-field="article.name" class="mb4"/>
+                  </a>
+                </div>
+              </div> 
+            </div>
+          </div>             
+      </div>
+    </t>
+</template> 
+<template id="article" name="News Article" page="True">
+      <t t-call="website_blog.index">
+        <t t-set="news">active</t>
+        <t t-call="site_magic3brothers.link-menu"/>
+        <hr/>
+        <div class="container">
+          <div class="row">
+            <t t-call="website.publish_management">
+                <t t-set="object" t-value="blog_post"/>
+                <t t-set="publish_edit" t-value="True"/>
+                <li>
+                    <form class="duplicate hidden" action="/blogpost/duplicate">
+                        <input name="blog_post_id" t-att-value="blog_post.id"/>
+                    </form>
+                    <a href="#" class="duplicate" onclick="$(this).prev('form').submit()">Duplicate</a>
+                </li>
+            </t>            
+            <div class="blog_title">
+                <h1 t-field="blog_post.name" id="blog_post_name" t-att-data-blog-id="blog_post.id"/>
+                <span t-field="blog_post.create_date" t-field-options="{&quot;format&quot;: &quot;MMMM yyyy&quot;}"/>
+            </div>
+            <div class="container">
+              <div class="row">
+                  <div id="blog_content" t-field="blog_post.content" class="mt32 col-md-11"/>
+                  <div class="col-md-1 mt32" t-if="next_post">
+                    <div class="cover_footer news-right" t-ignore="True">    
+                      <a class="hidden js_next" t-attf-href="/news/#{ slug(next_post) }"/>  
+                      <p class="mt8"><a href="javascript:history.go(-1);"><img src="/site_magic3brothers/static/src/img/back.png"/></a></p>  
+                      <p class="mt8"><a href="/news/#{pre_post}"><img class="flipped" src="/site_magic3brothers/static/src/img/news-right.png"/></a></p>        
+                      <p class="mt8"><a href="/news/#{next_post}"><img src="/site_magic3brothers/static/src/img/news-right.png"/></a></p> 
+                    </div>    
+                  </div>
+                </div>  
+            </div>      
+          </div>
+        </div>        
+      </t> 
+</template>
+
+<template id="services" name="Funny" page="True">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="oe_structure">
+            <a href="http://www.taojinqu.cn"><img src="/site_magic3brothers/static/src/img/services.jpg" alt="Tao Funny" width="100%"/></a>
+            <div id="myCarousel" class="carousel slide">
+               <!-- 轮播（Carousel）指标 -->
+               <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" 
+                     class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                  <li data-target="#myCarousel" data-slide-to="3"></li>
+                  <li data-target="#myCarousel" data-slide-to="4"></li>
+                  <li data-target="#myCarousel" data-slide-to="5"></li>
+               </ol>   
+               <!-- 轮播（Carousel）项目 -->
+               <div class="carousel-inner">
+                  <div class="item active">
+                     <img src="/site_magic3brothers/static/src/img/tao_fs_1.jpg" alt="First slide"/>
+                  </div>
+                  <div class="item" >
+                     <img src="/site_magic3brothers/static/src/img/tao_fs_2.jpg" alt="Second slide"/>
+                  </div>
+                  <div class="item" >
+                     <img src="/site_magic3brothers/static/src/img/tao_fs_3.jpg" alt="Third slide"/>
+                  </div>
+                  <div class="item" >
+                     <img src="/site_magic3brothers/static/src/img/tao_fs_4.jpg" alt="Fourth slide"/>
+                  </div>
+                  <div class="item" >
+                     <img src="/site_magic3brothers/static/src/img/tao_fs_5.jpg" alt="Fifth slide"/>
+                  </div>
+                  <div class="item" >
+                     <img src="/site_magic3brothers/static/src/img/tao_fs_6.jpg" alt="Sixth slide"/>
+                  </div>
+               </div>
+               <!-- 轮播（Carousel）导航 -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                  <img src="/site_magic3brothers/static/src/img/left.png"/>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                  <img class="flipped" src="/site_magic3brothers/static/src/img/left.png"/>
+                </a>
+            </div>             
+        </div>    
+      </div>
+    </t>
+</template>
+<template id="products" name="Travel" page="True">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="oe_structure"/>
+            <img src="/site_magic3brothers/static/src/img/products.jpg" alt="Tao Travel" width="100%"/>
+      </div>
+    </t>
+</template>
+<template id="join" name="Join Us" page="True">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="oe_structure"/>
+            <img src="/site_magic3brothers/static/src/img/join.jpg" alt="Join Us" width="100%"/>
+      </div>
+    </t>
+</template>
+
+
+<template id="footer_default" name="Automatic Footer" inherit_id="website.footer_default">
+  <xpath expr="//div[@id='footer']" position="after">     
+    <div class="container hidden-print">
+      <div class="row mt16">
+          <div class="col-md-2"><img width="120px;" src="/site_magic3brothers/static/src/img/logo2.png"/></div>
+          <div class="col-md-1">
+              <h4><a href="/">首页</a></h4>
+          </div>
+          <div class="col-md-1">
+              <h4><a href="/p/aboutus">关于我们</a></h4>
+              <ul class="list-unstyled">
+                  <li t-ignore="true"><a href="/p/aboutus">公司介绍</a></li>
+                  <li t-ignore="true"><a href="/p/business">业务板块</a></li>
+                  <li t-ignore="true"><a href="/p/culture">企业文化</a></li>
+                  <li t-ignore="true"><a href="/p/news">企业动态</a></li>
+              </ul>
+          </div>
+          <div class="col-md-1">
+              <h4><a href="/p/services">服务</a></h4>
+              <ul class="list-unstyled">
+                <li t-ignore="true"><a href="/p/services">服务介绍</a></li>
+                <li t-ignore="true"><a href="/p/services">品牌保证</a></li>
+              </ul>
+          </div>
+          <div class="col-md-1">
+              <h4><a href="/p/products">产品</a></h4>
+              <ul class="list-unstyled">
+                <li t-ignore="true"><a href="/p/products">重庆小吃</a></li>
+                <li t-ignore="true"><a href="/p/products">软件开发</a></li>
+                <li t-ignore="true"><a href="/p/products">珠宝知识</a></li>
+                <li t-ignore="true"><a href="/p/products">时尚新品</a></li>
+              </ul>
+          </div>
+          <div class="col-md-2">
+              <h4><a href="/p/join">加入我们</a></h4>
+              <ul class="list-unstyled">
+                <li t-ignore="true"><span>邮箱：info@yunaio.com</span></li>
+              </ul>
+          </div>
+          <div class="col-md-3">
+              <h4>联系我们</h4>
+              <ul class="list-unstyled">
+                <li t-ignore="true"><span>地址：上海市南方休闲广场(莲花路地铁站)</span></li>
+                <li t-ignore="true"><span>邮箱：baich.info@gmail.com</span></li>
+                <li t-ignore="true"><span>电话：13817848812</span></li>
+              </ul>
+          </div>
+      </div>
+      <div class="mt16 text-center">
+        <span>©版权所有 魔都三兄弟 www.shbrothers.com All Right Reserved 2012-2015</span>        
+      </div>    
+      <div id="info" class="hidden"><ul></ul></div>
+    </div>
+  </xpath>
+</template>
+
+<template id="footer_copyright" name="Footer Copyright" inherit_id="website.layout_footer_copyright">
+  <xpath expr="//div[@class='pull-left text-muted']" position="attributes">   
+    <attribute name="class">hidden</attribute>
+  </xpath>
+</template>  
+
+<record id="menu_aboutus" model="website.menu">
+    <field name="name">关于</field>
+    <field name="url">/p/aboutus</field>
+    <field name="parent_id" ref="website.main_menu"/>
+    <field name="sequence" type="int">11</field>
+</record>
+<record id="menu_services" model="website.menu">
+    <field name="name">服务</field>
+    <field name="url">/p/services</field>
+    <field name="parent_id" ref="website.main_menu"/>
+    <field name="sequence" type="int">12</field>
+</record>
+<record id="menu_products" model="website.menu">
+    <field name="name">产品</field>
+    <field name="url">/p/products</field>
+    <field name="parent_id" ref="website.main_menu"/>
+    <field name="sequence" type="int">13</field>
+</record>
+<record id="menu_joinus" model="website.menu">
+    <field name="name">加入我们</field>
+    <field name="url">/p/join</field>
+    <field name="parent_id" ref="website.main_menu"/>
+    <field name="sequence" type="int">14</field>
+</record>
+
+  </data> 
+</openerp>

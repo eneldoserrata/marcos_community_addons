@@ -1,0 +1,314 @@
+#oe_main_menu_navbar li a{
+	color:#7381E8;
+}
+.navbar .nav > li > a {
+  padding: 10px 30px 11px;
+  font-size: 18px;
+  color: black;
+  font-family:"微软雅黑";
+} 
+.topline{
+	padding-top:10px;
+	background:white;
+}
+header a.navbar-brand img{
+	margin-top:1px;
+}
+header .navbar-default{
+	background:white;
+	border-color:white;
+}
+header .nav{
+	padding-left:10px;
+	margin-bottom:10px;
+}
+
+header .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+	background-color:white;
+	color:red;
+}
+
+header .navbar-nav > li > a{
+	line-height:33px;
+	/*background:url(/site_magic3brothers/static/src/img/menu-li.jpg) no-repeat right center;*/
+}
+main {
+	background:white;
+}
+
+.carousel-inner > .item > img{
+	width:100%;
+}
+input.btn{
+	width:75px;
+	height:48px;
+	border-radius:1px;
+	background-color:transparent;
+	border: 0;
+}
+input.btn.prev-slide{
+	position:absolute;
+	left:20%;
+	width:48px;
+	/*background-image:url(/site_magic3brothers/static/src/img/left.png);*/
+}
+input.btn.next-slide{
+	position:absolute;
+	right:20%;
+	width:50px;
+	/*background-image:url(/site_magic3brothers/static/src/img/left.png);	*/
+}
+
+.hr-menu{
+	margin-top:0;
+	border-top:1px solid #C3BFBF;
+}
+.search{margin-right:20px;}
+/* link cssmenu */
+#cssmenu ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: auto;
+  position: relative;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  background: white;
+  font-family: Arial, Helvetica, sans-serif;
+  /*border-bottom: 1px solid #353535;*/
+  zoom: 1;
+}
+#cssmenu ul:before {
+  content: '';
+  display: block;
+}
+#cssmenu ul:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+#cssmenu li {
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0 4px;
+}
+#cssmenu li a {
+  display: block;
+  float: left;
+  color: #999999;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px 7px 20px;
+  border-bottom: 3px solid transparent;
+}
+#cssmenu li a:hover {
+  color: #636161;
+  border-bottom: 3px solid #C0C4C5;
+}
+#cssmenu li.active a {
+  display: inline;
+  border-bottom: 3px solid #C0C4C5;
+  float: left;
+  margin: 0;
+}
+
+.news-list{
+	background-color:gray;
+	padding-top:80px;
+	padding-bottom:80px;
+	margin-bottom:20px;
+}
+
+.cover_footer{
+	height:10px;
+}
+
+footer{
+  margin-top:10px;
+	font-family:"微软雅黑";
+	background-color:#383735;
+}
+footer h4, .h4{
+	font-size: 16px;
+	color:#929393;
+}
+footer a,a:hover, a:focus{
+	color:#929393;	
+}
+footer span,li{
+	font-size: 12px;
+	color:#929393;
+}
+#myCarousel a img {
+    width:  45px !important;
+    height: 45px !important;
+}
+.flipped {
+    -webkit-transform: scale(-1, 1);
+     -khtml-transform: scale(-1, 1);
+       -moz-transform: scale(-1, 1);
+        -ms-transform: scale(-1, 1);
+         -o-transform: scale(-1, 1);
+            transform: scale(-1, 1);
+}
+.h280{
+	margin-top:135%;
+}
+
+#carousel-custom {
+    margin: 20px auto;
+    width: 100%;
+}
+#carousel-custom .carousel-indicators {
+    /*margin: 10px 0 0;*/
+    /*position: static;*/
+    /*text-align: left;*/
+    overflow: auto;
+    white-space: nowrap;
+}
+#carousel-custom .carousel-indicators li {
+    background-color: transparent;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    display: inline-block;
+    height: auto;
+    margin: 0 !important;
+    width: auto;
+}
+#carousel-custom .carousel-indicators li img {
+    display: block;
+}
+#carousel-custom .carousel-indicators .active {
+    background-color: transparent;
+}
+#carousel-custom .carousel-outer {
+    position: relative;
+}
+#carousel-custom a img {
+    width:  45px !important;
+    height: 45px !important;
+    margin-top:550px;
+    position:static;
+}
+div .news-right p > a > img{
+  width:40px;
+}
+div .news-right{
+  position: fixed;
+  bottom:220px;
+  top:200px;
+}
+
+/*
+-----------------------------------
+    Code by 63720750@qq.com
+-----------------------------------
+*/
+
+#carousel-thumbnail-indicators {
+  position: relative;
+  overflow: hidden;
+}
+#carousel-thumbnail-indicators .slides .slide-1, 
+#carousel-thumbnail-indicators .slides .slide-2,
+#carousel-thumbnail-indicators .slides .slide-3,
+#carousel-thumbnail-indicators .slides .slide-4{
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+#carousel-thumbnail-indicators,
+#carousel-thumbnail-indicators .slides,
+#carousel-thumbnail-indicators .slides .slide-1, 
+#carousel-thumbnail-indicators .slides .slide-2,
+#carousel-thumbnail-indicators .slides .slide-3,
+#carousel-thumbnail-indicators .slides .slide-4{
+  /*height: 480px;*/
+  /*height: 675px;*/
+  height:auto;
+}
+
+#carousel-thumbnail-indicators .slides .slide-1 {
+  /*background-image: url(/site_magic3brothers/static/src/img/slide1.jpg); */
+}
+#carousel-thumbnail-indicators .slides .slide-2 {
+  /*background-image: url(/site_magic3brothers/static/src/img/slide2.jpg);*/
+}
+#carousel-thumbnail-indicators .slides .slide-3 {
+  /*background-image: url(/site_magic3brothers/static/src/img/slide3.jpg);*/
+}
+#carousel-thumbnail-indicators .slides .slide-4 {
+  /*background-image: url(/site_magic3brothers/static/src/img/slide4.jpg);*/
+}
+
+#carousel-thumbnail-indicators .carousel-inner .item .carousel-caption {
+  top: 15%;
+  bottom: inherit;
+  left: 15%;
+  width: 50%;
+}
+#carousel-thumbnail-indicators .carousel-indicators li,
+#carousel-thumbnail-indicators .carousel-indicators li.active {
+  position: relative;
+  width: 100px;
+  /*height: 8px;  */
+  height: 0;
+  border: 0;
+  margin: 0;
+}
+#carousel-thumbnail-indicators .carousel-indicators li > .thumbnail {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  border: 0;
+  left: 50%;
+  margin-top: -80px;
+  margin-left: -50px;
+  padding:0px;
+  background-color:transparent;
+  background-image:transparent;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding:10px 4px 4px 4px;
+}
+.thumbnail>img{
+  height: 60px;
+}
+
+#carousel-thumbnail-indicators .carousel-indicators li:hover > .thumbnail,
+#carousel-thumbnail-indicators .carousel-indicators li.active > .thumbnail {
+  display: block;
+  opacity: .8;
+  padding:10px 2px 2px 2px;
+  background-image:url(/site_magic3brothers/static/src/img/active.png);
+  /*opacity: 0;*/
+}
+#carousel-thumbnail-indicators .carousel-indicators li.active > .thumbnail:hover{
+  opacity: 1;
+}
+
+#carousel-thumbnail-indicators a img {
+  height: 60px !important;
+}
+
+#carousel-thumbnail-indicators .slide-img{
+  height: 100% !important;
+  width:100% !important;
+  margin-top:0 !important;
+}
+
+@media screen and (max-width : 760px) {    
+#carousel-thumbnail-indicators .carousel-indicators li,
+#carousel-thumbnail-indicators .carousel-indicators li.active {
+  display:none;
+  }
+#carousel-thumbnail-indicators .carousel-indicators li > .thumbnail {
+   display:none;
+  }
+#carousel-thumbnail-indicators a img {
+  height: 20px !important;
+}  
+}   

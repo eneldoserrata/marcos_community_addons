@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="l10n_do_postal_code.view_country_state_form" model="ir.ui.view">
+            <field name="name">inherit_view_country_state_form</field>
+            <field name="model">res.country.state</field>
+            <field name="inherit_id" ref="base.view_country_state_form"/>
+            <field name="arch" type="xml">
+
+                <field name="name" position="after">
+                    <field name="city"/>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>
