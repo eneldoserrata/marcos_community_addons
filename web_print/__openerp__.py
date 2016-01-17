@@ -22,7 +22,7 @@
 ##############################################################################
 
 {
-    'name': 'Web Printscreen ZB',
+    'name': 'Web Print',
     'version': '1.0',
     'category': 'Web',
     'description': """
@@ -31,7 +31,7 @@
     'author': 'Zesty Beanz Technologies',
     'website': 'http://www.zbeanztech.com',
     'depends': ['web'],
-    'data': ['views/web_printscreen_zb.xml'],
+    'data': ['views/web_print.xml'],
     'qweb': ['static/src/xml/web_printscreen_export.xml'],
     'installable': True,
     'auto_install': False,

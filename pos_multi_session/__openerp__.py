@@ -5,7 +5,7 @@
     'license': 'LGPL-3',
     'category': 'Point Of Sale',
     'website': 'https://yelizariev.github.io',
-    'depends': ['pos_disable_payment', 'bus'],
+    'depends': ['bus','point_of_sale'],
     'data': [
         'security/ir.model.access.csv',
         'views.xml',
