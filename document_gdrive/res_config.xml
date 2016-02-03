@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<!--
+##############################################################################
+#
+#    Copyright (c) 2015 be-cloud.be
+#                       Jerome Sonnet <jerome.sonnet@be-cloud.be>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+-->
+<openerp>
+    <data>
+
+        <record id="view_general_configuration_inherited" model="ir.ui.view">
+            <field name="name">Configure Base Inherited</field>
+            <field name="model">base.config.settings</field>
+            <field name="priority" eval="16"/>
+            <field name="inherit_id" ref="base_setup.view_general_configuration" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='google_drive']/.." position="after">
+                    <div name="google_drive_document">
+                        <div name="document_gdrive_upload_dir">
+                          <label for="document_gdrive_upload_dir" />
+                          <field name="document_gdrive_upload_dir"/>
+                        </div>
+                        <div name="document_gdrive_client_id">
+                          <label for="document_gdrive_client_id" />
+                          <field name="document_gdrive_client_id"/>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
