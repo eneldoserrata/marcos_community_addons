@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Importacion de estados de cuentas",
+    'name': "Importacion de estados de cuentas en pesos",
 
     'summary': """
         Permite importar los extractos bancarios.
