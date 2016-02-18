@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Show image in product list view odf Product Template -->
+    <!--<record id="product_template_image_tree_view" model="ir.ui.view">-->
+        <!--<field name="name">product.template.image.tree.inherit</field>-->
+        <!--<field name="model">product.template</field>-->
+        <!--<field name="inherit_id" ref="product.product_template_tree_view"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<field name="name" position="before">-->
+                <!--<field name="image" string="Image"/>-->
+            <!--</field>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="product_image_tree_view" model="ir.ui.view">-->
+        <!--<field name="name">product.image.tree.inherit</field>-->
+        <!--<field name="model">product.product</field>-->
+        <!--<field name="inherit_id" ref="product.product_product_tree_view"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<field name="name" position="before">-->
+                <!--<field name="image" string="Image"/>-->
+            <!--</field>-->
+        <!--</field>-->
+    <!--</record>-->
+
+
+    <!--<record model="ir.ui.view" id="view_form_inherit_jc_sale">-->
+        <!--<field name="name">product.form.inherit.jc.sale</field>-->
+        <!--<field name="model">sale.order</field>-->
+        <!--<field name="inherit_id" ref="sale.view_order_form"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="after">-->
+                <!--<field name="image_small" widget="image" class="oe_avtar oe_image_tree"/>-->
+            <!--</xpath>-->
+<!---->
+        <!--</field>-->
+    <!--</record>-->
+</odoo>

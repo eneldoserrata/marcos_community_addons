@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="menu_secondary" inherit_id="web.menu_secondary">
+	<div class="oe_secondary_menu_section" position="attributes">
+	    <attribute name="style">cursor: pointer;</attribute>
+	</div>
+</template>
+
+<template id="web.webclient_bootstrap" name="Webclient Bootstrap">
+            <t t-call="web.layout">
+                <t t-set="head">
+                    <t t-call-assets="web.assets_common"/>
+                    <script type="text/javascript">
+                        odoo.define('web.csrf', function (require) {
+                            var token = "<t t-esc="request.csrf_token(None)"/>";
+                            require('web.core').csrf_token = token;
+                            require('qweb').default_dict.csrf_token = token;
+                        });
+                    </script>
+                    <t t-call-assets="web.assets_backend"/>
+                    &lt;!--[if lte IE 9]&gt; <link rel="stylesheet" href="/web/static/src/css/ie.css"/> &lt;![endif]--&gt;
+                    <script type="text/javascript">
+                        $(function() {
+                            <t t-if="init">
+                                <t t-raw="init"/>
+                            </t>
+                            <t t-if="not init">
+                                odoo.define('web.web_client', function (require) {
+                                    var WebClient = require('web.WebClient');
+                                    var web_client = new WebClient();
+                                    web_client.setElement($(document.body));
+                                    web_client.start();
+                                    return web_client;
+                                });
+                            </t>
+                        });
+                    </script>
+                </t>
+
+                <nav id="oe_main_menu_navbar" class="navbar navbar-inverse" role="navigation" groups="base.group_user,base.group_portal">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse" id="oe_main_menu_placeholder">
+                        <t t-call="web.menu"/>
+                    </div>
+                    <script type="text/javascript">
+		        $('.oe_menu_toggler').click(function() {
+		            $('.oe_secondary_submenu').attr("style", "display:none");
+		        });
+		</script>   
+                </nav>
+                <div class="openerp openerp_webclient_container oe_webclient">
+                    <div class="oe_leftbar" groups="base.group_user,base.group_portal">
+                        <t t-call="web.menu_secondary"/>
+                    </div>
+                    <script type="text/javascript">
+					$('.oe_secondary_menu_section').click(function() {
+					    if (!$(this).next().hasClass('oe_secondary_menu_section')) { $(this).next().slideToggle(500); }
+					});
+				    </script>
+                    <div class="oe_application"/>
+                </div>
+            </t>
+        </template>
+        
+        <template id="web.menu_secondary_submenu">
+            <ul t-if="menu['children']" class="oe_secondary_submenu nav nav-pills nav-stacked" style="display:none;">
+                <li t-foreach="menu['children']" t-as="menu">
+                    <t t-call="web.menu_link"/>
+                    <t t-call="web.menu_secondary_submenu"/>
+                </li>
+            </ul>
+        </template>
+        
+       
+</data>
+</openerp>

@@ -1,0 +1,10 @@
+<template>
+  <div t-name="GanttView" class="container-fluid o_gantt_container">
+    <div class="row">
+      <div class="o_gantt_view col-sm-12">
+        <div class="o_gantt_buttons"/>
+        <div class="o_gantt_widget" />
+      </div>
+    </div>
+  </div>
+</template>
