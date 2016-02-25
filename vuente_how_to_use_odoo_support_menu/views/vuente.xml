@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+      <record id="support_action" model="ir.actions.act_url">
+          <field name="name">Go to Vuente</field>
+          <field name="target">new</field>
+          <field name="type">ir.actions.act_url</field>
+          <field name="url">http://vuente.com/slides</field>
+      </record>
+        
+      <menuitem id="vuente_support" name="Support" sequence="900" action="support_action" />
+        
+  </data>
+</openerp>
