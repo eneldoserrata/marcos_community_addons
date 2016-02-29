@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="front_countdown">
+            <span t-att-data="height"/>
+         
+                <ul class="countdown" t-att-value="countdown_date" t-attf-style="color:#{options.get('color')};height:#{options.get('height')};width:#{options.get('width')};">
+                  <li><span class="days" t-attf-style="border-color:#{options.get('color')};font-size:#{options.get('font_size')};background:#{options.get('color')};">00</span>
+                  <p class="days_ref">days</p></li>
+                  <li><span class="hours" t-attf-style="border-color:#{options.get('color')};font-size:#{options.get('font_size')};">00</span>
+                   <p class="hours_ref">hours</p></li>
+                  <li><span class="minutes" t-attf-style="border-color:#{options.get('color')};font-size: #{options.get('font_size')};">00</span>
+                   <p class="minutes_ref">minute</p></li>
+                  <li><span class="seconds last" t-attf-style="border-color:#{options.get('color')};font-size: #{options.get('font_size')};">00</span>
+                   <p class="seconds_ref">second</p></li>
+                </ul>
+        
+        </template>
+    </data>
+</openerp>
