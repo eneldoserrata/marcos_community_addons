@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <template id="auth_signup_recaptcha" inherit_id="auth_signup.signup" name="Sign up login with Google Recaptcha">
+            <xpath expr="//button/.." position="before">
+                <div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key"></div>
+            </xpath>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="theme_customize" inherit_id="website.theme_customize" name="theme_customize Lumen">
+    <xpath expr="div" position="replace">
+
+      <div id="theme_customize_modal" class="modal fade bs-example-modal-sm">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="loading_backdrop"></div>
+            <div class="modal-header">
+              <button type="button" class="close">×</button>
+              <h4 class="modal-title">Theme Lumen</h4>
+            </div>
+            <div class="modal-body">
+              <table>
+                <tr>
+                  <td>
+                    <label class="checked">
+                      <img style="width: 120px; height: 70px;" src="/theme_bootswatch/static/src/img/bootswatch_default_thumbnail.png" alt="Default Theme"/>
+                      <input name="theme" type="radio" data-xmlid="" checked="checked"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="/theme_lumen/static/src/img/lumen-thumbnail.png" alt="Lumen"/>
+                      <input name="theme" type="radio" data-xmlid="theme_lumen.theme_lumen"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <a href="https://apps.openerp.com/apps/themes/browse?author=Office%20Everywhere" target="_blank">
+                        <img style="width: 120px; height: 70px;" src="/theme_lumen/static/src/img/more-thumbnail.png" alt="More Themes"/>
+                      </a>
+                    </label>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </xpath>
+</template>
+
+
+    <!-- Theme Lumen -->
+    <template id="theme_lumen.theme_lumen" name="Lumen" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_lumen/static/src/less/lumen-bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_lumen/static/src/less/lumen-variables.less' t-ignore="true"/>
+        </xpath>
+            <!-- Refresh menu -->
+            <script>
+                {
+                  window.location.reload();
+                 });
+            </script>
+            <!-- Refresh menu -->
+    </template>
+    <!-- END Theme Lumen -->
+
+    <!-- Theme Default -->
+    <template id="theme_lumen.theme_default" name="Default" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href='/theme_lumen/static/src/css/bootswatch-default.css' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_lumen/static/src/less/default-variables.less' t-ignore="true"/>
+        </xpath>
+    </template>
+    <!-- END Theme Default -->
+
+  </data>
+</openerp>

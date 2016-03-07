@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="theme_customize" inherit_id="website.theme_customize" name="theme_customize Bootswatch Native">
+    <xpath expr="div" position="replace">
+
+      <div id="theme_customize_modal" class="modal fade bs-example-modal-sm">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="loading_backdrop"></div>
+            <div class="modal-header">
+              <button type="button" class="close">×</button>
+              <h4 class="modal-title">17 Bootswatch Themes</h4>
+            </div>
+            <div class="modal-body">
+              <table>
+                <tr>
+                  <td>
+                    <label class="checked">
+                      <img style="width: 120px; height: 70px;" src="/theme_bootswatch_native/static/src/img/default-thumbnail.png" alt="Default Theme"/>
+                      <input name="theme" type="radio" data-xmlid="" checked="checked"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="/theme_bootswatch_native/static/src/img/amelia-thumbnail.png" alt="Amelia"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_amelia"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/cerulean/thumbnail.png" alt="Cerulean"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_cerulean"/>
+                    </label>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/cyborg/thumbnail.png" alt="Cyborg"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_cyborg"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/darkly/thumbnail.png" alt="Darkly"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_darkly"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/flatly/thumbnail.png" alt="Flatly"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_flatly"/>
+                    </label>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/journal/thumbnail.png" alt="Journal"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_journal"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/lumen/thumbnail.png" alt="Lumen"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_lumen"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/paper/thumbnail.png" alt="Paper"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_paper"/>
+                    </label>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/readable/thumbnail.png" alt="Readable"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_readable"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/sandstone/thumbnail.png" alt="Sandstone"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_sandstone"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/simplex/thumbnail.png" alt="Simplex"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_simplex"/>
+                    </label>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/slate/thumbnail.png" alt="Slate"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_slate"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/spacelab/thumbnail.png" alt="Spacelab"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_spacelab"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/superhero/thumbnail.png" alt="Superhero"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_superhero"/>
+                    </label>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/united/thumbnail.png" alt="United"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_united"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <img style="width: 120px; height: 70px;" src="https://bootswatch.com/yeti/thumbnail.png" alt="Yeti"/>
+                      <input name="theme" type="radio" data-xmlid="theme_bootswatch_native.theme_yeti"/>
+                    </label>
+                  </td>
+                  <td>
+                    <label>
+                      <a href="https://apps.openerp.com/apps/themes/browse?author=Office%20Everywhere" target="_blank">
+                        <img style="width: 120px; height: 70px;" src="/theme_bootswatch_native/static/src/img/more-thumbnail.png" alt="More Themes"/>
+                      </a>
+                    </label>
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </xpath>
+</template>
+
+<!--
+     All Default Themes
+-->
+
+    <template id="theme_bootswatch_native.theme_amelia" name="Amelia" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/amelia/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/amelia/variables.less' t-ignore="true"/>
+            <link rel='stylesheet' href='/theme_bootswatch_native/static/src/less/amelia/fix.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_cerulean" name="Cerulean" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/cerulean/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/cerulean/variables.less' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_cosmo" name="Cosmo" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/cosmo/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/cosmo/variables.less' t-ignore="true"/>
+            <link rel='stylesheet' href='/theme_bootswatch_native/static/src/less/cosmo/fix.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_cyborg" name="Cyborg" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/cyborg/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/cyborg/variables.less' t-ignore="true"/>
+            <link rel='stylesheet' href='/theme_bootswatch_native/static/src/less/cyborg/fix.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_flatly" name="Flatly" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/flatly/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/flatly/variables.less' t-ignore="true"/>
+            <link rel='stylesheet' href='/theme_bootswatch_native/static/src/less/flatly/fix.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_journal" name="Journal" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/journal/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/journal/variables.less' t-ignore="true"/>
+            <link rel='stylesheet' href='/theme_bootswatch_native/static/src/less/journal/fix.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_readable" name="Readable" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/readable/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/readable/variables.less' t-ignore="true"/>
+            <link rel='stylesheet' href='/theme_bootswatch_native/static/src/less/readable/fix.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_simplex" name="Simplex" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/simplex/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/simplex/variables.less' t-ignore="true"/>
+            <link rel='stylesheet' href='/theme_bootswatch_native/static/src/less/simplex/fix.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_slate" name="Slate" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/slate/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/slate/variables.less' t-ignore="true"/>
+            <link rel='stylesheet' href='/theme_bootswatch_native/static/src/less/slate/fix.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_spacelab" name="Spacelab" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/spacelab/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/spacelab/variables.less' t-ignore="true"/>
+            <link rel='stylesheet' href='/theme_bootswatch_native/static/src/less/spacelab/fix.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_united" name="United" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/united/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/united/variables.less' t-ignore="true"/>
+        </xpath>
+    </template>
+
+<!--
+         All Missing Themes Darkly, Lumen, Paper, Sandstone, Superhero, Yeti
+-->
+
+    <template id="theme_bootswatch_native.theme_darkly" name="Darkly" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/darkly/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/darkly/variables.less' t-ignore="true"/>
+          <!-- external link not working in Odoo
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/darkly/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/darkly/variables.less' t-ignore="true"/>
+          -->
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_lumen" name="Lumen" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/lumen/bootswatch.less' t-ignore="true"/>
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/lumen/variables.less' t-ignore="true"/>
+         <!-- external link not working in Odoo
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/lumen/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/lumen/variables.less' t-ignore="true"/>
+          -->
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_paper" name="Paper" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+
+          <link rel='stylesheet' href='/theme_bootswatch_native/static/src/css/bootswatch-paper.css' t-ignore="true"/>
+
+          <!-- Error @popover-arrow-outer-color
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/paper/bootswatch.less' t-ignore="true"/>
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/paper/variables.less' t-ignore="true"/>
+          -->
+
+          <!-- external link not working in Odoo
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/paper/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/paper/variables.less' t-ignore="true"/>
+          -->
+
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_sandstone" name="Sandstone" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+
+          <link rel='stylesheet' href='/theme_bootswatch_native/static/src/css/bootswatch-sandstone.css' t-ignore="true"/>
+
+          <!-- Error .form-control-focus error
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/sandstone/bootswatch.less' t-ignore="true"/>
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/sandstone/variables.less' t-ignore="true"/>
+          -->
+
+          <!-- external link not working in Odoo
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/sandstone/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/sandstone/variables.less' t-ignore="true"/>
+          -->
+
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_superhero" name="Superhero" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+
+          <link rel='stylesheet' href='/theme_bootswatch_native/static/src/css/bootswatch-superhero.css' t-ignore="true"/>
+
+          <!-- Error .form-control-focus error
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/superhero/bootswatch.less' t-ignore="true"/>
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/superhero/variables.less' t-ignore="true"/>
+          -->
+
+          <!-- external link not working in Odoo
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/superhero/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/superhero/variables.less' t-ignore="true"/>
+          -->
+        </xpath>
+    </template>
+
+    <template id="theme_bootswatch_native.theme_yeti" name="Yeti" inherit_id="website.assets_frontend" active="False" customize_show="False">
+        <xpath expr="." position="inside">
+
+          <link rel='stylesheet' href='/theme_bootswatch_native/static/src/css/bootswatch-yeti.css' t-ignore="true"/>
+
+          <!-- Error @popover-arrow-outer-color
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/yeti/bootswatch.less' t-ignore="true"/>
+          <link rel="stylesheet" type="text/less" href='/theme_bootswatch_native/static/src/less/yeti/variables.less' t-ignore="true"/>
+          -->
+
+          <!-- external link not working in Odoo
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/yeti/bootswatch.less' t-ignore="true"/>
+            <link rel="stylesheet" type="text/less" href='https://bootswatch.com/yeti/variables.less' t-ignore="true"/>
+          -->
+        </xpath>
+    </template>
+
+
+</data>
+</openerp>
