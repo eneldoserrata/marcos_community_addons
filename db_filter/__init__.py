@@ -2,8 +2,10 @@
 
 from openerp import http
 import openerp
-
+import logging
 import re
+
+_logger = logging.getLogger(__name__)
 
 
 def db_filter(dbs, httprequest=None):
@@ -15,6 +17,7 @@ def db_filter(dbs, httprequest=None):
         d = r.partition('.')[0]
     r = openerp.tools.config['dbfilter'].replace('%h', h).replace('%d', d)
     dbs = [i for i in dbs if re.match(r, i)]
+    _logger.info("xxxxxxxxxxxxxxxxxxxxxxxx Dominio raiz %s".format(db_filter_hdr))
     if not dbs and db_filter_hdr:
         dbs = [db_filter_hdr]
     return dbs
