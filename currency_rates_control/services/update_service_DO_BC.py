@@ -39,7 +39,7 @@ class DO_BC_getter(Currency_getter_interface):
             self.validate_cur(curr)
             res = self.get_url(url)
             res = json.loads(res.replace("\n", ""))
-            val = res["dollar"]["buying_rate"]
+            val = res["dollar"]["selling_rate"]
             if val:
                 self.updated_currency[curr] = 1.0/float(val)
             else:
