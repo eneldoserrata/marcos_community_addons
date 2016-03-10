@@ -9,7 +9,7 @@
         'views/vuente.xml',
     ],
     'demo': [],
-    'depends': ['vuente_how_to_use_odoo_support_menu','website'],
+    'depends': ['base','website'],
     'images':['static/description/1.jpg'],
     'installable': True,
 }
