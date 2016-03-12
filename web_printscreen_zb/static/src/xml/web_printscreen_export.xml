@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+ <t t-extend="ListView.buttons">
+       <t t-if='widget.options.import_enabled' t-jquery="button.o_list_button_add" t-operation="after">
+         <a class="oe_bold oe_list_button_import_pdf"
+                   id="button_export_pdf"
+                   href="#">PDF</a>
+       	<a class="oe_bold oe_list_button_import_excel"
+                   id="button_export_excel"
+                   href="#">Excel</a>
+       </t>
+ </t>
+
+</templates>
