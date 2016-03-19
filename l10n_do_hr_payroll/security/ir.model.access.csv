@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_l10n_do_hr_payroll_l10n_do_hr_payroll,l10n_do_hr_payroll.l10n_do_hr_payroll,model_l10n_do_hr_payroll_l10n_do_hr_payroll,,1,0,0,0
