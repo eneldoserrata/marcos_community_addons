@@ -2,12 +2,12 @@
 
 import StringIO
 
-from openerp import models
+from openerp import models, _
 from openerp.exceptions import UserError
 
 from ofxparse import OfxParser
 from ofxparse.ofxparse import OfxParserException
-
+from openerp.addons.base.res.res_bank import sanitize_account_number
 
 class InheritedAccountBankStatementImport(models.TransientModel):
     _inherit = 'account.bank.statement.import'
@@ -59,3 +59,48 @@ class InheritedAccountBankStatementImport(models.TransientModel):
             currency = "DOP"
 
         return currency, ofx.account.number, [vals_bank_statement]
+
+
+    def _find_additional_data(self, currency_code, account_number):
+        """ Look for a res.currency and account.journal using values extracted from the
+            statement and make sure it's consistent.
+        """
+        company_currency = self.env.user.company_id.currency_id
+        journal_obj = self.env['account.journal']
+        currency = None
+        sanitized_account_number = sanitize_account_number(account_number)
+
+        if currency_code:
+            currency = self.env['res.currency'].search([('name', '=ilike', currency_code)], limit=1)
+            if not currency:
+                raise UserError(_("No currency found matching '%s'.") % currency_code)
+            if currency == company_currency:
+                currency = False
+
+        journal = journal_obj.browse(self.env.context.get('journal_id', []))
+        if account_number:
+            # No bank account on the journal : create one from the account number of the statement
+            if journal and not journal.bank_account_id:
+                journal.set_bank_account(account_number)
+            # Already a bank account on the journal : check it's the same as on the statement
+            elif journal and journal.bank_account_id.sanitized_acc_number != sanitized_account_number:
+                raise UserError(_('The account of this statement (%s) is not the same as the journal (%s).') % (account_number, journal.bank_account_id.acc_number))
+            # No journal passed to the wizard : try to find one using the account number of the statement
+            elif not journal:
+                journal = journal_obj.search([('bank_account_id.sanitized_acc_number', '=', sanitized_account_number)])
+
+        # If importing into an existing journal, its currency must be the same as the bank statement
+        if journal:
+            journal_currency = journal.currency_id
+            if currency is None:
+                currency = journal_currency
+            # if currency and currency != journal_currency:
+            #     statement_cur_code = not currency and company_currency.name or currency.name
+            #     journal_cur_code = not journal_currency and company_currency.name or journal_currency.name
+            #     raise UserError(_('The currency of the bank statement (%s) is not the same as the currency of the journal (%s) !') % (statement_cur_code, journal_cur_code))
+
+        # If we couldn't find / can't create a journal, everything is lost
+        if not journal and not account_number:
+            raise UserError(_('Cannot find in which journal import this statement. Please manually select a journal.'))
+
+        return currency, journal
