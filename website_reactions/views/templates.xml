@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- Assets -->
+        <template id="assets_frontend" inherit_id="website.assets_frontend" 
+                  name="Reactions Front-end assets">
+            <xpath expr="." position="inside">
+                <link rel='stylesheet' href='/website_reactions/static/src/css/reactions.css'/>
+<!--
+                <script type="text/javascript" src="/website_reactions/static/src/js/.js"/>
+-->
+            </xpath>
+        </template>
+
+        <!-- Reactions panel in post -->
+        <template id="post_reactions" name="Blog Post Reactions">
+            <t t-set="this_post_reactions" t-value="blog_post.reaction_ids.reactions_per_post().get(blog_post.id)" />
+            <t t-set="user_reaction" t-value="blog_post.reaction_ids.filtered(lambda r: r.user_id.id == r.env.user.id)" />
+            <t t-if="not user_reaction">
+                <ul class="reactions">
+                    <li><a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }/react/like" id="reaction-like" data-text="Like" class="item item-like" /></li>
+                    <li><a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }/react/love" id="reaction-love" data-text="Love" class="item item-love" /></li>
+                    <li><a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }/react/haha" id="reaction-haha" data-text="Haha" class="item item-haha" /></li>
+                    <li><a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }/react/wow" id="reaction-wow" data-text="Wow" class="item item-wow" /></li>
+                    <li><a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }/react/sad" id="reaction-sad" data-text="Sad" class="item item-sad" /></li>
+                    <li><a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }/react/angry" id="reaction-angry" data-text="Angry" class="item item-angry" /></li>
+                    <li><a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }/react/dislike" id="reaction-dislike" data-text="Dislike" class="item item-dislike"/></li>
+                </ul>
+            </t>
+            <ul class="reactions no-border" t-if="user_reaction">
+                <t t-set="msg" t-value="'You and %s more people.' % reactions_count " t-if="reactions_count > 1"/>
+                <t t-set="msg" t-value="_('by you.')" t-if="reactions_count == 1"/>
+                <li class="item item-like no-animation index-7" t-if="this_post_reactions['like'] > 0"/>
+                <li class="item item-love no-animation index-6" t-if="this_post_reactions['love'] > 0"/>
+                <li class="item item-haha no-animation index-5" t-if="this_post_reactions['haha'] > 0"/>
+                <li class="item item-wow no-animation index-4" t-if="this_post_reactions['wow'] > 0"/>
+                <li class="item item-sad no-animation index-3" t-if="this_post_reactions['sad'] > 0"/>
+                <li class="item item-angry no-animation index-2" t-if="this_post_reactions['angry'] > 0"/>
+                <li class="item item-dislike no-animation index-1" t-if="this_post_reactions['dislike'] > 0"/>
+                <t t-if="len([r.id for r in blog_post.reaction_ids]) > 1">
+                    <span class="text-muted reaction-detail" t-esc="'you and %s more people.' % (len([r.id for r in blog_post.reaction_ids])-1)"/>
+                </t>
+                <t t-if="len([r.id for r in blog_post.reaction_ids]) == 1">
+                    <span class="text-muted reaction-detail" t-esc="'by you.'"/>
+                </t>
+            </ul> 
+        </template>
+        
+        <!-- Option: Blog post Reactions! -->
+        <template id="option_post_reactions" name="Enable post Reactions!"
+                  inherit_id="website_blog.blog_post_complete"
+                  active="True" customize_show="True">
+            <xpath expr="//div[@id='blog_content']" position="after">
+                <section id="reactions">
+                    <t t-call="website_reactions.post_reactions" />
+                </section>
+            </xpath>
+        </template>
+    </data>
+</openerp>

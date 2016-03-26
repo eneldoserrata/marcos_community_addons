@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="action_post_reactions">
+            <field name="name">Blog Posts Reactions</field>
+            <field name="res_model">post.reaction</field>
+            <field name="view_mode">tree</field>
+        </record>
+        
+        <menuitem name="Reactions" id="menu_post_reactions" sequence="30" 
+                  parent="website_blog.menu_website_blog_root"
+                  action="action_post_reactions"/>
+        
+        <record model="ir.ui.view" id="post_reactions_list">
+            <field name="name">post.reactions.list_view</field>
+            <field name="model">post.reaction</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="post_id"/>
+                    <field name="user_id"/>
+                    <field name="reaction"/>
+                </tree>
+            </field>
+        </record>
+  </data>
+</openerp>
