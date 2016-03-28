@@ -3,10 +3,10 @@
 
  <t t-extend="ListView.buttons">
        <t t-if='widget.options.import_enabled' t-jquery="button.o_list_button_add" t-operation="after">
-         <a class="oe_bold oe_list_button_import_pdf"
+         <a class="oe_bold oe_list_button_import_pdf btn btn-sm btn-default"
                    id="button_export_pdf"
                    href="#">PDF</a>
-       	<a class="oe_bold oe_list_button_import_excel"
+       	<a class="oe_bold oe_list_button_import_excel btn btn-sm btn-default"
                    id="button_export_excel"
                    href="#">Excel</a>
        </t>
