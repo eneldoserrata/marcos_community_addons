@@ -54,6 +54,8 @@ class RunJobController(http.Controller):
                             job.uuid, job.state)
             return
 
+
+
         with session_hdl.session() as session:
             # TODO: set_started should be done atomically with
             #       update queue_job set=state=started
@@ -71,8 +73,7 @@ class RunJobController(http.Controller):
     @http.route('/connector/runjob', type='http', auth='none')
     def runjob(self, db, job_uuid, **kw):
 
-        session_hdl = ConnectorSessionHandler(db,
-                                              openerp.SUPERUSER_ID)
+        session_hdl = ConnectorSessionHandler(db, openerp.SUPERUSER_ID)
 
         def retry_postpone(job, message, seconds=None):
             with session_hdl.session() as session:
