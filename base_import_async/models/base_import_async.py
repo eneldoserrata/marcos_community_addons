@@ -255,6 +255,6 @@ class QueueJob(models.Model):
 
         jobs = self.search([('state','=','enqueued')])
         for job in jobs:
-            print job.uuid
             RunJobController().runjob(self.env.registry.db_name, job.uuid)
+        return True
 
