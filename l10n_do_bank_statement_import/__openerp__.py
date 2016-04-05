@@ -6,7 +6,7 @@
         Permite importar los extractos bancarios.
         """,
 
-    'description': """
+    'description': u"""
         Luego de descargar el extracto bancario desde el banco este módulo
         le permitirá importarlo para fines de conciliación.
     """,
