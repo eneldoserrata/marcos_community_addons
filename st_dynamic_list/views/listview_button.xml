@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="listview" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/st_dynamic_list/static/src/js/dynamic_list.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>
