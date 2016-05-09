@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"account_withholding_tax_manager","account.withholding.tax.manager","model_account_withholding_tax","account.group_account_manager",1,1,1,1
+"account_withholding_tax_user","account.withholding.tax.user","model_account_withholding_tax","account.group_account_user",1,1,0,0
+"account_withholding_tax_invoice","account.withholding.tax.invoice","model_account_withholding_tax","account.group_account_invoice",1,0,0,0
+"account_withholding_tax_base","account.withholding.tax.user","model_account_withholding_tax","base.group_user",1,0,0,0

@@ -1,0 +1,15 @@
+<openerp>
+<data>
+	<record id="client_order_ref_stock_view_picking_form" model="ir.ui.view">
+		<field name="name">client.order.ref.stock.view.picking.form</field>
+		<field name="model">stock.picking</field>
+		<field name="type">form</field>
+	        <field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<field name="origin" position="before">
+				<field name="client_order_ref"/>
+			</field>
+		</field>
+	</record>
+</data>
+</openerp>

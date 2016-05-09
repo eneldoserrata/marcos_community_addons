@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+	<template id="report_picking_client_order_ref_view" inherit_id="stock.report_picking">
+            <xpath expr="//table[@class='table table-condensed']/thead/tr/th[contains(., 'Order')]" position="after">
+                <th t-if="o.picking_type_id.code=='outgoing' and 'o.client_order_ref'"><strong>Your Reference</strong></th>
+            </xpath>
+            <xpath expr="//table[@class='table table-condensed']/tbody/tr/td/span[contains(@t-field, 'o.origin')]/.." position="after">
+                <td t-if="o.picking_type_id.code=='outgoing' and 'o.client_order_ref'">
+                    <span t-field="o.client_order_ref"/>
+                </td>
+                </xpath>
+        </template>
+    </data>
+</openerp>

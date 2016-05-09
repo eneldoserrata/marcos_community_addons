@@ -1,0 +1,212 @@
+.container {
+  position: relative;
+}
+
+.container:last-of-type {
+  padding-top: 0px;
+}
+/*animation element*/
+
+.animation-element {
+  position: relative;
+  margin: 0% 1.33 2.66% 1.33%;
+  float: left;
+}
+/*3 grid layout*/
+
+.about .animation-element:nth-of-type(3n-2) {
+  margin:0% -0.625% 7.75% -3%;
+  clear: left;
+}
+.testimonials .animation-element:nth-of-type(3n-2)
+{
+    margin: 0% -5.625% 7.75% -13%;
+}
+.service .animation-element:nth-of-type(3n-2)
+ {
+  0% -60.67px 10.66% -8.67%;
+  }
+
+.animation-element:nth-of-type(3n-1) {
+  margin: 0% 1.375% 2.75% 1.375%;
+}
+
+.animation-element:nth-of-type(3n-0) {
+  margin: 0% 0% 2.75% 1.375%;
+  clear: right;
+}
+/*bounce up animation for the subject*/
+
+.bounce-up .subject {
+  opacity: 0;
+  -moz-transition: all 700ms ease-out;
+  -webkit-transition: all 700ms ease-out;
+  -o-transition: all 700ms ease-out;
+  transition: all 700ms ease-out;
+  -moz-transform: translate3d(0px, 200px, 0px);
+  -webkit-transform: translate3d(0px, 200px, 0px);
+  -o-transform: translate(0px, 200px);
+  -ms-transform: translate(0px, 200px);
+  transform: translate3d(0px, 200, 0px);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.bounce-up.in-view .subject {
+  opacity: 1;
+  -moz-transform: translate3d(0px, 0px, 0px);
+  -webkit-transform: translate3d(0px, 0px, 0px);
+  -o-transform: translate(0px, 0px);
+  -ms-transform: translate(0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
+}
+
+.in-view{
+  opacity: 1;
+  -moz-transform: translate3d(0px, 0px, 0px);
+  -webkit-transform: translate3d(0px, 0px, 0px);
+  -o-transform: translate(0px, 0px);
+  -ms-transform: translate(0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
+}
+
+
+.subject {
+  
+ 
+}
+
+.subject:hover,
+.subject:active {
+}
+
+.subject .header {
+  margin: 8px 0px;
+}
+
+.subject .header .date,
+.subject .header .category {
+ 
+}
+
+.subject .header .date i,
+.subject .header .category i {
+ 
+  -moz-transition: all 400ms linear;
+  -webkit-transition: all 400ms linear;
+  -o-transition: all 400ms linear;
+  transition: all 400ms linear;
+}
+
+.subject .header .date {
+
+}
+
+.subject .header .category {
+
+}
+/*subject icon at top*/
+
+.subject .icon {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  left: calc(50% - 20px);
+}
+
+.subject .icon i {
+  width: 40px;
+  height: 40px;
+  color: rgb(255, 255, 255);
+  font-size: 150%;
+  border-radius: 50%;
+  text-align: center;
+  padding: 7px;
+}
+/*Category color / icon color*/
+
+.subject .category-color {
+  height: 7px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+.subject.design .category-color,
+.subject.design .icon i {
+  background: #c0392b;
+}
+
+.subject.development .category-color,
+.subject.development .icon i {
+  background: #16a085;
+}
+
+.subject.photography .category-color,
+.subject.photography .icon i {
+  background: #2980b9;
+}
+/*hovering over subject*/
+
+.subject.development:hover .header i {
+  color: #16a085;
+}
+
+.subject.design:hover .header i {
+  color: #c0392b;
+}
+
+.subject.photography:hover .header i {
+  color: #2980b9;
+}
+
+.subject .title {
+  margin: 12px 0px;
+  border-bottom: dashed 1px #ccc;
+  padding-bottom: 10px;
+}
+
+.subject .content {
+  margin-bottom: 8px;
+}
+
+.subject .enrole {
+  position: relative;
+  color: #333;
+  padding: 5px 12px;
+  cursor: pointer;
+  float: right;
+  display: inline-block;
+  border: solid 1px #ccc;
+  -moz-transition: all 400ms linear;
+  -webkit-transition: all 400ms linear;
+  -o-transition: all 400ms linear;
+  transition: all 400ms linear;
+}
+
+.subject .enrole:hover,
+.subject .enrole:active {
+
+}
+/*media queries for small devices*/
+
+@media screen and (max-width: 678px) {
+  .main-container {
+    margin: 20px 15px;
+  }
+  .animation-element,
+  .animation-element:nth-of-type(3n-1),
+  .animation-element:nth-of-type(3n-2),
+  .animation-element:nth-of-type(3n-0) {
+    width: 100%;
+    margin: 0px 0px 30px 0px;
+  }
+  .subject .header .date,
+  .subject .header .category {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+}

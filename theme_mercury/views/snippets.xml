@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+     <template id="snippets" inherit_id="website.snippets">
+         <xpath expr="//div[@id='snippet_structure']" position="before">
+             <div id="snippet_custom" class="o_panel">
+                 <div class="o_panel_header">
+                     <span class="fa-stack">
+                         <i class="fa fa-mercury fa-stack-1x"></i>
+                     </span> Theme Mercury
+                 </div>
+                <div class="o_panel_body">
+                    <t t-snippet="theme_mercury.four_block" t-thumbnail="/theme_mercury/static/src/images/blocks/block_features.png"/>
+                    <t t-snippet="theme_mercury.3_by_3_block" t-thumbnail="/theme_mercury/static/src/images/blocks/block_features3x3.png"/>
+                    <t t-snippet="theme_mercury.three_block_round_image" t-thumbnail="/theme_mercury/static/src/images/blocks/block_features-test.png"/>
+                </div>
+             </div>
+         </xpath>
+     </template>
+
+    <template id="custome_snippet_icon" inherit_id="website.snippets">
+        <xpath expr="//ul" position="replace">
+            <ul>
+                <li class="active">
+                        <a href="#snippet_custom" class="scroll-link">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-square fa-stack-2x fa-inverse"></i>
+                                <i class="fa fa-mercury fa-stack-1x"></i>
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="#snippet_structure" class="scroll-link">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-square fa-stack-2x fa-inverse"></i>
+                            <i class="fa fa-th-large fa-stack-1x"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#snippet_content" class="scroll-link">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-square fa-stack-2x fa-inverse"></i>
+                            <i class="fa fa-align-justify fa-stack-1x"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#snippet_feature" class="scroll-link">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-square fa-stack-2x fa-inverse"></i>
+                            <i class="fa fa-pie-chart fa-stack-1x"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#snippet_effect" class="scroll-link">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-square fa-stack-2x fa-inverse"></i>
+                            <i class="fa fa-paper-plane fa-stack-1x"></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </xpath>
+    </template>
+
+
+
+    <template id="four_block" name="Four Block">
+      <section id="about-us">
+          <div class="about">
+          <div class="container">
+              <div class="row">
+                      <div class="col-md-3 mt16">
+                              <li class="subject development"> <i class="fa fa-user"></i>
+                                  <h3>Who We Are ?</h3>
+                                  <p>We are a team of certified professionals with vast experience and advanced technical knowledge who are committed to putting the greatest effort into understanding and meeting our clients' needs</p>
+                              </li>
+                      </div>
+                      <div class="col-md-3 mt16">
+                          <li class="subject development"> <i class="fa fa-cogs"></i>
+                              <h3>What We Do ?</h3>
+                              <p> We are a leading offshore development consulting company from India. We offer development services for Portal, Mobile application and ERP solutions. </p>
+                          </li>
+                      </div>
+                      <div class="col-md-3 mt16">
+                          <li class="subject development"> <i class="fa fa-rocket"></i>
+                              <h3>Why We Do It?</h3>
+                              <p> We use a development process which supports both offshore and onsite development models. Our services include Liferay offshore onsite Development and Support.</p>
+                          </li>
+                      </div>
+                      <div class="col-md-3 mt16">
+                      <li class="subject development"> <i class="fa fa-calendar"></i>
+                          <h3>Since When?</h3>
+                          <p> We have been working from 2005 and have wast experience in the field of Development of Software to Business.</p>
+                      </li>
+                  </div>
+                  </div>
+              </div>
+          </div>
+       </section>
+    </template>
+
+    <template id="3_by_3_block" name="Three By Three Block">
+        <section id="service">
+                     <div class="service">
+                        <div class="container">
+                          <div class="row">
+                              <div class="col-md-3 mt16">
+                                  <ul class="animation-element bounce-up cf in-view">
+                                   <li class="subject development">
+                                       <figure><img src="/theme_mercury/static/src/images/service-icon01.png" alt=""/>
+                                           <figcaption>
+                                               <h3>Java Based Application Development</h3>
+                                               <p>Our team of Java Application Developers have expertise in a wide range of Java based tools and technologies. We offer onsite and offshore Java Development. Click here to find out more about our Java Development Services.</p>
+                                           </figcaption>
+                                       </figure>
+                                   </li>
+                                  </ul>
+                               </div>
+
+                              <div class="col-md-3 mt16">
+                                  <ul class="animation-element bounce-up cf in-view">
+                                  <li class="subject development">
+                                      <figure> <img src="/theme_mercury/static/src/images/service-icon02.png" alt=""/>
+                                          <figcaption>
+                                              <h3>Liferay Portal Services</h3>
+                                              <p>We are experts in Liferay Portal Development. Our skills in Liferay are unmatched.
+                                                  We work on Liferay CE and EE editions. Click here to find out more about our Liferay services.</p>
+                                          </figcaption>
+                                      </figure>
+                                  </li>
+                                  </ul>
+                              </div>
+                            <div class="col-md-3 mt16">
+                            <ul class="animation-element bounce-up cf in-view">
+                            <li class="subject development">
+                              <figure> <img src="/theme_mercury/static/src/images/service-icon03.png" alt=""/>
+                                <figcaption>
+                                  <h3>Business Process
+                                    Engineering</h3>
+                                  <p>We are experts in Business Process
+                                    Engineering.We work on diffrent process of Business Engineering</p>
+                                </figcaption>
+                              </figure>
+                            </li>
+                            </ul>
+                            </div>
+                          </div>
+                          <div class="row">
+
+                            <div class="col-md-3 mt16">
+                            <ul class="animation-element bounce-up cf in-view">
+                            <li class="subject development">
+                              <figure> <img src="/theme_mercury/static/src/images/service-icon04.png" alt=""/>
+                                <figcaption>
+                                  <h3>Enterprise Application
+                                    Development</h3>
+                                  <p>We provide development tools for building applications unique to the organization.</p>
+                                </figcaption>
+                              </figure>
+                            </li>
+                            </ul>
+                            </div>
+
+                            <div class="col-md-3 mt16">
+                            <ul class="animation-element bounce-up cf in-view">
+                            <li class="subject development">
+                              <figure> <img src="/theme_mercury/static/src/images/service-icon05.png" alt=""/>
+                                <figcaption>
+                                  <h3>Database Tuning</h3>
+                                  <p>We provide application that interacts with the user, other applications, and the database itself to capture and analyze data</p>
+                                </figcaption>
+                              </figure>
+                            </li>
+                            </ul>
+                            </div>
+
+                            <div class="col-md-3 mt16">
+                             <ul class="animation-element bounce-up cf in-view">
+                            <li class="subject development">
+                              <figure> <img src="/theme_mercury/static/src/images/service-icon06.png" alt=""/>
+                                <figcaption>
+                                  <h3>Quality Assurance</h3>
+                                  <p>We provide  comprises administrative and procedural activities implemented in a quality system so that requirements and goals for a product, service or activity will be fulfilled.</p>
+                                </figcaption>
+                              </figure>
+                            </li>
+                            </ul>
+                            </div>
+
+                          </div>
+                      </div>
+                    </div>
+                </section>
+    </template>
+
+
+    <template id="three_block_round_image" name="Three Block Round Image">
+        <section id="testimonials">
+                  <div class="testimonials">
+                      <div class="container cf">
+                          <div class="row">
+                              <div class="col-md-4 mt8">
+                                 <ul class="animation-element bounce-up cf in-view">
+                                  <li class="subject development">
+                                      <h3><![CDATA[&ldquo;]]> People at this company has solid knowledge and understanding of Liferay Portal and services.<![CDATA[&rdquo;]]></h3>
+                                      <figure>
+                                          <div class="box-img"> <img src="/theme_mercury/static/src/images/testimonials-img-01.png" alt=""/> </div>
+                                          <figcaption/>
+                                          <span>Jackson</span>
+                                          <p>Engineer</p>
+                                      </figure>
+                                  </li>
+                                  </ul>
+                              </div>
+                              <div class="col-md-4 mt8">
+                                  <ul class="animation-element bounce-up cf in-view">
+                                  <li class="subject development">
+                                      <h3><![CDATA[&ldquo;]]> We have had the pleasure to work with this company on numerous development initiatives.<![CDATA[&rdquo;]]></h3>
+                                      <figure>
+                                          <div class="box-img"> <img src="/theme_mercury/static/src/images/testimonials-img-02.png" alt=""/></div>
+                                          <figcaption/>
+                                          <span>Maggie Walsh</span>
+                                          <p>Financial Consultant</p>
+                                      </figure>
+                                  </li>
+                                  </ul>
+                              </div>
+                              <div class="col-md-4 mt8">
+                                  <ul class="animation-element bounce-up cf in-view">
+                                  <li class="subject development">
+                                      <h3><![CDATA[&ldquo;]]> This company have great understanding of client requirements and they have in depth knowledge.<![CDATA[&rdquo;]]></h3>
+                                      <figure>
+                                          <div class="box-img"><img src="/theme_mercury/static/src/images/testimonials-img-03.png" alt=""/></div>
+                                          <figcaption/>
+                                          <span>Anna Lee</span>
+                                          <p>Sr. Manager</p>
+                                      </figure>
+                                  </li>
+                                  </ul>
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+              </section>
+    </template>
+
+
+</data>
+</openerp>
