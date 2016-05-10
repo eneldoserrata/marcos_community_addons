@@ -4,10 +4,13 @@ import StringIO
 
 from openerp import models, _
 from openerp.exceptions import UserError
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 from ofxparse import OfxParser
 from ofxparse.ofxparse import OfxParserException
 from openerp.addons.base.res.res_bank import sanitize_account_number
+
+from babel.dates import format_date
 
 class InheritedAccountBankStatementImport(models.TransientModel):
     _inherit = 'account.bank.statement.import'
@@ -20,6 +23,7 @@ class InheritedAccountBankStatementImport(models.TransientModel):
         return ofx
 
     def _parse_file(self, data_file):
+        locale = self._context.get('lang', 'en_US')
         ofx = self.validate_ofx(StringIO.StringIO(data_file))
 
         transactions = []
@@ -30,23 +34,28 @@ class InheritedAccountBankStatementImport(models.TransientModel):
             if partner_bank:
                 bank_account_id = partner_bank.id
                 partner_id = partner_bank.partner_id.id
+
             vals_line = {
                 'date': transaction.date,
                 'name': transaction.payee + (transaction.memo and ': ' + transaction.memo or ''),
-                'ref': transaction.id,
+                'ref': "{}: {}".format(int(transaction.id)-1, format_date(transaction.date, 'EEEE d', locale=locale)),
                 'amount': transaction.amount,
-                'unique_import_id': transaction.id,
+                'unique_import_id': "{}-{}".format(transaction.id, transaction.date.strftime(DEFAULT_SERVER_DATE_FORMAT)),
                 'bank_account_id': bank_account_id,
                 'partner_id': partner_id,
             }
             total_amt += float(transaction.amount)
             transactions.append(vals_line)
 
+        dates = [st.date for st in ofx.account.statement.transactions]
+        min_date = min(dates)
+        max_date = max(dates)
         vals_bank_statement = {
-            'name': ofx.account.routing_number,
+            'name': "Del {} al {} de {}".format(min_date.strftime("%d"), max_date.strftime("%d"), format_date(max_date, 'MMMM', locale=locale)),
             'transactions': transactions,
             'balance_start': float(ofx.account.statement.balance) - total_amt,
             'balance_end_real': ofx.account.statement.balance,
+            'date': max_date.strftime(DEFAULT_SERVER_DATE_FORMAT)
         }
 
         bank_journal_id = self.env["account.journal"].search([('bank_acc_number','=',ofx.account.number)])
