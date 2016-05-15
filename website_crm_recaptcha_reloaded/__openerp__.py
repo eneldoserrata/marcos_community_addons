@@ -35,6 +35,6 @@ in "Settings" -> "Website Settings"
  'data': [
      'views/website_crm.xml'
  ],
- 'installable': True,
+ 'installable': False,
  'auto_install': False
 }

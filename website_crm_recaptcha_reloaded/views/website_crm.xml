@@ -2,11 +2,11 @@
 <openerp>
     <data>
 
-        <!--<template id="contactus_form_recaptcha1" name="Google reCAPTCHA" inherit_id="website_crm.contactus_form">-->
-	    <!--<xpath expr="//button" position="before">-->
-            	<!--<br/><div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="red"></div><br/>-->
-            <!--</xpath>-->
-        <!--</template>-->
+        <template id="contactus_form_recaptcha1" name="Google reCAPTCHA" inherit_id="website_crm.contactus_form">
+	    <xpath expr="//button" position="before">
+            	<br/><div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="red"></div><br/>
+            </xpath>
+        </template>
         
     </data>
 </openerp>

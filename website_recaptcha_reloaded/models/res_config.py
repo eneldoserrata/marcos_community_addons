@@ -33,3 +33,4 @@ class website_config_settings(osv.osv_memory):
             'website_id', 'recaptcha_private_key', type="char",
             string='reCAPTCHA Private Key'),
     }
+

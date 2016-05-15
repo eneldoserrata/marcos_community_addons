@@ -18,17 +18,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-# from openerp.addons.web import http
-# from openerp.addons.web.http import request
-# import openerp.addons.website_crm.controllers.main as main
-# from openerp.tools.translate import _
+from openerp.addons.web import http
+from openerp.addons.web.http import request
+import openerp.addons.website_crm.controllers.main as main
+from openerp.tools.translate import _
 
 
-# class contactus(main.contactus):
+class contactus(main.contactus):
     
-    # @http.route(['/crm/contactus'], type='http', auth="public", website=True)
-    # def contactus(self, **kwargs):
-    #     if kwargs.has_key('g-recaptcha-response') and request.website.is_captcha_valid(kwargs['g-recaptcha-response']):
-    #         return super(contactus, self).contactus(**kwargs)
-    #     values = dict(kwargs, error=[], kwargs=kwargs.items())
-    #     return request.website.render(kwargs.get("view_from", "website.contactus"), values)
+    @http.route(['/crm/contactus'], type='http', auth="public", website=True)
+    def contactus(self, **kwargs):
+        if kwargs.has_key('g-recaptcha-response') and request.website.is_captcha_valid(kwargs['g-recaptcha-response']):
+            return super(contactus, self).contactus(**kwargs)
+        values = dict(kwargs, error=[], kwargs=kwargs.items())
+        return request.website.render(kwargs.get("view_from", "website.contactus"), values)
+

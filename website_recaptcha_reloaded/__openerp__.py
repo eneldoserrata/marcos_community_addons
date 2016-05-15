@@ -39,6 +39,6 @@ to use it in your various pages.
           'views/website_view.xml',
           'views/res_config.xml',
  ],
- 'installable': True,
+ 'installable': False,
  'auto_install': False
 }
