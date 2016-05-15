@@ -12,5 +12,4 @@
     'images': [
         'static/description/icon.png',
     ],
-    'installable': True
 }
