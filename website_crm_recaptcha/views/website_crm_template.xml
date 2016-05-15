@@ -13,7 +13,7 @@
             
             <xpath expr="//div[contains(@class, 'form-field')][last()]" position="after">
                 <div class="form-group form-field o_website_form_required_custom">
-                    <label class="col-md-3 col-sm-4 control-label" for="g-recaptcha-response">Human?</label>
+                    <!--<label class="col-md-3 col-sm-4 control-label" for="g-recaptcha-response"></label>-->
                     <div class="col-md-7 col-sm-8">
                         <span class="o_website_form_recaptcha" />
                     </div>
