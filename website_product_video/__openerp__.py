@@ -5,7 +5,7 @@
     'version': '1.0',
     'description': """
 Website Product video
-==================
+=====================
         """,
     'website': 'www.templates-odoo.com',
     'author': 'DevTalents',
