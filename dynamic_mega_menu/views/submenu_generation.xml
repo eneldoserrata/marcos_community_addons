@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+        <template id="website.submenu" name="Submenu">
+            <t t-set="submenu_parent_id" t-value="submenu.parent_id"></t>
+             <t t-if=" not submenu.mega_menu">
+
+
+                 <li t-if="not submenu.child_id and submenu.parent_id.id == 1" t-att-class="
+                    'dropdown active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else 'dropdown'
+                     ">
+                     <a t-att-href="(website.menu_id.child_id[0] == submenu) and '/' or submenu.url" t-ignore="true" t-att-target="'_blank' if submenu.new_window else None">
+                         <span t-field="submenu.name"/>
+                     </a>
+                 </li>
+
+                 <li t-if="not submenu.child_id and submenu.parent_id.id != 1" t-att-class="
+                      'active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else None
+                       ">
+                     <a t-att-href="(website.menu_id.child_id[0] == submenu) and '/' or submenu.url" t-ignore="true" t-att-target="'_blank' if submenu.new_window else None">
+                         <i t-if="submenu.parent_id.mega_menu" class="fa fa-angle-right"></i> <span t-field="submenu.name"/>
+                     </a>
+                 </li>
+
+
+                <li t-if="submenu.child_id and submenu_parent_id.mega_menu" t-attf-class="dropdown-submenu #{
+                    (submenu.url and submenu.url != '/' and any([request.httprequest.path == child.url.replace('/page/website.', '/page/') for child in submenu.child_id if child.url]) or
+                     (submenu.url and request.httprequest.path == submenu.url.replace('/page/website.', '/page/'))) and 'active'
+                    }">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                         <i class="fa fa-check-square"></i> <span t-field="submenu.name"/>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <t t-foreach="submenu.child_id" t-as="submenu">
+                            <t t-call="website.submenu"/>
+                        </t>
+                    </ul>
+                </li>
+
+
+
+                 <li t-if="submenu.child_id and submenu_parent_id.id!=1 and submenu_parent_id.mega_menu==False" t-attf-class="dropdown-submenu #{
+                    (submenu.url and submenu.url != '/' and any([request.httprequest.path == child.url.replace('/page/website.', '/page/') for child in submenu.child_id if child.url]) or
+                     (submenu.url and request.httprequest.path == submenu.url.replace('/page/website.', '/page/'))) and 'active'
+                    }">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                       <span t-field="submenu.name"/>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <t t-foreach="submenu.child_id" t-as="submenu">
+                            <t t-call="website.submenu"/>
+                        </t>
+                    </ul>
+                </li>
+
+
+                  <li t-if="submenu.child_id and submenu_parent_id.id==1 and submenu_parent_id.mega_menu==False " t-attf-class="dropdown drp #{
+                    (submenu.url and submenu.url != '/' and any([request.httprequest.path == child.url.replace('/page/website.', '/page/') for child in submenu.child_id if child.url]) or
+                     (submenu.url and request.httprequest.path == submenu.url.replace('/page/website.', '/page/'))) and 'active'
+                    }">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span t-field="submenu.name"/> <span class="caret" t-ignore="true"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <t t-foreach="submenu.child_id" t-as="submenu">
+                            <t t-call="website.submenu"/>
+                        </t>
+                    </ul>
+                </li>
+             </t>
+
+             <t t-if="submenu.mega_menu">
+
+                <t t-if="submenu.parent_id.id == 1">
+                    <li t-if="not submenu.child_id" t-att-class="
+                        'dropdown active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else 'dropdown'
+                        ">
+                        <a t-att-href="(website.menu_id.child_id[0] == submenu) and '/' or submenu.url" t-ignore="true" t-att-target="'_blank' if submenu.new_window else None">
+                            <span t-field="submenu.name"/>
+                        </a>
+                    </li>
+                </t>
+
+                <t t-if="submenu.parent_id.id != 1">
+                    <li t-if="not submenu.child_id" t-att-class="
+                        'active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else None
+                        ">
+                        <a t-att-href="(website.menu_id.child_id[0] == submenu) and '/' or submenu.url" t-ignore="true" t-att-target="'_blank' if submenu.new_window else None">
+                            <i t-if="submenu.parent_id.mega_menu" class="fa fa-angle-right"></i> <span t-field="submenu.name"/>
+                        </a>
+                    </li>
+                </t>
+
+                <li t-if="submenu.child_id" t-attf-class="dropdown mega-menu #{
+                        (submenu.url and submenu.url != '/' and any([request.httprequest.path == child.url.replace('/page/website.', '/page/') for child in submenu.child_id if child.url]) or
+                         (submenu.url and request.httprequest.path == submenu.url.replace('/page/website.', '/page/'))) and 'active'
+                        }">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span t-field="submenu.name"/> <span class="caret" t-ignore="true"></span>
+                        </a>
+
+                        <ul class="dropdown-menu mega-menu-without-img">
+                             <li>
+                                 <div class="container">
+                                    <div class="col-md-12">
+                                        <h4>Pages</h4>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="divider"></div>
+                                                <ul class="menu">
+                                                    <li>
+                                                        <t t-set="size" t-value="len(submenu.child_id)/2"/>
+                                                        <t t-set="l" t-value="submenu.child_id"/>
+                                                        <t t-foreach="submenu.child_id[:size]" t-as="submenu">
+                                                            <t t-call="website.submenu"/>
+                                                        </t>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="divider"></div>
+                                                <ul class="menu">
+                                                    <li>
+                                                        <t t-set="size1" t-value="(len(l)- len(l)/2)"/>
+                                                        <t t-foreach="l[-size1:]" t-as="submenu">
+                                                            <t t-call="website.submenu"/>
+                                                        </t>
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>
+                            </li>
+                        </ul>
+
+                </li>
+
+            </t>
+
+        </template>
+
+	</data>
+</openerp>

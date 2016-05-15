@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="custom_product_template_video_view">
+            <field name="name">product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook//page[1]" position="after">
+                    <page string="Product Video">
+                        <group>
+                            <field name="name_video" string="Name"/>
+                            <field name="description_video" string="Description"/>
+                            <field name="iframe_video" string="URL video"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

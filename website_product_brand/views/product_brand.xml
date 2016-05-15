@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <!-- Page template for displaying Brands -->
+    <template id="product_brands" name="Brands">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Shop by Brand</t>
+               <div class="banner">
+                    <div class="fixed-image section dark-translucent-bg parallax-bg-brand">
+                        <div class="container text-center">
+                            <h1 class="font60">Welcome to our Shop by Brand</h1>
+                            <p class="lead">
+                                Lorem ipsum dolor sit amet, consectetur elit. Vitae sit excepturi,
+                                <br class="hidden-xs hidden-sm"></br>
+                                hic officiis illo dolore sunt assumenda saepe id sint praesentium
+                                <br class="hidden-xs hidden-sm"></br> natus laborum quas facilis, suscipit aliquam dolorum.
+                            </p>
+                        </div>
+                    </div>
+			     </div>
+               <div class="page-intro">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home pr-10"></i><a href="/">Home</a></li>
+                                    <li class="active">Shop by brand</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+
+               <section class="main-container gray-bg">
+                   <div class="main">
+                       <div class="container">
+                           <div class="row">
+                               <div class="col-md-12">
+                                   <t t-if='brand_rec'>
+                                       <h1 class="text-center title">Brands</h1>
+                                       <div class="separator"></div>
+                                       <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                       <div class="row">
+                                           <t t-foreach="brand_rec" t-as="o">
+                                               <a t-att-href="keep('/shop/brands',brand = o.id)">
+                                                   <div class="col-sm-3 col-md-3" >
+                                                       <div class="box-style-1 white-bg object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="0">
+                                                           <center>
+                                                                <span itemprop="image" t-field="o.logo" t-field-options='{"widget": "image", "class": "img-responsive", "alt-field": "name"}'/>
+                                                           </center>
+                                                       </div>
+                                                   </div>
+                                               </a>
+                                           </t>
+                                       </div>
+                                   </t>
+                                   <t t-if='not brand_rec'>
+                                       <h1 class="text-center title">No <strong>Brands</strong> </h1>
+                                   </t>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </section>
+
+           <div class="container">
+			   <!-- === Snippets' area === -->
+			   <div class="oe_structure" />
+		   </div>
+
+        </t>
+    </template>
+
+
+
+    <!-- Menu in website for Brand -->
+    <record id="menu_website_sale_shop" model="website.menu">
+        <field name="name">Shop All</field>
+        <field name="url">/shop</field>
+        <field name="parent_id" ref="website_sale.menu_shop" />
+    </record>
+    
+    <record id="menu_website_sale_brand" model="website.menu">
+        <field name="name">Shop by Brand</field>
+        <field name="url">/page/product_brands</field>
+        <field name="parent_id" ref="website_sale.menu_shop" />
+    </record>
+
+    </data>
+</openerp>

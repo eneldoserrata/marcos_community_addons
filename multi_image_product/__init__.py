@@ -1,0 +1,2 @@
+import product_images
+

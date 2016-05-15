@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data>
+	<template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+	  <xpath expr="." position="inside">
+	  	  <link rel="stylesheet" href="/wishlist/static/src/css/font-awesome_wishlist.css"/>
+	  	  <link rel="stylesheet" href="/wishlist/static/src/css/wishlist_icon.css"/>
+	      <link rel='stylesheet' href='/website_sale/static/src/css/website_mail.css'/>
+	  </xpath>
+	</template>
+
+<!-- WISHLIST MENU -->
+    <!--CHANGE FOR NEW CHNAGES Mettre commentaire
+<template id="header" inherit_id="website.layout" name="Header Shop My Cart Link">
+  	<xpath expr="//header//ul[@class='dropdown-menu js_usermenu']" position="inside">
+		<li><a t-attf-href="/shop/view_my_wishlist/" onclick ='view_my_wishlist()' role="menuitem" sequence="1">My Wishlist</a></li>      
+  </xpath>
+</template>
+-->
+    <!--
+<template id="product_wish_list" inherit_id="website_sale.product" name="Header">
+	<xpath expr="//a[@id='add_to_cart']" position="before">  
+		<div style="margin-bottom: 0px !important;">	
+			<input type="hidden" name="wishlist_product_id" id="wishlist_product_id" t-att-value="product.product_variant_ids[0].id"/>
+			<t t-set="int_prod_qty" t-value="website.is_product_in_wishlist(product.product_variant_ids[0].id)"/> 
+			<a onclick ="add_product_to_wishlist();" id ="wishlist_icon" class="fa fa-shopping-wishlist_new"/>
+			<a id="add_to_wishlist" onclick='add_product_to_wishlist();' href="#"> Add to Wishlist</a>
+		</div>
+		<br/>
+  	 </xpath>
+  	
+</template>
+-->
+
+<template id="product_wish_list_from_cart" inherit_id="website_sale.cart_lines" name="Header">
+  	<xpath expr="//td[@t-if='line.product_id.product_tmpl_id']//div[@class='text-muted']" position="after">
+		<span>
+			<t t-set="int_prod_qty" t-value="website.is_product_in_wishlist(line.product_id.id)"/>
+			<input type="hidden" name="product_id" t-att-value="line.product_id.id"/>
+			<a onclick ="add_product_to_wishlist_from_cart(this)" class="fa fa-shopping-wishlist_new" t-if="not int_prod_qty"/>
+			<a id="add_product_to_wishlist_from_cart" t-attf-href="#" onclick='add_product_to_wishlist_from_cart(this)' href="#" t-if="not int_prod_qty">Add to wishlist</a>
+		</span>
+	</xpath>
+</template>
+
+
+
+<!--CHANGE FOR NEW CHNAGES Mettre commentaire
+<template id="products_add_to_wishlist" inherit_id="website_sale.products" active="False" customize_show="True" name="Add to Wishlist">
+	<xpath expr="//div[@class='oe_product_cart']" position="before">
+		<div  t-if="product.id">
+			<input name="product_id" t-att-value="product.product_variant_ids[0].id" type="hidden"/>	   
+			<t t-set="int_prod_qty" t-value="website.is_product_in_wishlist(product.product_variant_ids[0].id)"/> 
+		    <a onclick ="add_product_to_wishlist_from_shop(this)" class="btn btn-default btn-xs fa fa-shopping-wishlist" t-if="not int_prod_qty"/>
+		    <a t-attf-href="#" onclick ='return remove_product_from_wishlist_from_cart(this)' class="btn btn-default btn-xs fa fa-shopping-wishlist" t-if="int_prod_qty" style="color:red"/>
+	 	</div>
+  </xpath>
+</template>
+	-->
+</data>
+</openerp>

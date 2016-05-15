@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="add_surname1">
+        <field name="name">event.event.form</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main_field_group']" position="inside">
+                <group>
+                    <field name="image"  widget="image"/>
+                    <field name="short_description"  />
+                    <field name="website"  widget="url" />
+                    <field name="info"  widget="url" />
+                    <field name="facebook" widget="url" />
+                    <field name="twitter"  widget="url" />
+                    <field name="googleplus" widget="url" />
+
+
+                </group>
+
+            </xpath>
+
+        </field>
+    </record>
+
+  </data>
+</openerp>
