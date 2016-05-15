@@ -5,11 +5,11 @@
 
       <!--&lt;!&ndash; LESS 1.7 required-->
       <!--==============================================================================================================-->
-      <link href="/website_animate/static/src/less/o_animate_library.less" rel="stylesheet" type="text/less"/>
-      <link href="/website_animate/static/src/less/o_animate_utility_classes.less" rel="stylesheet" type="text/less"/> -->
+      <!--<link href="/website_animate/static/src/less/o_animate_library.less" rel="stylesheet" type="text/less"/>-->
+      <!--<link href="/website_animate/static/src/less/o_animate_utility_classes.less" rel="stylesheet" type="text/less"/> &ndash;&gt;-->
 
-      <!--<link href="/website_animate/static/src/less/o_animate_library.css" rel="stylesheet" type="text/css"/>-->
-      <!--<link href="/website_animate/static/src/less/o_animate_utility_classes.css" rel="stylesheet" type="text/css"/>-->
+      <link href="/website_animate/static/src/less/o_animate_library.css" rel="stylesheet" type="text/css"/>
+      <link href="/website_animate/static/src/less/o_animate_utility_classes.css" rel="stylesheet" type="text/css"/>
 
       <script type="text/javascript" src="/website_animate/static/src/js/o_animate.frontend.js"/>
     </xpath>
