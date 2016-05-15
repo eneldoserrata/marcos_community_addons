@@ -15,5 +15,5 @@ You can configure your Google reCAPTCHA site and public keys
           'views/website_view.xml',
           'views/res_config.xml',
  ],
- 'installable': False,
+ 'installable': True,
 }

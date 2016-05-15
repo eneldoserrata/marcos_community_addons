@@ -1,0 +1,36 @@
+.s_big_picture_text {
+  padding: 50px 0;
+}
+.s_big_picture_text .hero-paragraph {
+  padding: 0px 40px;
+  text-align: left;
+}
+.s_big_picture_text .hero-paragraph h1 {
+  font-weight: 900;
+}
+@media only screen and (max-width: 1024px) {
+  .s_big_picture_text .hero-paragraph h1 {
+    font-size: 25px;
+    font-weight: 900;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .s_big_picture_text .hero-paragraph h2 {
+    font-size: 20px;
+  }
+}
+.s_big_picture_text .hero-paragraph p {
+  font-size: 16px;
+}
+@media only screen and (max-width: 1024px) {
+  .s_big_picture_text .hero-paragraph p {
+    font-size: 14px;
+  }
+}
+.s_big_picture_text .hero-image {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.s_big_picture_text .hero-image img {
+  width: 100%;
+}

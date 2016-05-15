@@ -1,0 +1,9 @@
+.s_header_text_big_picture .s_header_text_big_picture_picturecol {
+  padding: 0;
+}
+.s_header_text_big_picture .s_header_text_big_picture_picturecol img {
+  width: 100%;
+}
+.s_header_text_big_picture [class*="col-md-"] p {
+  padding: 0 25px;
+}

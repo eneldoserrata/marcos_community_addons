@@ -1,0 +1,10 @@
+.s_clonable_boxes {
+  width: 100%;
+  overflow: hidden;
+}
+.s_clonable_boxes .item {
+  height: 200px;
+  background-size: cover;
+  overflow: hidden;
+  text-align: center;
+}
