@@ -32,6 +32,6 @@
     'demo': [
         'demo/demo.xml',
     ],
-    'auto_install': True
+    'auto_install': False
 
 }
