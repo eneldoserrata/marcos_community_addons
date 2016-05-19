@@ -34,11 +34,10 @@ class InheritedAccountBankStatementImport(models.TransientModel):
             if partner_bank:
                 bank_account_id = partner_bank.id
                 partner_id = partner_bank.partner_id.id
-
             vals_line = {
                 'date': transaction.date,
                 'name': transaction.payee + (transaction.memo and ': ' + transaction.memo or ''),
-                'ref': "{}: {}".format(int(transaction.id)-1, format_date(transaction.date, 'EEEE d', locale=locale)),
+                'ref': u"{}: {}".format(int(transaction.id)-1, format_date(transaction.date, 'EEEE d', locale=locale)),
                 'amount': transaction.amount,
                 'unique_import_id': "{}-{}".format(transaction.id, transaction.date.strftime(DEFAULT_SERVER_DATE_FORMAT)),
                 'bank_account_id': bank_account_id,
