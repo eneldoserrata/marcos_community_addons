@@ -27,6 +27,8 @@ from dateutil.relativedelta import relativedelta
 from openerp import models, fields, api, _
 from openerp import exceptions
 
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
+
 from ..services.currency_getter import Currency_getter_factory
 
 _logger = logging.getLogger(__name__)
@@ -300,7 +302,7 @@ class Currency_rate_update_service(models.Model):
                     midnight) +
                             _intervalTypes[str(self.interval_type)]
                             (self.interval_number)).date()
-                self.next_run = next_run
+                self.sudo().write({"next_run": next_run.strftime(DATE_FORMAT)})
 
     @api.multi
     def run_currency_update(self):
