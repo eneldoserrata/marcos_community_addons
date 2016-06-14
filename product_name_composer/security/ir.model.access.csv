@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_composer_product,access_composer_product,model_composer_product,,1,1,1,1
+access_composer_brand,access_composer_brand,model_composer_brand,,1,1,1,1
+access_composer_type,access_composer_type,model_composer_type,,1,1,1,1
+access_composer_color,access_composer_color,model_composer_color,,1,1,1,1
+access_composer_uom,access_composer_uom,model_composer_uom,,1,1,1,1
