@@ -18,14 +18,14 @@ class NewModule(models.TransientModel):
     def create_name(self):
         product_name = []
         product_name += [p.name for p in self.partner]
+        product_name += [t.name for t in self.type]
         product_name += [p.name for p in self.product]
         product_name += [b.name for b in self.brand]
-        product_name += [t.name for t in self.type]
         product_name += [c.name for c in self.size]
         product_name += [u.name for u in self.uom]
-        product_composer_name = ""
+        product_composer_name = u""
         for name in product_name:
-            product_composer_name += "{} ".format(name)
+            product_composer_name += u"{} ".format(name)
         product_id = self.env["product.template"].browse(self._context.get("active_id"))
         product_id.write({"name": product_composer_name.strip()})
 

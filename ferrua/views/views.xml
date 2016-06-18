@@ -9,9 +9,9 @@
                 <form string="">
                     <group>
                         <field name="partner" widget="many2many_tags"/>
+                        <field name="type" widget="many2many_tags"/>
                         <field name="product" widget="many2many_tags"/>
                         <field name="brand" widget="many2many_tags"/>
-                        <field name="type" widget="many2many_tags"/>
                         <field name="size" widget="many2many_tags"/>
                         <field name="uom" widget="many2many_tags"/>
                     </group>
