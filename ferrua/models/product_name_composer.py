@@ -6,12 +6,12 @@ class NewModule(models.TransientModel):
     _name = 'product.name.composer'
 
 
-    partner = fields.Many2many("composer.partner", string="Cliente")
-    type = fields.Many2many("composer.type", string="Tipo")
-    product = fields.Many2many("composer.product", string="Nombre")
-    brand = fields.Many2many("composer.brand", string="Linea")
-    size = fields.Many2many("composer.size", string="Medida")
-    uom = fields.Many2many("composer.uom", string="Unidad")
+    partner = fields.Many2many("composer.partner", string=u"Cliente o Fabricante")
+    type = fields.Many2many("composer.type", string=u"Tipo de Producto")
+    product = fields.Many2many("composer.product", string=u"Nombre del Producto")
+    brand = fields.Many2many("composer.brand", string=u"Línea del Producto")
+    size = fields.Many2many("composer.size", string=u"Medida o Cantidad de unidades del producto")
+    uom = fields.Many2many("composer.uom", string=u"Unidad de Medida")
 
 
     @api.multi

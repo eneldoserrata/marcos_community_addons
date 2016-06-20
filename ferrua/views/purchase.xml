@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="ferrua_purchase_order_form" model="ir.ui.view">
+            <field name="name">ferrua_purchase_order_form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+                <field name="company_id" position="before">
+                    <field name="is_roll_order"/>
+                </field>
+
+                <notebook>
+                    <page string="Productos por rollos" attrs="{'invisible': [('is_roll_order','=',False)]}">
+                        <field name="roll_order_lines">
+                            <tree string="Purchase Order Lines" editable="bottom">
+                                <field name="product_roll_id" context="{'partner_id': parent.partner_id}"/>
+                                <field name="rolls"/>
+                                <field name="ancho"/>
+                                <field name="largo"/>
+                                <field name="msi" sum="MSI Total"/>
+                                <field name="price_msi"/>
+                                <field name="total_price_msi" sum="Total"/>
+                                <field name="roll_price"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>
