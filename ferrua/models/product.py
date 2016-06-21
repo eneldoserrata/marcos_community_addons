@@ -62,3 +62,11 @@ class ComposerUom(models.Model):
     _name = "composer.uom"
 
     name = fields.Char()
+
+
+class ProductCategory(models.Model):
+    _inherit = "product.category"
+
+    extra_info = fields.Selection([('exact','Plan Exact'),
+                                   ('master','Master Rolls'),
+                                   ('lamination','Laminación')], default="none", string=u"Información extra")

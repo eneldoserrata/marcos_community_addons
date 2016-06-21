@@ -6,9 +6,30 @@ import openerp.addons.decimal_precision as dp
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
+    @api.one
+    def _cal_msi(self):
+        exact = 0
+        master = 0
+        lam = 0
+        for rec in self.roll_order_lines:
+            if rec.product_roll_id.product_tmpl_id.categ_id.extra_info == "exact":
+                exact += rec.msi
+            elif rec.product_roll_id.product_tmpl_id.categ_id.extra_info == "master":
+                master += rec.msi
+            elif rec.product_roll_id.product_tmpl_id.categ_id.extra_info == "lamination":
+                lam += rec.msi
+        self.msi_sub_exact = exact
+        self.msi_sub_master = master
+        self.msi_sub_lam = lam/5
+        self.msi_sub_total = self.msi_sub_exact+self.msi_sub_master+self.msi_sub_lam
+
+
     is_roll_order = fields.Boolean("Pedido de rollos")
     roll_order_lines = fields.One2many("purchase.order.line.roll", "roll_order_id")
-
+    msi_sub_exact = fields.Float("Subtotal Plan Exact", compute=_cal_msi, default=0)
+    msi_sub_master = fields.Float("Subtotal Master Rolls", compute=_cal_msi, default=0)
+    msi_sub_lam = fields.Float(u"Subtotal Laminación", compute=_cal_msi, default=0)
+    msi_sub_total = fields.Float("Total MSI", compute=_cal_msi, default=0)
 
 class PurchaseOrderLine(models.Model):
     _name = 'purchase.order.line.roll'

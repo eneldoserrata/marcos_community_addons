@@ -27,6 +27,12 @@
                                 <field name="roll_price"/>
                             </tree>
                         </field>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="msi_sub_exact"/>
+                            <field name="msi_sub_master"/>
+                            <field name="msi_sub_lam"/>
+                            <field name="msi_sub_total" class="oe_subtotal_footer_separator"/>
+                        </group>
                     </page>
                 </notebook>
 

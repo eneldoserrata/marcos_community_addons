@@ -101,5 +101,20 @@
         <menuitem id="product_name_composer_size_menu" name="Medida" parent="product_name_composer_menu" action="composer_size_action" sequence=""/>
         <menuitem id="product_name_composer_uom_menu" name="Unidad" parent="product_name_composer_menu" action="composer_uom_action" sequence=""/>
 
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="ferrua_product_category_form_view" model="ir.ui.view">
+            <field name="name">ferrua_product_category_form_view</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="extra_info"/>
+                </xpath>
+
+            </field>
+        </record>
     </data>
 </openerp>
