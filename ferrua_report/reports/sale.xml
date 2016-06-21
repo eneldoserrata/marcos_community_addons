@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--<template id="ferrua_report_saleorder_document" inherit_id="sale.report_saleorder_document">-->
+            <!--<xpath expr="//div[@class='page']" position="replace">-->
+                <!--<div class="page">-->
+                    <!--<div class="oe_structure"/>-->
+                    <!--<div name="header_one" class="row">-->
+
+                        <!--<table class="table table-condensed">-->
+                            <!--<tr>-->
+                                <!--<th class="tg-yw4l">Rnc</th>-->
+                                <!--<th class="tg-yw4l">-->
+                                    <!--<span t-field="doc.partner_id.vat"/>-->
+                                <!--</th>-->
+                                <!--<td class="tg-yw4l">-->
+                                    <!--<span t-if="doc.state not in ['draft','sent']">Pedido #</span>-->
+                                    <!--<span t-if="doc.state in ['draft','sent']">Cotización #</span>-->
+                                <!--</td>-->
+                                <!--<td class="tg-yw4l">-->
+                                    <!--<span t-field="doc.name"/>-->
+                                <!--</td>-->
+
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td class="tg-yw4l">Cliente</td>-->
+                                <!--<td class="tg-yw4l">-->
+                                    <!--<span t-field="doc.partner_id.name"/>-->
+                                <!--</td>-->
+                                <!--<td class="tg-yw4l">Fecha</td>-->
+                                <!--<td class="tg-yw4l">-->
+                                    <!--<span t-field="doc.date_order"/>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td class="tg-yw4l">Dirección</td>-->
+                                <!--<td class="tg-yw4l">-->
+                                    <!--<div t-field="doc.partner_invoice_id"-->
+                                    <!--t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;fax&quot;], &quot;no_marker&quot;: true, &quot;phone_icons&quot;: true}"/>-->
+                                <!--</td>-->
+                                <!--<td class="tg-yw4l">Vence</td>-->
+                                <!--<td class="tg-yw4l">-->
+                                    <!--<span t-field="doc.validity_date"/>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td class="tg-yw4l">Plazo de pago</td>-->
+                                <!--<td class="tg-yw4l">-->
+                                    <!--<div name="payment_term" t-if="doc.payment_term_id" class="col-xs-3">-->
+                                    <!--<p t-field="doc.payment_term_id"/>-->
+                                    <!--</div>-->
+                                <!--</td>-->
+                                <!--<td class="tg-yw4l">Orden de compra</td>-->
+                                <!--<td class="tg-yw4l">-->
+                                    <!--<span t-field="doc.client_order_ref"/>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                        <!---->
+                    <!--</div>-->
+
+                <!--</div>-->
+            <!--</xpath>-->
+        <!--</template>-->
+
+    </data>
+</openerp>

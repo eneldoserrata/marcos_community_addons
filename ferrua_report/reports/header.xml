@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="ferrua_external_layout_header" inherit_id="report.external_layout_header">
+            <xpath expr="//div" position="replace">
+                <div class="header">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <img t-if="company.report_logo" t-att-src="'data:image/png;base64,%s' % company.report_logo"
+                                 style="max-height: 65;"/>
+                            <img t-if="not company.report_logo" t-att-src="'data:image/png;base64,%s' % company.logo"
+                                 style="max-height: 100px;"/>
+                        </div>
+
+                        <div class="col-xs-6" style="padding-bottom:10px;" name="company_address">
+                            <p style="text-align:justify;font-size:10px !important;">
+                                <span class="fa fa-map-marker fa-lg"/>
+                                <span t-field="company.street"/>
+                                <span t-if="company.street and company.street2">,</span>
+                                <span t-field="company.street2"/>
+                                <br/>
+                                <span class="fa fa-map-marker fa-lg"/>
+                                <span t-field="company.zip"/>
+                                <span t-if="company.city" t-field="company.city"/>
+                                <span t-if="company.city and company.country_id">,</span>
+                                <span t-if="company.country_id" t-field="company.country_id"/>
+                                <br/>
+                                <span class="fa fa-phone fa-lg"/>
+                                Tels.:
+                                <span t-field="company.phone"/>
+                                <span t-if="company.fax">Fax.:</span>
+                                <span t-if="company.fax" t-field="company.fax"/>
+                                <br/>
+                                <span class="fa fa-globe fa-lg"/>
+                                <span t-field="company.email"/>
+                                <span t-field="company.website"/>
+                                <br/>
+                                <span class="fa fa-building-o fa-lg"/>
+                                <b>RNC.:
+                                    <span t-field="company.vat"/>
+                                </b>
+
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </xpath>
+        </template>
+
+
+    </data>
+</openerp>
