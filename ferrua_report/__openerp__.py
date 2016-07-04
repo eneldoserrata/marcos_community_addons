@@ -26,7 +26,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'reports/header.xml',
-        'reports/sale.xml',
+        'reports/invoice.xml',
         'views/views.xml',
         'views/templates.xml',
     ],

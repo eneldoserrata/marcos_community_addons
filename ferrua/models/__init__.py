@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from . import product
-from . import purchase
-from . import sale
+import product
+import purchase
+import sale
+import stock

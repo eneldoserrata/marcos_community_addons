@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="ferrua_picking" inherit_id="stock.report_picking">
+            <xpath expr="//table[@t-if='o.pack_operation_ids']//thead//tr//th" position="before">
+                <th><strong>Posición</strong></th>
+            </xpath>
+
+            <xpath expr="//tr[@t-foreach='o.pack_operation_ids']//td" position="before">
+                <td><span t-field="pack_operation.position"/></td>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>
