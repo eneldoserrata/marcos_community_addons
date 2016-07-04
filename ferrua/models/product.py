@@ -69,4 +69,4 @@ class ProductCategory(models.Model):
 
     extra_info = fields.Selection([('exact','Plan Exact'),
                                    ('master','Master Rolls'),
-                                   ('lamination','Laminación')], default="none", string=u"Información extra")
+                                   ('lamination','Laminación')], string=u"Información extra")
