@@ -3,224 +3,224 @@
     <data>
 
         <!--=======================================Homepage ======================================================== -->
-        <!--<record id="menu_homepage_1" model="website.menu">-->
-            <!--<field name="name">Home - 1</field>-->
-            <!--<field name="url">/page/home-1</field>-->
-            <!--<field name="parent_id" ref="website.menu_homepage" />-->
-            <!--<field name="sequence" type="int">11</field>-->
-        <!--</record>-->
+        <record id="menu_homepage_1" model="website.menu">
+            <field name="name">Home - 1</field>
+            <field name="url">/page/home-1</field>
+            <field name="parent_id" ref="website.menu_homepage" />
+            <field name="sequence" type="int">11</field>
+        </record>
 
-        <!--<record id="menu_homepage_2" model="website.menu">-->
-            <!--<field name="name">Home - 2</field>-->
-            <!--<field name="url">/page/home-2</field>-->
-            <!--<field name="parent_id" ref="website.menu_homepage" />-->
-            <!--<field name="sequence" type="int">12</field>-->
-        <!--</record>-->
+        <record id="menu_homepage_2" model="website.menu">
+            <field name="name">Home - 2</field>
+            <field name="url">/page/home-2</field>
+            <field name="parent_id" ref="website.menu_homepage" />
+            <field name="sequence" type="int">12</field>
+        </record>
 
-        <!--<record id="menu_homepage_3" model="website.menu">-->
-            <!--<field name="name">Home - 3</field>-->
-            <!--<field name="url">/page/home-3</field>-->
-            <!--<field name="parent_id" ref="website.menu_homepage" />-->
-            <!--<field name="sequence" type="int">13</field>-->
-        <!--</record>-->
+        <record id="menu_homepage_3" model="website.menu">
+            <field name="name">Home - 3</field>
+            <field name="url">/page/home-3</field>
+            <field name="parent_id" ref="website.menu_homepage" />
+            <field name="sequence" type="int">13</field>
+        </record>
 
-         <!--<record id="menu_homepage_4" model="website.menu">-->
-            <!--<field name="name">Home - 4</field>-->
-            <!--<field name="url">/page/home-4</field>-->
-            <!--<field name="parent_id" ref="website.menu_homepage" />-->
-            <!--<field name="sequence" type="int">14</field>-->
-         <!--</record>-->
+         <record id="menu_homepage_4" model="website.menu">
+            <field name="name">Home - 4</field>
+            <field name="url">/page/home-4</field>
+            <field name="parent_id" ref="website.menu_homepage" />
+            <field name="sequence" type="int">14</field>
+         </record>
 
-        <!--<record id="menu_homepage_5" model="website.menu">-->
-            <!--<field name="name">Home - Video Bg</field>-->
-            <!--<field name="url">/page/home-video</field>-->
-            <!--<field name="parent_id" ref="website.menu_homepage" />-->
-            <!--<field name="sequence" type="int">15</field>-->
-        <!--</record>-->
+        <record id="menu_homepage_5" model="website.menu">
+            <field name="name">Home - Video Bg</field>
+            <field name="url">/page/home-video</field>
+            <field name="parent_id" ref="website.menu_homepage" />
+            <field name="sequence" type="int">15</field>
+        </record>
 
-        <!--<record id="menu_homepage_6" model="website.menu">-->
-            <!--<field name="name">Home - shop</field>-->
-            <!--<field name="url">/page/home-shop</field>-->
-            <!--<field name="parent_id" ref="website.menu_homepage" />-->
-            <!--<field name="sequence" type="int">16</field>-->
-        <!--</record>-->
+        <record id="menu_homepage_6" model="website.menu">
+            <field name="name">Home - shop</field>
+            <field name="url">/page/home-shop</field>
+            <field name="parent_id" ref="website.menu_homepage" />
+            <field name="sequence" type="int">16</field>
+        </record>
 
 
         <!--=======================================   Pages ======================================================== -->
-        <!--<record id="menu_pages" model="website.menu">-->
-            <!--<field name="name">Pages</field>-->
-            <!--<field name="url">#</field>-->
-            <!--<field name="mega_menu">True</field>-->
-            <!--<field name="parent_id" ref="website.main_menu" />-->
-            <!--<field name="sequence" type="int">30</field>-->
-        <!--</record>-->
+        <record id="menu_pages" model="website.menu">
+            <field name="name">Pages</field>
+            <field name="url">#</field>
+            <field name="mega_menu">True</field>
+            <field name="parent_id" ref="website.main_menu" />
+            <field name="sequence" type="int">30</field>
+        </record>
 
         <!--============================================== -->
 
-        <!--<record id="menu_pages-1" model="website.menu">-->
-            <!--<field name="name">About Us - 1</field>-->
-            <!--<field name="url">/page/about-us</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">1</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-2" model="website.menu">-->
-            <!--<field name="name">About Us - 2</field>-->
-            <!--<field name="url">/page/about-us-2</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">2</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-3" model="website.menu">-->
-            <!--<field name="name">About Us - 3</field>-->
-            <!--<field name="url">/page/about-us-3</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">3</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-4" model="website.menu">-->
-            <!--<field name="name">About Me</field>-->
-            <!--<field name="url">/page/about-me</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">4</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-5" model="website.menu">-->
-            <!--<field name="name">Our Team</field>-->
-            <!--<field name="url">/page/team</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">5</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-6" model="website.menu">-->
-            <!--<field name="name">Contact</field>-->
-            <!--<field name="url">/page/contactus</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">6</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-7" model="website.menu">-->
-            <!--<field name="name">Services</field>-->
-            <!--<field name="url">/page/services</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">7</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-8" model="website.menu">-->
-            <!--<field name="name">Coming Soon Page</field>-->
-            <!--<field name="url">/page/coming-soon</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">8</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-9" model="website.menu">-->
-            <!--<field name="name">404 error</field>-->
-            <!--<field name="url">/page/404</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">9</field>-->
-        <!--</record>-->
+        <record id="menu_pages-1" model="website.menu">
+            <field name="name">About Us - 1</field>
+            <field name="url">/page/about-us</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">1</field>
+        </record>
+        <record id="menu_pages-2" model="website.menu">
+            <field name="name">About Us - 2</field>
+            <field name="url">/page/about-us-2</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">2</field>
+        </record>
+        <record id="menu_pages-3" model="website.menu">
+            <field name="name">About Us - 3</field>
+            <field name="url">/page/about-us-3</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">3</field>
+        </record>
+        <record id="menu_pages-4" model="website.menu">
+            <field name="name">About Me</field>
+            <field name="url">/page/about-me</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">4</field>
+        </record>
+        <record id="menu_pages-5" model="website.menu">
+            <field name="name">Our Team</field>
+            <field name="url">/page/team</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">5</field>
+        </record>
+        <record id="menu_pages-6" model="website.menu">
+            <field name="name">Contact</field>
+            <field name="url">/page/contactus</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">6</field>
+        </record>
+        <record id="menu_pages-7" model="website.menu">
+            <field name="name">Services</field>
+            <field name="url">/page/services</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">7</field>
+        </record>
+        <record id="menu_pages-8" model="website.menu">
+            <field name="name">Coming Soon Page</field>
+            <field name="url">/page/coming-soon</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">8</field>
+        </record>
+        <record id="menu_pages-9" model="website.menu">
+            <field name="name">404 error</field>
+            <field name="url">/page/404</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">9</field>
+        </record>
 
 
-        <!--<record id="menu_pages-10" model="website.menu">-->
-            <!--<field name="name">FAQ page</field>-->
-            <!--<field name="url">/page/faq</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">10</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-11" model="website.menu">-->
-            <!--<field name="name">Invoice</field>-->
-            <!--<field name="url">/page/invoice</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">11</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-12" model="website.menu">-->
-            <!--<field name="name">Testimonials</field>-->
-            <!--<field name="url">/page/testimonials</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">12</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-13" model="website.menu">-->
-            <!--<field name="name">Login</field>-->
-            <!--<field name="url">/web/login</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">13</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-14" model="website.menu">-->
-            <!--<field name="name">Sign Up</field>-->
-            <!--<field name="url">/web/signup</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">14</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-15" model="website.menu">-->
-            <!--<field name="name">Pricing Tables 1</field>-->
-            <!--<field name="url">/page/pricing-tables-1</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">15</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-16" model="website.menu">-->
-            <!--<field name="name">Pricing Tables 2</field>-->
-            <!--<field name="url">/page/pricing-tables-2</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">16</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-17" model="website.menu">-->
-            <!--<field name="name">Pricing Tables 3</field>-->
-            <!--<field name="url">/page/pricing-tables-3</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">17</field>-->
-        <!--</record>-->
-        <!--<record id="menu_pages-18" model="website.menu">-->
-            <!--<field name="name">Terms and Conditions</field>-->
-            <!--<field name="url">/page/terms</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_pages" />-->
-            <!--<field name="sequence" type="int">18</field>-->
-        <!--</record>-->
+        <record id="menu_pages-10" model="website.menu">
+            <field name="name">FAQ page</field>
+            <field name="url">/page/faq</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">10</field>
+        </record>
+        <record id="menu_pages-11" model="website.menu">
+            <field name="name">Invoice</field>
+            <field name="url">/page/invoice</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">11</field>
+        </record>
+        <record id="menu_pages-12" model="website.menu">
+            <field name="name">Testimonials</field>
+            <field name="url">/page/testimonials</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">12</field>
+        </record>
+        <record id="menu_pages-13" model="website.menu">
+            <field name="name">Login</field>
+            <field name="url">/web/login</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">13</field>
+        </record>
+        <record id="menu_pages-14" model="website.menu">
+            <field name="name">Sign Up</field>
+            <field name="url">/web/signup</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">14</field>
+        </record>
+        <record id="menu_pages-15" model="website.menu">
+            <field name="name">Pricing Tables 1</field>
+            <field name="url">/page/pricing-tables-1</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">15</field>
+        </record>
+        <record id="menu_pages-16" model="website.menu">
+            <field name="name">Pricing Tables 2</field>
+            <field name="url">/page/pricing-tables-2</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">16</field>
+        </record>
+        <record id="menu_pages-17" model="website.menu">
+            <field name="name">Pricing Tables 3</field>
+            <field name="url">/page/pricing-tables-3</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">17</field>
+        </record>
+        <record id="menu_pages-18" model="website.menu">
+            <field name="name">Terms and Conditions</field>
+            <field name="url">/page/terms</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_pages" />
+            <field name="sequence" type="int">18</field>
+        </record>
 
 
 
 
         <!--=======================================   Portfolio  =================================================== -->
-        <!--<record id="menu_portfolio" model="website.menu">-->
-            <!--<field name="name">Portfolio</field>-->
-            <!--<field name="url">#</field>-->
-            <!--<field name="parent_id" ref="website.main_menu" />-->
-            <!--<field name="sequence" type="int">40</field>-->
-        <!--</record>-->
+        <record id="menu_portfolio" model="website.menu">
+            <field name="name">Portfolio</field>
+            <field name="url">#</field>
+            <field name="parent_id" ref="website.main_menu" />
+            <field name="sequence" type="int">40</field>
+        </record>
 
-        <!--<record id="menu_portfolio_1" model="website.menu">-->
-            <!--<field name="name">Portfolio - 2 columns</field>-->
-            <!--<field name="url">/page/portfolio-2col</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />-->
-            <!--<field name="sequence" type="int">10</field>-->
-        <!--</record>-->
+        <record id="menu_portfolio_1" model="website.menu">
+            <field name="name">Portfolio - 2 columns</field>
+            <field name="url">/page/portfolio-2col</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />
+            <field name="sequence" type="int">10</field>
+        </record>
 
-        <!--<record id="menu_portfolio_2" model="website.menu">-->
-            <!--<field name="name">Portfolio - 3 columns</field>-->
-            <!--<field name="url">/page/portfolio-3col</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />-->
-            <!--<field name="sequence" type="int">20</field>-->
-        <!--</record>-->
+        <record id="menu_portfolio_2" model="website.menu">
+            <field name="name">Portfolio - 3 columns</field>
+            <field name="url">/page/portfolio-3col</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />
+            <field name="sequence" type="int">20</field>
+        </record>
 
 
-        <!--<record id="menu_portfolio_3" model="website.menu">-->
-            <!--<field name="name">Portfolio - 4 columns</field>-->
-            <!--<field name="url">/page/portfolio-4col</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />-->
-            <!--<field name="sequence" type="int">30</field>-->
-        <!--</record>-->
+        <record id="menu_portfolio_3" model="website.menu">
+            <field name="name">Portfolio - 4 columns</field>
+            <field name="url">/page/portfolio-4col</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />
+            <field name="sequence" type="int">30</field>
+        </record>
 
-        <!--<record id="menu_portfolio_4" model="website.menu">-->
-            <!--<field name="name">Portfolio - Image</field>-->
-            <!--<field name="url">/page/portfolio-list-image</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />-->
-            <!--<field name="sequence" type="int">40</field>-->
-        <!--</record>-->
+        <record id="menu_portfolio_4" model="website.menu">
+            <field name="name">Portfolio - Image</field>
+            <field name="url">/page/portfolio-list-image</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />
+            <field name="sequence" type="int">40</field>
+        </record>
 
-        <!--<record id="menu_portfolio_5" model="website.menu">-->
-            <!--<field name="name">Portfolio - Item</field>-->
-            <!--<field name="url">/page/portfolio-item</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />-->
-            <!--<field name="sequence" type="int">50</field>-->
-        <!--</record>-->
+        <record id="menu_portfolio_5" model="website.menu">
+            <field name="name">Portfolio - Item</field>
+            <field name="url">/page/portfolio-item</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />
+            <field name="sequence" type="int">50</field>
+        </record>
 
-        <!--<record id="menu_portfolio_6" model="website.menu">-->
-            <!--<field name="name">Portfolio - Slider </field>-->
-            <!--<field name="url">/page/portfolio-slider</field>-->
-            <!--<field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />-->
-            <!--<field name="sequence" type="int">60</field>-->
-        <!--</record>-->
+        <record id="menu_portfolio_6" model="website.menu">
+            <field name="name">Portfolio - Slider </field>
+            <field name="url">/page/portfolio-slider</field>
+            <field name="parent_id" ref="dynamic_mega_menu.menu_portfolio" />
+            <field name="sequence" type="int">60</field>
+        </record>
 
 
 
