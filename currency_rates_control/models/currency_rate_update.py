@@ -307,7 +307,8 @@ class Currency_rate_update_service(models.Model):
     @api.multi
     def run_currency_update(self):
         # Update currency at the given frequence
-        services = self.search([('next_run', '=', fields.Date.today())])
+        # services = self.search([('next_run', '=', fields.Date.today())])
+        services = self.search([])
         services.with_context(cron=True).refresh_currency()
 
     @api.model

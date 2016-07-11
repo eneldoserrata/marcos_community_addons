@@ -30,6 +30,7 @@
         'views/base_view.xml',
         'views/currency_rate_update.xml',
         'views/templates.xml',
+        'wizard/rate_update_wizard_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
