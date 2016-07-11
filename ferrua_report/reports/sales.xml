@@ -4,25 +4,23 @@
 
         <!--inherits the default sales report  and override its name  and file-->
         <report
-                id="account.account_invoices"
-                model="account.invoice"
-                string="Invoices"
+                id="sale.report_sale_order"
+                model="sale.order"
+                string="Quotation / Order"
                 report_type="qweb-pdf"
-                name="ferrua_report.report_invoice"
-                file="ferrua_report.report_invoice"
+                name="ferrua_report.sale_order"
+                file="ferrua_report.sale_order"
         />
 
-
-        <template id="report_invoice">
+        <template id="sale_order">
             <t t-call="report.html_container">
                 <t t-foreach="docs" t-as="doc">
-                    <t t-call="ferrua_report.ferrua_invoice_report" t-lang="doc.partner_id.lang"/>
+                    <t t-call="ferrua_report.ferrua_sale_order" t-lang="doc.partner_id.lang"/>
                 </t>
             </t>
         </template>
 
-
-        <template id="ferrua_invoice_report" name="Ferrua Sale Order">
+        <template id="ferrua_sale_order" name="Ferrua Sale Order">
             <t t-if="doc and 'company_id' in doc">
                 <t t-set="company" t-value="doc.company_id"></t>
             </t>
@@ -30,10 +28,7 @@
                 <t t-set="company" t-value="res_company"></t>
             </t>
             <div class="page" style="margin-top:0px;">
-
                 <div class="row zero_min_height">
-
-
                     <div class="col-xs-6">
                         <img t-if="company.report_logo" t-att-src="'data:image/png;base64,%s' % company.report_logo"
                              style="max-height: 70px;"/>
@@ -93,29 +88,9 @@
                 <div class="container">
                     <div class="row text-center" style="background-color: #0a4b6e;color:white;">
                         <h4>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'final' and (doc.state == 'open' or doc.state == 'paid')">
-                                Factura para consumidor final -
-                            </span>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'fiscal' and (doc.state == 'open' or doc.state == 'paid')">
-                                Factura para crédito fiscal -
-                            </span>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'gov' and (doc.state == 'open' or doc.state == 'paid')">
-                                Factura Gubernamental -
-                            </span>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'special' and (doc.state == 'open' or doc.state == 'paid')">
-                                Factura para regímenes especiales -
-                            </span>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'unico' and (doc.state == 'open' or doc.state == 'paid')">
-                                Registro de unico ingreso -
-                            </span>
-
-                            <span t-if="doc.type == 'out_invoice' and doc.state == 'proforma2'">PRO-FORMA</span>
-                            <span t-if="doc.type == 'out_invoice' and doc.state == 'draft'">Draft Invoice</span>
-                            <span t-if="doc.type == 'out_invoice' and doc.state == 'cancel'">Cancelled Invoice</span>
-                            <span t-if="doc.type == 'out_refund'">Nota de crédito -</span>
-                            <span t-if="doc.type == 'in_refund'">Nota de crédito proveedor -</span>
-                            <span t-if="doc.type == 'in_invoice'">Factura de compra -</span>
-                            <span t-field="doc.number"/>
+                            <span t-if="doc.state not in ['draft','sent']">ORDEN No.</span>
+                            <span t-if="doc.state in ['draft','sent']">COTIZACIÓN No.</span>
+                            <span t-field="doc.name"/>
                         </h4>
                     </div>
                     <div class="row info-row">
@@ -170,13 +145,17 @@
                                     <tr>
                                         <th>FECHA</th>
                                         <td>
-                                            <span t-field="doc.date_invoice"/>
+                                            <span t-field="doc.create_date"/>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>FECHA DE PAGO</th>
-                                        <td>
-                                            <span t-field="doc.date_due"/>
+                                        <th t-if="doc.state not in ['draft','sent']">APROBADA</th>
+                                        <th t-if="doc.state in ['draft','sent']">VENCE</th>
+                                        <td t-if="doc.state not in ['draft','sent']">
+                                            <span t-field="doc.date_order"/>
+                                        </td>
+                                        <td t-if="doc.state in ['draft','sent']">
+                                            <span t-field="doc.validity_date"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -188,13 +167,7 @@
                                     <tr>
                                         <th>REFERENCIA</th>
                                         <td>
-                                            <span t-field="doc.name"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>ORIGEN</th>
-                                        <td>
-                                            <span t-field="doc.origin"/>
+                                            <span t-field="doc.client_order_ref"/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -205,8 +178,7 @@
                     <br/>
                     <!--line start-->
                     <div class="row">
-                        <div class="col-xs-12"
-                             t-attf-style="font-size:10px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+                        <div class="col-xs-12" t-attf-style="font-size:10px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
                             <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
                                 <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
                                     <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
@@ -227,12 +199,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <t t-foreach="doc.invoice_line_ids" t-as="l">
-                                        <tr t-if="l.quantity"
+                                    <t t-foreach="doc.order_line" t-as="l">
+                                        <tr t-if="l.product_uom_qty"
                                             t-attf-style="page-break-inside: avoid !important;">
                                             <td class="text-right">
-                                                <span t-field="l.quantity"/>
-                                                <span t-field="l.uom_id" groups="product.group_uom"/>
+                                                <span t-field="l.product_uom_qty"/>
+                                                <span t-field="l.product_uom" groups="product.group_uom"/>
                                             </td>
                                             <td>
                                                 <span t-field="l.name"/>
@@ -241,8 +213,7 @@
                                                 <span t-field="l.price_unit"/>
                                             </td>
                                             <td class="text-right">
-                                                <span t-field="l.tax_amount"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                                                <span t-field="l.price_tax" t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
                                             </td>
                                             <td class="text-right">
                                                 <span t-field="l.price_subtotal"/>
@@ -292,8 +263,8 @@
                     <div class="row">
                         <div class="col-xs-12 pull-left"
                              style="padding-left:0px; padding-right:0px; page-break-inside: avoid ! important;font-size:10px !important;">
-                            <p t-if="doc.comment">
-                                <span t-field="doc.comment"/>
+                            <p t-if="doc.note">
+                                <span t-field="doc.note"/>
                             </p>
                             <p t-if="doc.payment_term_id.note">
                                 <span t-field="doc.payment_term_id.note"/>
@@ -321,8 +292,7 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="text-center" t-attf-style="border-top: 2px solid #0a4b6e;">
-                            <span t-field="company.name"/>
-                            Firma Autorizada
+                            <span t-field="company.name"/> Firma Autorizada
                         </div>
                     </div>
                     <div class="col-xs-6">
