@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <report
+                id="producer_report"
+                model="mrp.production"
+                string="Orden de produccion Gráficos Ferrua"
+                report_type="qweb-pdf"
+                name="ferrua.ferrua_producer_report"
+                file="ferrua.ferrua_producer_report"
+                attachment_use="False"
+                attachment="False"
+        />
+
+        <template id="ferrua_producer_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.internal_layout">
+                        <t t-if="doc and 'company_id' in doc">
+                            <t t-set="company" t-value="doc.company_id"></t>
+                        </t>
+                        <t t-if="not doc or not 'company_id' in doc">
+                            <t t-set="company" t-value="res_company"></t>
+                        </t>
+                        <div class="page" style="margin-top:0px;">
+                            <br></br>
+                            <br></br>
+                            <div class="container">
+
+
+                                <table class="tg table table-condensed">
+                                    <tr>
+                                        <th class="tg-s6z2" colspan="4">PRODUCCION,FLEXO</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-031e"></td>
+                                        <td class="tg-031e"></td>
+                                        <td class="tg-031e"></td>
+                                        <td class="tg-yw4l"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-e3zv">FECHA</td>
+                                        <td class="tg-031e">13 de,junio del 2016</td>
+                                        <td class="tg-e3zv">ORDEN #</td>
+                                        <td class="tg-yw4l">39222</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-9hbo">PRODUCTO</td>
+                                        <td class="tg-yw4l" colspan="2">SOSUA,REBANADOS Queso Cheddar</td>
+                                        <td class="tg-yw4l">Código,Sigma</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-9hbo">CLIENTE</td>
+                                        <td class="tg-yw4l" colspan="2">SIGMA,ALIMENTOS DOMINICANA, S.A.</td>
+                                        <td class="tg-yw4l">1078071</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l" colspan="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-9hbo">ORDEN DE COMPRA</td>
+                                        <td class="tg-yw4l">4513580220</td>
+                                        <td class="tg-9hbo">CANTIDAD,ORDENADA</td>
+                                        <td class="tg-yw4l">100,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l" colspan="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">PARA ENTREGAR</td>
+                                        <td class="tg-yw4l">23 de,junio</td>
+                                        <td class="tg-yw4l">LARGO DE,LA TIRADA</td>
+                                        <td class="tg-yw4l">100,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">MATERIA,PRIMA</td>
+                                        <td class="tg-yw4l" colspan="3">FASSON,EUROPA</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-baqh" colspan="4">Codigos,Inventario</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">SUSTRATO</td>
+                                        <td class="tg-yw4l">SEMI,GLOSS</td>
+                                        <td class="tg-yw4l">CANTIDAD,DE ROLLOS</td>
+                                        <td class="tg-yw4l">1.97</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">LAMINACION</td>
+                                        <td class="tg-yw4l">TRADICIONAL</td>
+                                        <td class="tg-yw4l">CANTIDAD,DE ROLLOS</td>
+                                        <td class="tg-yw4l">1.97</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">ANCHO,BANDA</td>
+                                        <td class="tg-yw4l">6</td>
+                                        <td class="tg-yw4l">REPITE</td>
+                                        <td class="tg-yw4l">8.5</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-amwm" colspan="4">ESPECIFICACIONES DE IMPRESION</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-amwm"></td>
+                                        <td class="tg-amwm">CILINDRO</td>
+                                        <td class="tg-amwm">ANILOX</td>
+                                        <td class="tg-amwm">COLOR</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">ESTACION,1</td>
+                                        <td class="tg-yw4l">68</td>
+                                        <td class="tg-yw4l">550</td>
+                                        <td class="tg-yw4l">PANTONE,290</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">ESTACION,2</td>
+                                        <td class="tg-yw4l">68</td>
+                                        <td class="tg-yw4l">550</td>
+                                        <td class="tg-yw4l">YELLOW</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">ESTACION,3</td>
+                                        <td class="tg-yw4l">68</td>
+                                        <td class="tg-yw4l">68</td>
+                                        <td class="tg-yw4l">PANTONE,185</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">ESTACION,4</td>
+                                        <td class="tg-yw4l">68</td>
+                                        <td class="tg-yw4l">600</td>
+                                        <td class="tg-yw4l">PANTONE,286</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">ESTACION,5</td>
+                                        <td class="tg-yw4l">68</td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">ESTACION,6</td>
+                                        <td class="tg-yw4l">68</td>
+                                        <td class="tg-yw4l">700</td>
+                                        <td class="tg-yw4l">BLACK</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">ESTACION,7</td>
+                                        <td class="tg-yw4l">68</td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">ESTACION,8</td>
+                                        <td class="tg-yw4l">68</td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-9hbo" colspan="2">ESPECIFICACIONES DE CORTE</td>
+                                        <td class="tg-yw4l">CUCHILLAS,REMOVIBLES</td>
+                                        <td class="tg-yw4l"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">TROQUELADO</td>
+                                        <td class="tg-yw4l">677-S</td>
+                                        <td class="tg-yw4l">CANTIDAD,DE ROLLOS</td>
+                                        <td class="tg-yw4l">2</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">CORTE,LINEAL</td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l">ETIQUETAS,A TRAVES</td>
+                                        <td class="tg-yw4l">2</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">HOJEADO</td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l">ETIQUETAS,ALREDEDOR</td>
+                                        <td class="tg-yw4l">4</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-yw4l"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-9hbo" colspan="2">ESPECIFICACIONES,DE REBOBINADO</td>
+                                        <td class="tg-yw4l">NO. DE,REBOBINADO</td>
+                                        <td class="tg-yw4l">106</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">NO. DE,ETIQUETAS</td>
+                                        <td class="tg-yw4l">500</td>
+                                        <td class="tg-yw4l">CONTEO,A IMPRIMIR</td>
+                                        <td class="tg-yw4l">10,625</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">TOTAL DE,ROLLOS</td>
+                                        <td class="tg-yw4l">200</td>
+                                        <td class="tg-yw4l">ROLLOS,DOBLES_____</td>
+                                        <td class="tg-yw4l">53</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-yw4l">POSICION,REBOBINADO</td>
+                                        <td class="tg-yw4l">/////</td>
+                                        <td class="tg-yw4l">ROLLOS,TRIPLES _____</td>
+                                        <td class="tg-yw4l">35</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <record id="ferrua_producer_paper" model="report.paperformat">
+            <field name="name">Ferrua producer paper</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">7</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="ferrua.producer_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="ferrua.ferrua_producer_paper"/>
+        </record>
+
+
+    </data>
+</openerp>

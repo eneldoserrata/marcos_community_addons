@@ -20,6 +20,8 @@ class ResPartner(models.Model):
 class customized_so_order(models.Model):
     _inherit = "sale.order"
 
+    not_total = fields.Boolean("IMPRIMIR SIN TOTAL", default=False)
+
     @api.multi
     def print_quotation(self):
         """ Method called when print button is clicked

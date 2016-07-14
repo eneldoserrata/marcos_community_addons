@@ -25,6 +25,19 @@
             </field>
         </record>
 
+        <!-- Inherit Form View to Modify it -->
+        <record id="ferrua_report_view_order_form" model="ir.ui.view">
+            <field name="name">ferrua_report_view_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <field name="amount_total" position="after">
+                    <field name="not_total"/>
+                </field>
+
+            </field>
+        </record>
 
     </data>
 </openerp>

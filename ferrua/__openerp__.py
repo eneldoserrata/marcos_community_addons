@@ -29,7 +29,8 @@
         'views/product.xml',
         'views/purchase.xml',
         'views/sale.xml',
-        'reports/picking.xml'
+        'reports/picking.xml',
+        'reports/producer.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
