@@ -243,8 +243,8 @@
                                                 <span t-field="l.price_unit"/>
                                             </td>
                                             <td class="text-right">
-                                                <span t-field="l.tax_amount"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                                                <span t-esc="l.tax_amount"
+                                                t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                             </td>
                                             <td class="text-right">
                                                 <span t-field="l.price_subtotal"/>
@@ -260,35 +260,47 @@
                             <div class="col-xs-6 pull-right"
                                  style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
 
-                                <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
+                                <table class="table table-condensed text-right" t-attf-style="color:#0a4b6e;">
                                     <thead>
                                         <tr>
-                                            <th>SUBTOTAL</th>
-                                            <th>ITBIS</th>
-                                            <th>TOTAL</th>
+                                            <th class="text-right">SUBTOTAL</th>
+                                            <th class="text-right">ITBIS</th>
+                                            <th class="text-right">TOTAL</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
                                                 <span t-field="doc.amount_untaxed"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                             </td>
                                             <td>
                                                 <span t-field="doc.amount_tax"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                             </td>
                                             <td>
                                                 <span style="font-weight:bold; text-decoration:underline;"
                                                       t-field="doc.amount_total"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                             </td>
                                         </tr>
 
                                         <tr t-if="doc.partner_id.two_currency">
                                             <t t-set="local_amount_untaxed" t-value="doc.amount_untaxed*doc.rate"/>
+                                            <t t-set="local_amount_tax" t-value="doc.amount_tax*doc.rate"/>
+                                            <t t-set="local_amount_total" t-value="doc.amount_total*doc.rate"/>
                                             <td>
-                                                <span t-raw="local_amount_untaxed"/>
+                                                <span t-esc="local_amount_untaxed"
+                                                      t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="local_amount_tax"
+                                                      t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                            </td>
+                                            <td>
+                                                <span style="font-weight:bold; text-decoration:underline;"
+                                                      t-esc="local_amount_total"
+                                                      t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
                                             </td>
                                         </tr>
                                     </tbody>
