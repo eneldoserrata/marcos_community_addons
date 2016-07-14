@@ -25,7 +25,7 @@ class mrp_product_produce(osv.osv_memory):
             if not lot:
                 lot_id = self.pool.get("stock.production.lot").create(cr, uid, {"name": active_mo.name, "product_id": res.get("product_id")}, context=context)
             else:
-                lot_id = lot.id
+                lot_id = lot[0]
 
             res.update({"lot_id": lot_id})
         return res
