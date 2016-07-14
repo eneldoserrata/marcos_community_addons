@@ -18,11 +18,17 @@ class mrp_product_produce(osv.osv_memory):
 
     def default_get(self, cr, uid, fields,context={}):
         res = super(mrp_product_produce, self).default_get(cr, uid, fields,context=context)
-        import pdb;pdb.set_trace()
-        if context.get("tracking", False) == "lot" and context.get("consume_produce", False) == "consume_produce":
+
+        if res.get("tracking", False) == "lot" and res.get("mode", False) == "consume_produce":
             active_mo = self.pool.get(context.get("active_model")).browse(cr, uid, context.get("active_id"))
-            lot = self.pool.get("stock.production.lot").search([('name','=',active_mo.name)])
-            import pdb;pdb.set_trace()
+            lot = self.pool.get("stock.production.lot").search(cr, uid, [('name','=',active_mo.name)])
+            if not lot:
+                lot_id = self.pool.get("stock.production.lot").create(cr, uid, {"name": active_mo.name, "product_id": res.get("product_id")}, context=context)
+            else:
+                lot_id = lot.id
+
+            res.update({"lot_id": lot_id})
+        return res
 
 
 class mrp_bom(osv.Model):
