@@ -15,9 +15,6 @@ class ProductGraphicalDesing(models.Model):
     note = fields.Text(u"Descripción")
     state = fields.Selection([('old','Descatalogado'),('new','Activo')], default="old", string="Estado")
 
-    @api.onchange("desing")
-    def onchange_state(self):
-        self.product_id.image_medium = base64.decodestring(self.desing)
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"

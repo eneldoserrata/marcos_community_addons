@@ -29,24 +29,6 @@ class customized_so_order(models.Model):
         return self.env['report'].get_action(self, 'ferrua_report.sale_order')
 
 
-class ParticularReport(models.AbstractModel):
-    _name = 'report.sale.report_sale_order'
-
-    @api.multi
-    def render_html(self, data=None):
-        report_obj = self.env['report']
-        report = report_obj._get_report_from_name('sale.report_sale_order')
-
-        # for order in self:
-        #     order.two_currency = order.partner_id.two_currency
-
-        docargs = {
-            'doc_ids': self._ids,
-            'doc_model': report.model,
-            'docs': self,
-        }
-
-        return report_obj.render('sale.report_sale_order', docargs)
 
 
 class professional_templates(models.Model):
@@ -62,4 +44,21 @@ class professional_templates(models.Model):
         self.ensure_one()
         self.sent = True
         return self.env['report'].get_action(self, 'ferrua_report.report_invoice')
+
+
+class AccountInvoiceReport(models.AbstractModel):
+    _name = 'report.sale.report_sale_order'
+
+    @api.multi
+    def render_html(self, data=None):
+        report_obj = self.env['report']
+        report = report_obj._get_report_from_name('sale.report_sale_order')
+
+        docargs = {
+            'doc_ids': self._ids,
+            'doc_model': report.model,
+            'docs': self,
+        }
+
+        return report_obj.render('sale.report_sale_order', docargs)
 

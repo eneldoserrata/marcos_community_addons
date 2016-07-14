@@ -239,6 +239,7 @@ class Currency_rate_update_service(models.Model):
         curr_obj = self.env['res.currency']
         rate_obj = self.env['res.currency.rate']
 
+        # import pdb;pdb.set_trace()
         company_conf = self.env['account.config.settings'].search([('company_id', '=', self.env.user.company_id.id)])[0]
         # The multi company currency can be set or no so we handle
         # The two case

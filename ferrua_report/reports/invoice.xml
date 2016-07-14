@@ -10,6 +10,8 @@
                 report_type="qweb-pdf"
                 name="ferrua_report.report_invoice"
                 file="ferrua_report.report_invoice"
+                attachment_use="False"
+                attachment="False"
         />
 
 
@@ -282,6 +284,13 @@
                                                       t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
                                             </td>
                                         </tr>
+
+                                        <tr t-if="doc.partner_id.two_currency">
+                                            <t t-set="local_amount_untaxed" t-value="doc.amount_untaxed*doc.rate"/>
+                                            <td>
+                                                <span t-raw="local_amount_untaxed"/>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
 
@@ -316,21 +325,23 @@
 
             </div>
 
-            <div class="footer col-xs-12" t-attf-style="color:#0a4b6e !important; padding-left:0px; padding-right:0px;">
+            <div class="footer col-xs-12" t-attf-style="color:#0a4b6e !important; padding-left:0px; padding-right:0px;font-size:10px !important;">
 
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="text-center" t-attf-style="border-top: 2px solid #0a4b6e;">
-                            <span t-field="company.name"/>
+                            <span t-field="company.name"/><br></br>
                             Firma Autorizada
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <div class="text-center" t-attf-style="border-top: 2px solid #0a4b6e;">
-                            En nombre y representación de "EL ACEPTANTE" (Firma y Sello)
+                            En nombre y representación de "EL ACEPTANTE"<br></br>
+                            (Firma y Sello)
                         </div>
                     </div>
                 </div>
+                <br></br>
 
                 <div class="text-center">
                     <ul t-if="not company.custom_footer" class="list-inline">
@@ -359,7 +370,7 @@
                     </t>
 
                     <ul class="list-inline">
-                        <li>Page:</li>
+                        <li>Pagina:</li>
                         <li>
                             <span class="page"/>
                         </li>

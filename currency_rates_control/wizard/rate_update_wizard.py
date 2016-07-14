@@ -2,6 +2,10 @@
 
 from openerp import models, fields, api, exceptions
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 class RateUpdateWizard(models.TransientModel):
     _name = "update.rate.wizard"
@@ -25,7 +29,8 @@ class RateUpdateWizard(models.TransientModel):
         else:
             try:
                 self.env["currency.rate.update.service"]._run_currency_update()
-            except:
+            except Exception as e:
+                _logger.error("{}".format(e))
                 raise exceptions.ValidationError("Ocurrio un error al intentar actualizar la tasa desde el servidor de internet.")
 
 
