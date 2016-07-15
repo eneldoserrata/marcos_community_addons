@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="ferrua_mrp_bom_form_view" model="ir.ui.view">
+            <field name="name">ferrua_mrp_bom_form_view</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+
+                <field name="code" position="before">
+                    <field name="arte_id"/>
+                    <field name="arte_img" widget="image"/>
+                </field>
+
+                <xpath expr="//notebook//page" position="before">
+                    <page string="ESPECIFICACIONES DE IMPRESION">
+                        <group>
+                        <html>
+                            <table class="tg table table-condensed table-striped table-bordered table-hover">
+                                    <tr>
+                                        <th class="tg-yw4l bg-primary">SUSTRATO</th>
+                                        <td class="tg-yw4l"><field name="sustrato"/></td>
+                                        <th class="tg-yw4l">CANTIDAD DE ROLLOS</th>
+                                        <td class="tg-yw4l text-center"><field name="sustrato_roll"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l bg-primary">LAMINACION</th>
+                                        <td class="tg-yw4l"><field name="laminado"/></td>
+                                        <th class="tg-yw4l">CANTIDAD DE ROLLOS</th>
+                                        <td class="tg-yw4l text-center"><field name="laminado_roll"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">ANCHO BANDA</th>
+                                        <td class="tg-yw4l text-center"><field name="ANCHO_BANDA"/> </td>
+                                        <th class="tg-yw4l bg-primary">REPITE</th>
+                                        <td class="tg-yw4l text-center"><field name="REPITE"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-9hbo" colspan="2"><h2>ESPECIFICACIONES DE CORTE</h2></th>
+                                        <th class="tg-yw4l bg-primary">CUCHILLAS REMOVIBLES</th>
+                                        <td class="tg-yw4l text-center"><field name="CUCHILLAS_REMOVIBLES"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l bg-primary">TROQUELADO</th>
+                                        <td class="tg-yw4l"><field name="TROQUELADO" widget="many2many_tags"/></td>
+                                        <th class="tg-yw4l bg-primary">CANTIDAD DE ROLLOS</th>
+                                        <td class="tg-yw4l text-center"><field name="CANTIDAD_DE_ROLLOS"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l bg-primary">CORTE LINEAL</th>
+                                        <td class="tg-yw4l text-center"><field name="CORTE_LINEAL"/></td>
+                                        <th class="tg-yw4l bg-primary">ETIQUETAS A TRAVES</th>
+                                        <td class="tg-yw4l text-center"><field name="ETIQUETAS_A_TRAVES"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l bg-primary">HOJEADO</th>
+                                        <td class="tg-yw4l text-center"><field name="HOJEADO"/></td>
+                                        <th class="tg-yw4l bg-primary">ETIQUETAS ALREDEDOR</th>
+                                        <td class="tg-yw4l text-center"><field name="ETIQUETAS_AL_REDEDOR"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-9hbo" colspan="2"><h2>ESPECIFICACIONES,DE REBOBINADO</h2></th>
+                                        <th class="tg-yw4l">NO. DE REBOBINADO</th>
+                                        <td class="tg-yw4l text-center"><field name="NO_DE_REBOBINADO"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l bg-primary">NO. DE ETIQUETAS</th>
+                                        <td class="tg-yw4l text-center"><field name="NO_DE_ETIQUETAS"/></td>
+                                        <th class="tg-yw4l">CONTEO A IMPRIMIR</th>
+                                        <td class="tg-yw4l text-center"><field name="CONTEO_A_IMPRIMIR"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">TOTAL DE ROLLOS</th>
+                                        <td class="tg-yw4l text-center"><field name="TOTAL_DE_ROLLOS"/></td>
+                                        <th class="tg-yw4">ROLLOS DOBLES_____</th>
+                                        <td class="tg-yw4l text-center"><field name="ROLLOS_DOBLES"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l bg-primary">POSICION REBOBINADO</th>
+                                        <td class="tg-yw4l">
+                                            <field name="rew" widget="radio" options="{'horizontal': true}"/>
+                                            <br></br>
+                                            <field name="img" widget="image"/>
+                                        </td>
+                                        <th class="tg-yw4l">ROLLOS TRIPLES _____</th>
+                                        <td class="tg-yw4l text-center"><field name="ROLLOS_TRIPLES"/></td>
+                                    </tr>
+                                <tr>
+                                        <th class="tg-amwm" colspan="4"><h2>ESPECIFICACIONES DE IMPRESION</h2></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-amwm"></th>
+                                        <th class="tg-amwm">CILINDRO</th>
+                                        <th class="tg-amwm">ANILOX</th>
+                                        <th class="tg-amwm">COLOR</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">ESTACION 1</th>
+                                        <td class="tg-yw4l text-center"><field name="cilinder_station_1"/></td>
+                                        <td class="tg-yw4l text-center"><field name="anilox_station_1"/></td>
+                                        <td class="tg-yw4l"><field name="color_station_1"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">ESTACION 2</th>
+                                        <td class="tg-yw4l text-center"><field name="cilinder_station_2"/></td>
+                                        <td class="tg-yw4l text-center"><field name="anilox_station_3"/></td>
+                                        <td class="tg-yw4l"><field name="color_station_4"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">ESTACION 3</th>
+                                        <td class="tg-yw4l text-center"><field name="cilinder_station_3"/></td>
+                                        <td class="tg-yw4l text-center"><field name="anilox_station_3"/></td>
+                                        <td class="tg-yw4l"><field name="color_station_3"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">ESTACION 4</th>
+                                        <td class="tg-yw4l text-center"><field name="cilinder_station_4"/></td>
+                                        <td class="tg-yw4l text-center"><field name="anilox_station_4"/></td>
+                                        <td class="tg-yw4l"><field name="color_station_4"/></td>                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">ESTACION 5</th>
+                                        <td class="tg-yw4l text-center"><field name="cilinder_station_5"/></td>
+                                        <td class="tg-yw4l text-center"><field name="anilox_station_5"/></td>
+                                        <td class="tg-yw4l"><field name="color_station_5"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">ESTACION 6</th>
+                                        <td class="tg-yw4l text-center"><field name="cilinder_station_6"/></td>
+                                        <td class="tg-yw4l text-center"><field name="anilox_station_6"/></td>
+                                        <td class="tg-yw4l"><field name="color_station_6"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">ESTACION 7</th>
+                                        <td class="tg-yw4l text-center"><field name="cilinder_station_7"/></td>
+                                        <td class="tg-yw4l text-center"><field name="anilox_station_7"/></td>
+                                        <td class="tg-yw4l"><field name="color_station_7"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-yw4l">ESTACION 8</th>
+                                        <td class="tg-yw4l text-center"><field name="cilinder_station_8"/></td>
+                                        <td class="tg-yw4l text-center"><field name="anilox_station_8"/></td>
+                                        <td class="tg-yw4l"><field name="color_station_8"/></td>
+                                    </tr>
+                                </table>
+                        </html>
+                        </group>
+                        <group>
+                            <field name="note"/>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="rew_img_action" model="ir.actions.act_window">
+            <field name="name">rew_img_action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">img.rew</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="rew_img_action_menu" name="rew" parent="mrp.menu_mrp_bom"
+                  action="rew_img_action"
+                  sequence=""/>
+
+    </data>
+</openerp>

@@ -9,6 +9,7 @@ import base64
 class ProductGraphicalDesing(models.Model):
     _name = 'product.graphical.desing'
 
+    name = fields.Char("Arte", required=True)
     product_id = fields.Many2one("product.template", string="Producto", require=True)
     partner_id = fields.Many2one("res.partner", string="Cliente", require=True)
     desing = fields.Binary(u"Diseño", require=True)

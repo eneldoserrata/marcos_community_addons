@@ -7,12 +7,12 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     @api.model
-    def name_search(self, name, args=None, operator='ilike', limit=100):
+    def name_search(self, name, args=None, operator=u'ilike', limit=100):
 
         result = super(ProductProduct, self).name_search(name, args=args, operator=operator, limit=limit)
 
         if not result:
-            sql = """ SELECT "products_attrs"."id" FROM "products_attrs" WHERE "products_attrs"."name" ILIKE {} """.format("'%{}%'".format(name))
+            sql = u""" SELECT "products_attrs"."id" FROM "products_attrs" WHERE "products_attrs"."name" ILIKE {} """.format(u"'%{}%'".format(name))
             self._cr.execute(sql)
             res = self._cr.fetchall()
             ids = set([id[0] for id in res])

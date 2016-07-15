@@ -9,6 +9,7 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="name"/>
                                 <field name="product_id"/>
                                 <field name="partner_id"/>
                                 <field name="note"/>

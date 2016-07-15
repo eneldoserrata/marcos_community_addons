@@ -1,0 +1,185 @@
+# -*- coding: utf-8 -*-
+
+from openerp import models, fields, api, exceptions
+
+
+class MrpBom(models.Model):
+    _inherit = "mrp.bom"
+
+    @api.multi
+    @api.depends("sustrato","NO_DE_ETIQUETAS","ETIQUETAS_A_TRAVES","REPITE","ETIQUETAS_AL_REDEDOR")
+    def _compute_producer(self):
+        for rec in self:
+            try:
+                if rec.sustrato:
+                    for attr in rec.sustrato.attribute_value_ids:
+                        # print attr.id, attr.name, attr.attribute_id.name
+                        if attr.attribute_id.name == "Banda":
+                            rec.ANCHO_BANDA = float(attr.name)
+                        if attr.attribute_id.name == "Largo":
+                            rec.LARGO = float(attr.name)
+
+
+
+
+                    CANTIDAD = rec.product_uom._compute_qty(rec.product_uom.id, rec.product_qty, rec.product_id.uom_id.id)
+                    rec.ETIQUETAS_A_TRAVES = 1 if rec.ETIQUETAS_A_TRAVES <= 0 else rec.ETIQUETAS_A_TRAVES
+                    rec.REPITE = 1 if rec.REPITE <= 0 else rec.REPITE
+                    rec.ETIQUETAS_AL_REDEDOR = 1 if rec.ETIQUETAS_AL_REDEDOR <= 0 else rec.ETIQUETAS_AL_REDEDOR
+                    rec.CONTEO_A_IMPRIMIR = 1 if rec.CONTEO_A_IMPRIMIR <= 0 else rec.CONTEO_A_IMPRIMIR
+                    rec.NO_DE_ETIQUETAS = 1 if rec.NO_DE_ETIQUETAS <= 0 else rec.NO_DE_ETIQUETAS
+                    rec.LARGO = 1 if rec.LARGO <= 0 else rec.LARGO
+
+
+
+                    rec.CONTEO_A_IMPRIMIR = CANTIDAD/(rec.ETIQUETAS_A_TRAVES*(10/(rec.REPITE/rec.ETIQUETAS_AL_REDEDOR)))
+
+                    rec.sustrato_roll = rec.laminado_roll = (rec.CONTEO_A_IMPRIMIR/rec.LARGO)+0.2
+
+                    rec.NO_DE_REBOBINADO = rec.NO_DE_ETIQUETAS/(10/(rec.REPITE/rec.ETIQUETAS_AL_REDEDOR))
+
+                    rec.ROLLOS_DOBLES = rec.NO_DE_REBOBINADO/2
+                    rec.ROLLOS_TRIPLES = rec.NO_DE_REBOBINADO/3
+                    rec.TOTAL_DE_ROLLOS = CANTIDAD/rec.NO_DE_ETIQUETAS
+
+                    rec.cilinder_station_1 = rec.REPITE*8
+                    rec.cilinder_station_2 = rec.REPITE*8
+                    rec.cilinder_station_3 = rec.REPITE*8
+                    rec.cilinder_station_4 = rec.REPITE*8
+                    rec.cilinder_station_5 = rec.REPITE*8
+                    rec.cilinder_station_6 = rec.REPITE*8
+                    rec.cilinder_station_7 = rec.REPITE*8
+                    rec.cilinder_station_8 = rec.REPITE*8
+            except:
+                pass
+
+
+
+    @api.onchange("sustrato","laminado_roll")
+    def onchange_calc(self):
+        self._compute_producer()
+
+    arte_id = fields.Many2one("product.graphical.desing", string="Codigo del Arte")
+    arte_img = fields.Binary(related="arte_id.desing")
+
+    sustrato_roll = fields.Float(compute=_compute_producer)
+    laminado_roll = fields.Float(compute=_compute_producer)
+    ANCHO_BANDA = fields.Float(compute=_compute_producer)
+    LARGO = fields.Float(compute=_compute_producer)
+    REPITE = fields.Float(default=1)
+
+    CUCHILLAS_REMOVIBLES = fields.Boolean()
+    TROQUELADO = fields.Many2many("product.product", domain=[('categ_id','=',8)])
+    CANTIDAD_DE_ROLLOS = fields.Integer(default=1)
+    CORTE_LINEAL = fields.Boolean()
+    ETIQUETAS_A_TRAVES = fields.Integer(default=1)
+    HOJEADO = fields.Boolean()
+    ETIQUETAS_AL_REDEDOR = fields.Integer(default=1)
+
+    NO_DE_REBOBINADO = fields.Integer(compute=_compute_producer)
+    NO_DE_ETIQUETAS = fields.Integer(default=1)
+    CONTEO_A_IMPRIMIR = fields.Integer(compute=_compute_producer)
+    TOTAL_DE_ROLLOS = fields.Integer(compute=_compute_producer)
+    ROLLOS_DOBLES = fields.Integer(compute=_compute_producer)
+    ROLLOS_TRIPLES = fields.Integer(compute=_compute_producer)
+
+    rew = fields.Many2one("img.rew")
+    img = fields.Binary(related="rew.img")
+
+    sustrato = fields.Many2one("product.product", domain=[('categ_id','=',13)])
+    laminado = fields.Many2one("product.product", domain=[('categ_id','=',10)])
+    color_station_1 = fields.Many2one("product.product", string="Color Estacion 1", domain=[('categ_id','=',11)])
+    color_station_2 = fields.Many2one("product.product", string="Color Estacion 2", domain=[('categ_id','=',11)])
+    color_station_3 = fields.Many2one("product.product", string="Color Estacion 3", domain=[('categ_id','=',11)])
+    color_station_4 = fields.Many2one("product.product", string="Color Estacion 4", domain=[('categ_id','=',11)])
+    color_station_5 = fields.Many2one("product.product", string="Color Estacion 5", domain=[('categ_id','=',11)])
+    color_station_6 = fields.Many2one("product.product", string="Color Estacion 6", domain=[('categ_id','=',11)])
+    color_station_7 = fields.Many2one("product.product", string="Color Estacion 7", domain=[('categ_id','=',11)])
+    color_station_8 = fields.Many2one("product.product", string="Color Estacion 8", domain=[('categ_id','=',11)])
+
+    anilox_station_1 = fields.Char("Anilox Estacion 1")
+    anilox_station_2 = fields.Char("Anilox Estacion 2")
+    anilox_station_3 = fields.Char("Anilox Estacion 3")
+    anilox_station_4 = fields.Char("Anilox Estacion 4")
+    anilox_station_5 = fields.Char("Anilox Estacion 5")
+    anilox_station_6 = fields.Char("Anilox Estacion 6")
+    anilox_station_7 = fields.Char("Anilox Estacion 7")
+    anilox_station_8 = fields.Char("Anilox Estacion 8")
+
+    cilinder_station_1 = fields.Integer("Cilindro Estacion 1", compute=_compute_producer)
+    cilinder_station_2 = fields.Integer("Cilindro Estacion 2", compute=_compute_producer)
+    cilinder_station_3 = fields.Integer("Cilindro Estacion 3", compute=_compute_producer)
+    cilinder_station_4 = fields.Integer("Cilindro Estacion 4", compute=_compute_producer)
+    cilinder_station_5 = fields.Integer("Cilindro Estacion 5", compute=_compute_producer)
+    cilinder_station_6 = fields.Integer("Cilindro Estacion 6", compute=_compute_producer)
+    cilinder_station_7 = fields.Integer("Cilindro Estacion 7", compute=_compute_producer)
+    cilinder_station_8 = fields.Integer("Cilindro Estacion 8", compute=_compute_producer)
+
+    note = fields.Text("Notas")
+    
+    
+    @api.model
+    def create(self, vals):
+        res = super(MrpBom, self).create(vals)
+        res.write({"bom_line_ids": self.create_component_list()})
+        return res
+
+    @api.multi
+    def write(self, vals):
+        vals.update({"bom_line_ids": self.create_component_list()})
+        return super(MrpBom, self).write(vals)
+
+    def create_component_list(self):
+        self.bom_line_ids.unlink()
+        components = []
+        if self.sustrato:
+            components.append([0, False, {"product_id": self.sustrato.id, "product_qty": self.sustrato_roll}])
+
+        if self.laminado:
+            components.append([0, False, {"product_id": self.laminado.id, "product_qty": self.sustrato_roll}])
+
+        if self.color_station_1:
+            components.append([0, False, {"product_id": self.color_station_1.id, "product_qty": 1}])
+
+        if self.color_station_2:
+            components.append([0, False, {"product_id": self.color_station_2.id, "product_qty": 1}])
+
+        if self.color_station_3:
+            components.append([0, False, {"product_id": self.color_station_3.id, "product_qty": 1}])
+
+        if self.color_station_4:
+            components.append([0, False, {"product_id": self.color_station_4.id, "product_qty": 1}])
+
+        if self.color_station_5:
+            components.append([0, False, {"product_id": self.color_station_5.id, "product_qty": 1}])
+
+        if self.color_station_6:
+            components.append([0, False, {"product_id": self.color_station_6.id, "product_qty": 1}])
+
+        if self.color_station_7:
+            components.append([0, False, {"product_id": self.color_station_7.id, "product_qty": 1}])
+
+        if self.color_station_8:
+            components.append([0, False, {"product_id": self.color_station_8.id, "product_qty": 1}])
+
+        return components
+        
+        
+
+class RewImg(models.Model):
+    _name = "img.rew"
+
+    name = fields.Integer()
+    img = fields.Binary()
+
+
+temp = {u'bom_line_ids': [[4, 357, False],
+                          [4, 358, False],
+                          [4, 359, False],
+                          [4, 360, False],
+                          [4, 361, False],
+                          [4, 531, False],
+                          [0, False, {u'product_rounding': 0, u'property_ids': [], u'date_stop': False,
+                                                       u'product_id': 11946, u'product_uom': 1, u'sequence': 4,
+                                                       u'date_start': False, u'product_qty': 1,
+                                                       u'product_efficiency': 1, u'attribute_value_ids': []}]]}

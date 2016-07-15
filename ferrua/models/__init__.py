@@ -5,3 +5,4 @@ import purchase
 import sale
 import stock
 import mrp
+import bom
