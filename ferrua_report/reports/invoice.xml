@@ -31,11 +31,9 @@
             <t t-if="not doc or not 'company_id' in doc">
                 <t t-set="company" t-value="res_company"></t>
             </t>
-            <div class="page" style="margin-top:0px;">
 
-                <div class="row zero_min_height">
-
-
+            <div class="header">
+                <div class="row">
                     <div class="col-xs-6">
                         <img t-if="company.report_logo" t-att-src="'data:image/png;base64,%s' % company.report_logo"
                              style="max-height: 70px;"/>
@@ -74,25 +72,6 @@
                         </p>
                     </div>
                 </div>
-
-                <style>
-                    .info-row {
-                    border-top: 2px solid;
-                    border-top-color: #0a4b6e;
-                    border-bottom: 2px solid;
-                    border-bottom-color: #0a4b6e;
-                    font-size:10px !important;
-                    background-color: #e6e6e6;
-                    padding-bottom: 10px;
-                    }
-                    .info-table {
-                    background-color: #75feff;
-                    padding: 10px;
-                    margin-top:15px
-                    }
-                </style>
-
-                <div class="container">
                     <div class="row text-center" style="background-color: #0a4b6e;color:white;">
                         <h4>
                             <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'final' and (doc.state == 'open' or doc.state == 'paid')">
@@ -120,6 +99,29 @@
                             <span t-field="doc.number"/>
                         </h4>
                     </div>
+            </div>
+
+            <div class="page">
+
+                <style>
+                    .info-row {
+                    border-top: 2px solid;
+                    border-top-color: #0a4b6e;
+                    border-bottom: 2px solid;
+                    border-bottom-color: #0a4b6e;
+                    font-size:10px !important;
+                    background-color: #e6e6e6;
+                    padding-bottom: 10px;
+                    }
+                    .info-table {
+                    background-color: #75feff;
+                    padding: 10px;
+                    margin-top:15px
+                    }
+                </style>
+                <br></br>
+                <div class="container">
+
                     <div class="row info-row">
                         <div class="col-xs-7">
                             <h4 t-if="doc.partner_id">

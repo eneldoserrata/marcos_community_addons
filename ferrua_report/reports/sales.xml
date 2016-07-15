@@ -27,8 +27,8 @@
             <t t-if="not doc or not 'company_id' in doc">
                 <t t-set="company" t-value="res_company"></t>
             </t>
-            <div class="page" style="margin-top:0px;">
-                <div class="row zero_min_height">
+            <div class="header">
+                <div class="row">
                     <div class="col-xs-6">
                         <img t-if="company.report_logo" t-att-src="'data:image/png;base64,%s' % company.report_logo"
                              style="max-height: 70px;"/>
@@ -67,6 +67,16 @@
                         </p>
                     </div>
                 </div>
+                    <div class="row text-center" style="background-color: #0a4b6e;color:white;">
+                        <h4>
+                            <span t-if="doc.state not in ['draft','sent']">ORDEN No.</span>
+                            <span t-if="doc.state in ['draft','sent']">COTIZACIÓN No.</span>
+                            <span t-field="doc.name"/>
+                        </h4>
+                    </div>
+            </div>
+            <div class="page">
+
 
                 <style>
                     .info-row {
@@ -84,15 +94,8 @@
                     margin-top:15px
                     }
                 </style>
-
+                <br></br>
                 <div class="container">
-                    <div class="row text-center" style="background-color: #0a4b6e;color:white;">
-                        <h4>
-                            <span t-if="doc.state not in ['draft','sent']">ORDEN No.</span>
-                            <span t-if="doc.state in ['draft','sent']">COTIZACIÓN No.</span>
-                            <span t-field="doc.name"/>
-                        </h4>
-                    </div>
                     <div class="row info-row">
                         <div class="col-xs-7">
                             <h4 t-if="doc.partner_id">
@@ -178,7 +181,8 @@
                     <br/>
                     <!--line start-->
                     <div class="row">
-                        <div class="col-xs-12" t-attf-style="font-size:10px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+                        <div class="col-xs-12"
+                             t-attf-style="font-size:10px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
                             <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
                                 <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
                                     <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
@@ -213,7 +217,8 @@
                                                 <span t-field="l.price_unit"/>
                                             </td>
                                             <td class="text-right">
-                                                <span t-field="l.price_tax" t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                                                <span t-field="l.price_tax"
+                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
                                             </td>
                                             <td class="text-right">
                                                 <span t-field="l.price_subtotal"/>
@@ -229,7 +234,8 @@
                             <div class="col-xs-6 pull-right"
                                  style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
 
-                                <table t-if="doc.not_total != True" class="table table-condensed" t-attf-style="color:#0a4b6e;">
+                                <table t-if="doc.not_total != True" class="table table-condensed"
+                                       t-attf-style="color:#0a4b6e;">
                                     <thead>
                                         <tr>
                                             <th>SUBTOTAL</th>
@@ -287,18 +293,21 @@
 
             </div>
 
-                        <div class="footer col-xs-12" t-attf-style="color:#0a4b6e !important; padding-left:0px; padding-right:0px;font-size:10px !important;">
+            <div class="footer col-xs-12"
+                 t-attf-style="color:#0a4b6e !important; padding-left:0px; padding-right:0px;font-size:10px !important;">
 
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="text-center" t-attf-style="border-top: 2px solid #0a4b6e;">
-                            <span t-field="company.name"/><br></br>
+                            <span t-field="company.name"/>
+                            <br></br>
                             Firma Autorizada
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <div class="text-center" t-attf-style="border-top: 2px solid #0a4b6e;">
-                            En nombre y representación de "EL ACEPTANTE"<br></br>
+                            En nombre y representación de "EL ACEPTANTE"
+                            <br></br>
                             (Firma y Sello)
                         </div>
                     </div>
