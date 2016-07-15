@@ -207,7 +207,9 @@
                                         <tr t-if="l.product_uom_qty"
                                             t-attf-style="page-break-inside: avoid !important;">
                                             <td class="text-right">
-                                                <span t-field="l.product_uom_qty"/>
+
+                                                <t t-set="format_qty" t-value="l.format_qty()"/>
+                                                <span t-esc="format_qty"/>
                                                 <span t-field="l.product_uom" groups="product.group_uom"/>
                                             </td>
                                             <td>

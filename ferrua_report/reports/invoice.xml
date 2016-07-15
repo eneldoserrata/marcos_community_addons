@@ -235,7 +235,8 @@
                                         <tr t-if="l.quantity"
                                             t-attf-style="page-break-inside: avoid !important;">
                                             <td class="text-right">
-                                                <span t-field="l.quantity"/>
+                                                <t t-set="format_qty" t-value="l.format_qty()"/>
+                                                <span t-esc="format_qty"/>
                                                 <span t-field="l.uom_id" groups="product.group_uom"/>
                                             </td>
                                             <td>

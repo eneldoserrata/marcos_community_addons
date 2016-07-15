@@ -2,6 +2,8 @@
 
 from openerp import models, fields, api
 
+import decimal
+
 
 class ResCompany(models.Model):
     _inherit = "res.company"
@@ -17,7 +19,7 @@ class ResPartner(models.Model):
 
 
 
-class customized_so_order(models.Model):
+class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     not_total = fields.Boolean("IMPRIMIR SIN TOTAL", default=False)
@@ -31,10 +33,17 @@ class customized_so_order(models.Model):
         return self.env['report'].get_action(self, 'ferrua_report.sale_order')
 
 
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    def format_qty(self):
+        qty = decimal.Decimal(self.product_uom_qty)
+        return "{}".format(qty, 0 if qty == qty else 2)
 
 
-class professional_templates(models.Model):
-    _inherit = ["account.invoice"]
+
+class AccountInvoice(models.Model):
+    _inherit = "account.invoice"
 
 
     @api.multi
@@ -48,19 +57,9 @@ class professional_templates(models.Model):
         return self.env['report'].get_action(self, 'ferrua_report.report_invoice')
 
 
-class AccountInvoiceReport(models.AbstractModel):
-    _name = 'report.sale.report_sale_order'
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.invoice.line"
 
-    @api.multi
-    def render_html(self, data=None):
-        report_obj = self.env['report']
-        report = report_obj._get_report_from_name('sale.report_sale_order')
-
-        docargs = {
-            'doc_ids': self._ids,
-            'doc_model': report.model,
-            'docs': self,
-        }
-
-        return report_obj.render('sale.report_sale_order', docargs)
-
+    def format_qty(self):
+        qty = decimal.Decimal(self.quantity)
+        return "{}".format(qty, 0 if qty == qty else 2)
