@@ -92,56 +92,65 @@
                                     </tr>
                                     <tr>
                                         <th class="tg-amwm"></th>
+                                        <th class="tg-amwm">COLOR</th>
                                         <th class="tg-amwm">CILINDRO</th>
                                         <th class="tg-amwm">ANILOX</th>
-                                        <th class="tg-amwm">COLOR</th>
+
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 1</th>
+                                        <td class="tg-yw4l"><field name="color_station_1"/></td>
                                         <td class="tg-yw4l text-center"><field name="cilinder_station_1"/></td>
                                         <td class="tg-yw4l text-center"><field name="anilox_station_1"/></td>
-                                        <td class="tg-yw4l"><field name="color_station_1"/></td>
+
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 2</th>
+                                        <td class="tg-yw4l"><field name="color_station_2"/></td>
                                         <td class="tg-yw4l text-center"><field name="cilinder_station_2"/></td>
-                                        <td class="tg-yw4l text-center"><field name="anilox_station_3"/></td>
-                                        <td class="tg-yw4l"><field name="color_station_4"/></td>
+                                        <td class="tg-yw4l text-center"><field name="anilox_station_2"/></td>
+
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 3</th>
+                                        <td class="tg-yw4l"><field name="color_station_3"/></td>
                                         <td class="tg-yw4l text-center"><field name="cilinder_station_3"/></td>
                                         <td class="tg-yw4l text-center"><field name="anilox_station_3"/></td>
-                                        <td class="tg-yw4l"><field name="color_station_3"/></td>
+
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 4</th>
+                                        <td class="tg-yw4l"><field name="color_station_4"/></td>
                                         <td class="tg-yw4l text-center"><field name="cilinder_station_4"/></td>
                                         <td class="tg-yw4l text-center"><field name="anilox_station_4"/></td>
-                                        <td class="tg-yw4l"><field name="color_station_4"/></td>                                    </tr>
+                                                                            </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 5</th>
+                                        <td class="tg-yw4l"><field name="color_station_5"/></td>
                                         <td class="tg-yw4l text-center"><field name="cilinder_station_5"/></td>
                                         <td class="tg-yw4l text-center"><field name="anilox_station_5"/></td>
-                                        <td class="tg-yw4l"><field name="color_station_5"/></td>
+
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 6</th>
+                                        <td class="tg-yw4l"><field name="color_station_6"/></td>
                                         <td class="tg-yw4l text-center"><field name="cilinder_station_6"/></td>
                                         <td class="tg-yw4l text-center"><field name="anilox_station_6"/></td>
-                                        <td class="tg-yw4l"><field name="color_station_6"/></td>
+
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 7</th>
+                                        <td class="tg-yw4l"><field name="color_station_7"/></td>
                                         <td class="tg-yw4l text-center"><field name="cilinder_station_7"/></td>
                                         <td class="tg-yw4l text-center"><field name="anilox_station_7"/></td>
-                                        <td class="tg-yw4l"><field name="color_station_7"/></td>
+
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 8</th>
+                                        <td class="tg-yw4l"><field name="color_station_8"/></td>
                                         <td class="tg-yw4l text-center"><field name="cilinder_station_8"/></td>
                                         <td class="tg-yw4l text-center"><field name="anilox_station_8"/></td>
-                                        <td class="tg-yw4l"><field name="color_station_8"/></td>
+
                                     </tr>
                                 </table>
                         </html>
@@ -170,9 +179,9 @@
             </field>
         </record>
 
-        <menuitem id="rew_img_action_menu" name="rew" parent="mrp.menu_mrp_bom"
-                  action="rew_img_action"
-                  sequence=""/>
+        <!--<menuitem id="rew_img_action_menu" name="rew" parent="mrp.menu_mrp_bom"-->
+                  <!--action="rew_img_action"-->
+                  <!--sequence=""/>-->
 
     </data>
 </openerp>

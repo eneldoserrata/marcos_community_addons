@@ -13,14 +13,17 @@ class MrpBom(models.Model):
             try:
                 if rec.sustrato:
                     for attr in rec.sustrato.attribute_value_ids:
-                        # print attr.id, attr.name, attr.attribute_id.name
                         if attr.attribute_id.name == "Banda":
                             rec.ANCHO_BANDA = float(attr.name)
                         if attr.attribute_id.name == "Largo":
                             rec.LARGO = float(attr.name)
 
-
-
+                if rec.laminado:
+                    for attr in rec.laminado.attribute_value_ids:
+                        if attr.attribute_id.name == "Banda":
+                            rec.LAMINADO_ANCHO_BANDA = float(attr.name)
+                        if attr.attribute_id.name == "Largo":
+                            rec.LAMINADO_LARGO = float(attr.name)
 
                     CANTIDAD = rec.product_uom._compute_qty(rec.product_uom.id, rec.product_qty, rec.product_id.uom_id.id)
                     rec.ETIQUETAS_A_TRAVES = 1 if rec.ETIQUETAS_A_TRAVES <= 0 else rec.ETIQUETAS_A_TRAVES
@@ -34,7 +37,8 @@ class MrpBom(models.Model):
 
                     rec.CONTEO_A_IMPRIMIR = CANTIDAD/(rec.ETIQUETAS_A_TRAVES*(10/(rec.REPITE/rec.ETIQUETAS_AL_REDEDOR)))
 
-                    rec.sustrato_roll = rec.laminado_roll = (rec.CONTEO_A_IMPRIMIR/rec.LARGO)+0.2
+                    rec.sustrato_roll = (rec.CONTEO_A_IMPRIMIR/rec.LARGO)+0.2
+                    rec.laminado_roll = (rec.CONTEO_A_IMPRIMIR/rec.LAMINADO_LARGO)+0.2
 
                     rec.NO_DE_REBOBINADO = rec.NO_DE_ETIQUETAS/(10/(rec.REPITE/rec.ETIQUETAS_AL_REDEDOR))
 
@@ -66,6 +70,8 @@ class MrpBom(models.Model):
     laminado_roll = fields.Float(compute=_compute_producer)
     ANCHO_BANDA = fields.Float(compute=_compute_producer)
     LARGO = fields.Float(compute=_compute_producer)
+    LAMINADO_ANCHO_BANDA = fields.Float(compute=_compute_producer)
+    LAMINADO_LARGO = fields.Float(compute=_compute_producer)
     REPITE = fields.Float(default=1)
 
     CUCHILLAS_REMOVIBLES = fields.Boolean()
@@ -136,7 +142,7 @@ class MrpBom(models.Model):
             components.append([0, False, {"product_id": self.sustrato.id, "product_qty": self.sustrato_roll}])
 
         if self.laminado:
-            components.append([0, False, {"product_id": self.laminado.id, "product_qty": self.sustrato_roll}])
+            components.append([0, False, {"product_id": self.laminado.id, "product_qty": self.laminado_roll}])
 
         if self.color_station_1:
             components.append([0, False, {"product_id": self.color_station_1.id, "product_qty": 1}])

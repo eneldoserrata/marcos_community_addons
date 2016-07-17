@@ -31,7 +31,8 @@
         'views/sale.xml',
         'views/bom_view.xml',
         'reports/picking.xml',
-        'reports/producer.xml'
+        'reports/producer.xml',
+        'reports/bom.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

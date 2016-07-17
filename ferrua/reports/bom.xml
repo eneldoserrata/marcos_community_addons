@@ -4,17 +4,17 @@
 
 
         <report
-                id="producer_report"
-                model="mrp.production"
-                string="Orden de produccion Gráficos Ferrua"
+                id="bom_report"
+                model="mrp.bom"
+                string="Lista de materiales Gráficos Ferrua"
                 report_type="qweb-pdf"
-                name="ferrua.ferrua_producer_report"
-                file="ferrua.ferrua_producer_report"
+                name="ferrua.ferrua_bom_report"
+                file="ferrua.ferrua_bom_report"
                 attachment_use="False"
                 attachment="False"
         />
 
-        <template id="ferrua_producer_report">
+        <template id="ferrua_bom_report">
             <t t-call="report.html_container">
                 <t t-foreach="docs" t-as="o">
                     <t t-call="report.internal_layout">
@@ -31,90 +31,45 @@
                                 <table class="tg table table-condensed table-striped table-bordered"
                                        style="font-size:10px !important">
                                     <tr>
-                                        <th class="tg-s6z2 text-center" colspan="4">
-                                            <strong>PRODUCCIÓN FLEXO</strong>
+                                        <th class="tg-s6z2 text-center success" colspan="4">
+                                            <h4>
+                                                <span t-field="o.product_id"/>
+                                            </h4>
                                         </th>
-                                    </tr>
-                                    <tr>
-                                        <th class="tg-e3zv">FECHA</th>
-                                        <td class="tg-yw4l text-center">
-                                            <span t-field="o.date_planned"/>
-                                        </td>
-                                        <th class="tg-e3zv">ORDEN #</th>
-                                        <td class="tg-yw4l text-center">
-                                            <span t-field="o.name"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="tg-9hbo">PRODUCTO</th>
-                                        <td class="tg-yw4l" colspan="2">
-                                            <span t-field="o.product_id"/>
-                                        </td>
-                                        <th class="tg-yw4l text-center">Código Sigma</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="tg-9hbo">CLIENTE</th>
-                                        <td class="tg-yw4l" colspan="2">
-                                            <span t-field="o.partner_id"/>
-                                        </td>
-                                        <td class="tg-yw4l text-center">
-                                            <span t-field="o.product_id.default_code"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="tg-9hbo">ORDEN DE COMPRA</th>
-                                        <td class="tg-yw4l text-center">
-                                            <span t-field="o.sale_ref"/>
-                                        </td>
-                                        <th class="tg-9hbo">CANTIDAD ORDENADA</th>
-                                        <td class="tg-yw4l text-center">
-                                            <span t-field="o.product_qty"/>
-                                            |
-                                            <span t-field="o.product_uom"/>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th class="tg-yw4l">PARA ENTREGAR</th>
-                                        <td class="tg-yw4l text-center">
-                                            <span t-field="o.commitment_date"/>
-                                        </td>
-                                        <th class="tg-yw4l">LARGO DE LA TIRADA</th>
-                                        <td class="tg-yw4l">cantidad pedida menos existencia</td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">SUSTRATO</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.sustrato"/>
+                                            <span t-field="o.sustrato"/>
                                         </td>
                                         <th class="tg-yw4l">CANTIDAD DE ROLLOS</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.sustrato_roll"/>
+                                            <span t-field="o.sustrato_roll"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">LAMINACION</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.laminado"/>
+                                            <span t-field="o.laminado"/>
                                         </td>
                                         <th class="tg-yw4l">CANTIDAD DE ROLLOS</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.laminado_roll"/>
+                                            <span t-field="o.laminado_roll"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ANCHO BANDA</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.ANCHO_BANDA"/>
+                                            <span t-field="o.ANCHO_BANDA"/>
                                         </td>
                                         <th class="tg-yw4l">REPITE</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.REPITE"/>
+                                            <span t-field="o.REPITE"/>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tg-amwm text-center" colspan="4">
-                                            <strong>ESPECIFICACIONES DE IMPRESION</strong>
+                                        <td class="tg-amwm text-center success" colspan="4">
+                                            <h6>ESPECIFICACIONES DE IMPRESION</h6>
                                         </td>
                                     </tr>
                                     <tr>
@@ -126,187 +81,185 @@
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 1</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.color_station_1"/>
+                                            <span t-field="o.color_station_1"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.cilinder_station_1"/>
+                                            <span t-field="o.cilinder_station_1"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.anilox_station_1"/>
+                                            <span t-field="o.anilox_station_1"/>
                                         </td>
 
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 2</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.color_station_2"/>
+                                            <span t-field="o.color_station_2"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.cilinder_station_2"/>
+                                            <span t-field="o.cilinder_station_2"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.anilox_station_2"/>
+                                            <span t-field="o.anilox_station_2"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 3</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.color_station_3"/>
+                                            <span t-field="o.color_station_3"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.cilinder_station_3"/>
+                                            <span t-field="o.cilinder_station_3"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.anilox_station_3"/>
+                                            <span t-field="o.anilox_station_3"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 4</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.color_station_4"/>
+                                            <span t-field="o.color_station_4"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.cilinder_station_4"/>
+                                            <span t-field="o.cilinder_station_4"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.anilox_station_4"/>
+                                            <span t-field="o.anilox_station_4"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 5</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.color_station_5"/>
+                                            <span t-field="o.color_station_5"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.cilinder_station_5"/>
+                                            <span t-field="o.cilinder_station_5"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.anilox_station_5"/>
+                                            <span t-field="o.anilox_station_5"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 6</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.color_station_6"/>
+                                            <span t-field="o.color_station_6"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.cilinder_station_6"/>
+                                            <span t-field="o.cilinder_station_6"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.anilox_station_6"/>
+                                            <span t-field="o.anilox_station_6"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 7</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.color_station_7"/>
+                                            <span t-field="o.color_station_7"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.cilinder_station_7"/>
+                                            <span t-field="o.cilinder_station_7"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.anilox_station_7"/>
+                                            <span t-field="o.anilox_station_7"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">ESTACION 8</th>
                                         <td class="tg-yw4l">
-                                            <span t-field="o.bom_id.color_station_8"/>
+                                            <span t-field="o.color_station_8"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.cilinder_station_8"/>
+                                            <span t-field="o.cilinder_station_8"/>
                                         </td>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.anilox_station_8"/>
+                                            <span t-field="o.anilox_station_8"/>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tg-9hbo text-center" colspan="2">
-                                            <strong>ESPECIFICACIONES DE CORTE</strong>
+                                        <td class="tg-9hbo text-center success" colspan="2">
+                                            <h6>ESPECIFICACIONES DE CORTE</h6>
                                         </td>
                                         <th class="tg-yw4l">CUCHILLAS REMOVIBLES</th>
                                         <td class="tg-yw4l text-center">
-                                            <input type="checkbox" t-att-checked="o.bom_id.CUCHILLAS_REMOVIBLES"/>
+                                            <input type="checkbox" t-att-checked="o.CUCHILLAS_REMOVIBLES"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">TROQUELADO</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-esc="', '.join(map(lambda x: x.name, o.bom_id.TROQUELADO))"/>
+                                            <span t-esc="', '.join(map(lambda x: x.name, o.TROQUELADO))"/>
                                         </td>
                                         <th class="tg-yw4l">CANTIDAD DE ROLLOS</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.CANTIDAD_DE_ROLLOS"/>
+                                            <span t-field="o.CANTIDAD_DE_ROLLOS"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">CORTE LINEAL</th>
                                         <td class="tg-yw4l text-center">
-                                            <input type="checkbox" t-att-checked="o.bom_id.CORTE_LINEAL"/>
+                                            <input type="checkbox" t-att-checked="o.CORTE_LINEAL"/>
                                         </td>
                                         <th class="tg-yw4l">ETIQUETAS A TRAVES</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.ETIQUETAS_A_TRAVES"/>
+                                            <span t-field="o.ETIQUETAS_A_TRAVES"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">HOJEADO</th>
                                         <td class="tg-yw4l text-center">
-                                            <input type="checkbox" t-att-checked="o.bom_id.HOJEADO"/>
+                                            <input type="checkbox" t-att-checked="o.HOJEADO"/>
                                         </td>
                                         <th class="tg-yw4l">ETIQUETAS ALREDEDOR</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.ETIQUETAS_AL_REDEDOR"/>
+                                            <span t-field="o.ETIQUETAS_AL_REDEDOR"/>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="tg-9hbo text-center" colspan="2">
-                                            <strong>ESPECIFICACIONES DE REBOBINADO</strong>
+                                        <td class="tg-9hbo text-center success" colspan="2">
+                                            <h6>ESPECIFICACIONES DE REBOBINADO</h6>
                                         </td>
                                         <th class="tg-yw4l">NO. DE REBOBINADO</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.NO_DE_REBOBINADO"/>
+                                            <span t-field="o.NO_DE_REBOBINADO"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">NO. DE ETIQUETAS</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.NO_DE_ETIQUETAS"/>
+                                            <span t-field="o.NO_DE_ETIQUETAS"/>
                                         </td>
                                         <th class="tg-yw4l">CONTEO A IMPRIMIR</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.CONTEO_A_IMPRIMIR"/>
+                                            <span t-field="o.CONTEO_A_IMPRIMIR"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">TOTAL DE ROLLOS</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.TOTAL_DE_ROLLOS"/>
+                                            <span t-field="o.TOTAL_DE_ROLLOS"/>
                                         </td>
                                         <th class="tg-yw4l">ROLLOS DOBLES_____</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.ROLLOS_DOBLES"/>
+                                            <span t-field="o.ROLLOS_DOBLES"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="tg-yw4l">POSICION REBOBINADO</th>
                                         <td class="tg-yw4l text-center">
-                                            <img t-if="o.bom_id.img"
-                                                 t-att-src="'data:image/png;base64,%s' % o.bom_id.img"
+                                            <img t-if="o.img" t-att-src="'data:image/png;base64,%s' % o.img"
                                                  style="max-height: 100px;"/>
                                         </td>
                                         <th class="tg-yw4l">ROLLOS TRIPLES _____</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-field="o.bom_id.ROLLOS_TRIPLES"/>
+                                            <span t-field="o.ROLLOS_TRIPLES"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <p t-field="o.bom_id.note"/>
+                                            <p t-field="o.note"/>
                                         </td>
                                     </tr>
                                 </table>
-
                             </div>
                         </div>
                     </t>
@@ -315,23 +268,7 @@
         </template>
 
 
-        <record id="ferrua_producer_paper" model="report.paperformat">
-            <field name="name">Ferrua producer paper</field>
-            <field name="default" eval="True"/>
-            <field name="format">Letter</field>
-            <field name="page_height">0</field>
-            <field name="page_width">0</field>
-            <field name="orientation">Portrait</field>
-            <field name="margin_top">7</field>
-            <field name="margin_bottom">20</field>
-            <field name="margin_left">7</field>
-            <field name="margin_right">7</field>
-            <field name="header_line" eval="False"/>
-            <field name="header_spacing">0</field>
-            <field name="dpi">90</field>
-        </record>
-
-        <record id="ferrua.producer_report" model="ir.actions.report.xml">
+        <record id="ferrua.bom_report" model="ir.actions.report.xml">
             <field name="paperformat_id" ref="ferrua.ferrua_producer_paper"/>
         </record>
 
