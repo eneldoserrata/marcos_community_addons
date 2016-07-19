@@ -274,12 +274,12 @@
                             <p t-if="doc.note">
                                 <span t-field="doc.note"/>
                             </p>
-                            <p t-if="doc.payment_term_id.note">
-                                <span t-field="doc.payment_term_id.note"/>
-                            </p>
-                            <p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">
-                                <span t-field="doc.partner_id.property_payment_term_id.note"/>
-                            </p>
+                            <!--<p t-if="doc.payment_term_id.note">-->
+                                <!--<span t-field="doc.payment_term_id.note"/>-->
+                            <!--</p>-->
+                            <!--<p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">-->
+                                <!--<span t-field="doc.partner_id.property_payment_term_id.note"/>-->
+                            <!--</p>-->
                             <p id="fiscal_position_remark"
                                t-if="doc.fiscal_position_id.note and doc.fiscal_position_id">
                                 <strong>Posición fiscal:</strong>
