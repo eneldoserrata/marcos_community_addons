@@ -187,7 +187,7 @@
                                     <tr>
                                         <th class="tg-yw4l">TROQUELADO</th>
                                         <td class="tg-yw4l text-center">
-                                            <span t-esc="', '.join(map(lambda x: x.name, o.TROQUELADO))"/>
+                                            <span t-esc="', '.join(map(lambda x: x.default_code, o.TROQUELADO))"/>
                                         </td>
                                         <th class="tg-yw4l">CANTIDAD DE ROLLOS</th>
                                         <td class="tg-yw4l text-center">

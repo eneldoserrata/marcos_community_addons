@@ -50,16 +50,16 @@
                                         <td class="tg-yw4l" colspan="2">
                                             <span t-field="o.product_id"/>
                                         </td>
-                                        <th class="tg-yw4l text-center">Código Sigma</th>
+                                        <th class="tg-yw4l text-center">Código Etiqueta: <span t-field="o.product_id.default_code"/></th>
                                     </tr>
                                     <tr>
                                         <th class="tg-9hbo">CLIENTE</th>
                                         <td class="tg-yw4l" colspan="2">
                                             <span t-field="o.partner_id"/>
                                         </td>
-                                        <td class="tg-yw4l text-center">
-                                            <span t-field="o.product_id.default_code"/>
-                                        </td>
+
+                                        <th class="tg-yw4l text-center">Código de barra: <span t-field="o.product_id.barcode"/></th>
+
                                     </tr>
                                     <tr>
                                         <th class="tg-9hbo">ORDEN DE COMPRA</th>
@@ -289,7 +289,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="tg-yw4l">POSICION REBOBINADO</th>
+                                        <td class="tg-yw4l">
+                                            <img t-if="o.bom_id.img"
+                                                 t-att-src="'data:image/png;base64,%s' % o.bom_id.arte_img"
+                                                 style="max-height: 100px;"/>
+                                        </td>
                                         <td class="tg-yw4l text-center">
                                             <img t-if="o.bom_id.img"
                                                  t-att-src="'data:image/png;base64,%s' % o.bom_id.img"
