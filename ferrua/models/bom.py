@@ -10,52 +10,59 @@ class MrpBom(models.Model):
     @api.depends("sustrato","NO_DE_ETIQUETAS","ETIQUETAS_A_TRAVES","REPITE","ETIQUETAS_AL_REDEDOR")
     def _compute_producer(self):
         for rec in self:
-            try:
-                if rec.sustrato:
-                    for attr in rec.sustrato.attribute_value_ids:
-                        if attr.attribute_id.name == "Banda":
-                            rec.ANCHO_BANDA = float(attr.name)
-                        if attr.attribute_id.name == "Largo":
-                            rec.LARGO = float(attr.name)
 
-                if rec.laminado:
-                    for attr in rec.laminado.attribute_value_ids:
-                        if attr.attribute_id.name == "Banda":
-                            rec.LAMINADO_ANCHO_BANDA = float(attr.name)
-                        if attr.attribute_id.name == "Largo":
-                            rec.LAMINADO_LARGO = float(attr.name)
+            rec.ANCHO_BANDA = 1
+            rec.LARGO = 1
+            rec.LAMINADO_ANCHO_BANDA = 1
+            rec.LAMINADO_LARGO = 1
+            if rec.sustrato:
+                for attr in rec.sustrato.attribute_value_ids:
+                    if attr.attribute_id.name == "Banda":
+                        rec.ANCHO_BANDA = float(attr.name)
+                    if attr.attribute_id.name == "Largo":
+                        rec.LARGO = (float(attr.name)*12)/10
 
-                    CANTIDAD = rec.product_uom._compute_qty(rec.product_uom.id, rec.product_qty, rec.product_id.uom_id.id)
-                    rec.ETIQUETAS_A_TRAVES = 1 if rec.ETIQUETAS_A_TRAVES <= 0 else rec.ETIQUETAS_A_TRAVES
-                    rec.REPITE = 1 if rec.REPITE <= 0 else rec.REPITE
-                    rec.ETIQUETAS_AL_REDEDOR = 1 if rec.ETIQUETAS_AL_REDEDOR <= 0 else rec.ETIQUETAS_AL_REDEDOR
-                    rec.CONTEO_A_IMPRIMIR = 1 if rec.CONTEO_A_IMPRIMIR <= 0 else rec.CONTEO_A_IMPRIMIR
-                    rec.NO_DE_ETIQUETAS = 1 if rec.NO_DE_ETIQUETAS <= 0 else rec.NO_DE_ETIQUETAS
-                    rec.LARGO = 1 if rec.LARGO <= 0 else rec.LARGO
+            if rec.laminado:
+                for attr in rec.laminado.attribute_value_ids:
+                    if attr.attribute_id.name == "Banda":
+                        rec.LAMINADO_ANCHO_BANDA = float(attr.name)
+                    if attr.attribute_id.name == "Largo":
+                        rec.LAMINADO_LARGO = (float(attr.name)*12)/10
+
+            CANTIDAD = rec.product_uom._compute_qty(rec.product_uom.id, rec.product_qty, rec.product_id.uom_id.id)
+            rec.ETIQUETAS_A_TRAVES = 1 if rec.ETIQUETAS_A_TRAVES <= 0 else rec.ETIQUETAS_A_TRAVES
+            rec.REPITE = 1 if rec.REPITE <= 0 else rec.REPITE
+            rec.ETIQUETAS_AL_REDEDOR = 1 if rec.ETIQUETAS_AL_REDEDOR <= 0 else rec.ETIQUETAS_AL_REDEDOR
+            rec.CONTEO_A_IMPRIMIR = 1 if rec.CONTEO_A_IMPRIMIR <= 0 else rec.CONTEO_A_IMPRIMIR
+            rec.NO_DE_ETIQUETAS = 1 if rec.NO_DE_ETIQUETAS <= 0 else rec.NO_DE_ETIQUETAS
+            rec.LARGO = 1 if rec.LARGO <= 0 else rec.LARGO
 
 
+            rec.CONTEO_A_IMPRIMIR = CANTIDAD/(rec.ETIQUETAS_A_TRAVES*(10/(rec.REPITE/rec.ETIQUETAS_AL_REDEDOR)))
 
-                    rec.CONTEO_A_IMPRIMIR = CANTIDAD/(rec.ETIQUETAS_A_TRAVES*(10/(rec.REPITE/rec.ETIQUETAS_AL_REDEDOR)))
+            rec.sustrato_roll = ((rec.CONTEO_A_IMPRIMIR+1200)/rec.LARGO)
 
-                    rec.sustrato_roll = (rec.CONTEO_A_IMPRIMIR/rec.LARGO)+0.2
-                    rec.laminado_roll = (rec.CONTEO_A_IMPRIMIR/rec.LAMINADO_LARGO)+0.2
+            if rec.LAMINADO_LARGO > 1:
+                rec.laminado_roll = (rec.CONTEO_A_IMPRIMIR/rec.LAMINADO_LARGO)
+            else:
+                rec.laminado_roll = 0
 
-                    rec.NO_DE_REBOBINADO = rec.NO_DE_ETIQUETAS/(10/(rec.REPITE/rec.ETIQUETAS_AL_REDEDOR))
+            rec.NO_DE_REBOBINADO = rec.NO_DE_ETIQUETAS/(10/(rec.REPITE/rec.ETIQUETAS_AL_REDEDOR))
 
-                    rec.ROLLOS_DOBLES = rec.NO_DE_REBOBINADO/2
-                    rec.ROLLOS_TRIPLES = rec.NO_DE_REBOBINADO/3
-                    rec.TOTAL_DE_ROLLOS = CANTIDAD/rec.NO_DE_ETIQUETAS
+            rec.ROLLOS_DOBLES = rec.NO_DE_REBOBINADO/2
+            rec.ROLLOS_TRIPLES = rec.NO_DE_REBOBINADO/3
 
-                    rec.cilinder_station_1 = rec.REPITE*8
-                    rec.cilinder_station_2 = rec.REPITE*8
-                    rec.cilinder_station_3 = rec.REPITE*8
-                    rec.cilinder_station_4 = rec.REPITE*8
-                    rec.cilinder_station_5 = rec.REPITE*8
-                    rec.cilinder_station_6 = rec.REPITE*8
-                    rec.cilinder_station_7 = rec.REPITE*8
-                    rec.cilinder_station_8 = rec.REPITE*8
-            except:
-                pass
+            rec.TOTAL_DE_ROLLOS = CANTIDAD/rec.NO_DE_ETIQUETAS
+
+            rec.cilinder_station_1 = rec.REPITE*8
+            rec.cilinder_station_2 = rec.REPITE*8
+            rec.cilinder_station_3 = rec.REPITE*8
+            rec.cilinder_station_4 = rec.REPITE*8
+            rec.cilinder_station_5 = rec.REPITE*8
+            rec.cilinder_station_6 = rec.REPITE*8
+            rec.cilinder_station_7 = rec.REPITE*8
+            rec.cilinder_station_8 = rec.REPITE*8
+
 
 
 
@@ -85,7 +92,7 @@ class MrpBom(models.Model):
     NO_DE_REBOBINADO = fields.Integer(compute=_compute_producer)
     NO_DE_ETIQUETAS = fields.Integer(default=1)
     CONTEO_A_IMPRIMIR = fields.Integer(compute=_compute_producer)
-    TOTAL_DE_ROLLOS = fields.Integer(compute=_compute_producer)
+    TOTAL_DE_ROLLOS = fields.Float(compute=_compute_producer)
     ROLLOS_DOBLES = fields.Integer(compute=_compute_producer)
     ROLLOS_TRIPLES = fields.Integer(compute=_compute_producer)
 
@@ -170,22 +177,9 @@ class MrpBom(models.Model):
 
         return components
         
-        
 
 class RewImg(models.Model):
     _name = "img.rew"
 
     name = fields.Integer()
     img = fields.Binary()
-
-
-temp = {u'bom_line_ids': [[4, 357, False],
-                          [4, 358, False],
-                          [4, 359, False],
-                          [4, 360, False],
-                          [4, 361, False],
-                          [4, 531, False],
-                          [0, False, {u'product_rounding': 0, u'property_ids': [], u'date_stop': False,
-                                                       u'product_id': 11946, u'product_uom': 1, u'sequence': 4,
-                                                       u'date_start': False, u'product_qty': 1,
-                                                       u'product_efficiency': 1, u'attribute_value_ids': []}]]}
