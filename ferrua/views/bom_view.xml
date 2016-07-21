@@ -179,9 +179,9 @@
             </field>
         </record>
 
-        <!--<menuitem id="rew_img_action_menu" name="rew" parent="mrp.menu_mrp_bom"-->
-                  <!--action="rew_img_action"-->
-                  <!--sequence=""/>-->
+        <menuitem id="rew_img_action_menu" name="Imagenes de rebobinado" parent="mrp.menu_mrp_bom"
+                  action="rew_img_action"
+                  sequence=""/>
 
     </data>
 </openerp>

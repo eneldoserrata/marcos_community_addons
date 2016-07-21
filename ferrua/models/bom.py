@@ -134,48 +134,49 @@ class MrpBom(models.Model):
     @api.model
     def create(self, vals):
         res = super(MrpBom, self).create(vals)
-        res.write({"bom_line_ids": self.create_component_list()})
+        self.update_component_list()
         return res
 
     @api.multi
     def write(self, vals):
-        vals.update({"bom_line_ids": self.create_component_list()})
-        return super(MrpBom, self).write(vals)
+        res = super(MrpBom, self).write(vals)
+        self.update_component_list()
+        return res
 
-    def create_component_list(self):
-        self.bom_line_ids.unlink()
-        components = []
+    def update_component_list(self):
+        bom_line = self.env["mrp.bom.line"]
+
+        bom_line.search([("bom_id",'=',self.id)]).unlink()
+
         if self.sustrato:
-            components.append([0, False, {"product_id": self.sustrato.id, "product_qty": self.sustrato_roll}])
+            bom_line.create({"bom_id": self.id, "product_id": self.sustrato.id, "product_qty": self.sustrato_roll})
 
         if self.laminado:
-            components.append([0, False, {"product_id": self.laminado.id, "product_qty": self.laminado_roll}])
+            bom_line.create({"bom_id": self.id, "product_id": self.laminado.id, "product_qty": self.laminado_roll})
 
         if self.color_station_1:
-            components.append([0, False, {"product_id": self.color_station_1.id, "product_qty": 1}])
+            bom_line.create({"bom_id": self.id, "product_id": self.color_station_1.id, "product_qty": 1})
 
         if self.color_station_2:
-            components.append([0, False, {"product_id": self.color_station_2.id, "product_qty": 1}])
+            bom_line.create({"bom_id": self.id, "product_id": self.color_station_2.id, "product_qty": 1})
 
         if self.color_station_3:
-            components.append([0, False, {"product_id": self.color_station_3.id, "product_qty": 1}])
+            bom_line.create({"bom_id": self.id, "product_id": self.color_station_3.id, "product_qty": 1})
 
         if self.color_station_4:
-            components.append([0, False, {"product_id": self.color_station_4.id, "product_qty": 1}])
+            bom_line.create({"bom_id": self.id, "product_id": self.color_station_4.id, "product_qty": 1})
 
         if self.color_station_5:
-            components.append([0, False, {"product_id": self.color_station_5.id, "product_qty": 1}])
+            bom_line.create({"bom_id": self.id, "product_id": self.color_station_5.id, "product_qty": 1})
 
         if self.color_station_6:
-            components.append([0, False, {"product_id": self.color_station_6.id, "product_qty": 1}])
+            bom_line.create({"bom_id": self.id, "product_id": self.color_station_6.id, "product_qty": 1})
 
         if self.color_station_7:
-            components.append([0, False, {"product_id": self.color_station_7.id, "product_qty": 1}])
+            bom_line.create({"bom_id": self.id, "product_id": self.color_station_7.id, "product_qty": 1})
 
         if self.color_station_8:
-            components.append([0, False, {"product_id": self.color_station_8.id, "product_qty": 1}])
-
-        return components
+            bom_line.create({"bom_id": self.id, "product_id": self.color_station_8.id, "product_qty": 1})
         
 
 class RewImg(models.Model):
