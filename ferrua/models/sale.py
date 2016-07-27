@@ -44,9 +44,9 @@ class SaleOrderLine(models.Model):
     @api.onchange("position")
     def onchange_position(self):
         if self.position > 0:
-            self.name = u"[POS: {}]: {}".format(self.position, self.product_id.name)
+            self.name = u"[POS: {}]: {}".format(self.position, self.name)
         else:
-            self.name = self.product_id.name
+            self.name = self.name
 
 
     @api.multi
