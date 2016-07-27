@@ -11,6 +11,7 @@
 
                 <xpath expr="//tree//field[@name='name']" position="after">
                     <field name="position"/>
+                    <field name="delivery_date"/>
                 </xpath>
 
             </field>

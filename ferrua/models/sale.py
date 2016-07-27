@@ -3,6 +3,8 @@
 from openerp import models, fields, api, exceptions
 import re
 
+import datetime
+
 
 class Sale(models.Model):
     _inherit = "sale.order"
@@ -29,6 +31,15 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     position = fields.Integer(u"Posición")
+    delivery_date = fields.Date(u"Para entregar")
+
+
+    def _default_delivery_date(self):
+        aDate = datetime.datetime.strptime(fields.Date.today(),"%Y-%m-%d")
+        threeWeeks = datetime.timedelta(weeks=2)
+        delivery_date =  aDate + threeWeeks
+        return delivery_date.strftime("%Y-%m-%d")
+
 
     @api.onchange("position")
     def onchange_position(self):
@@ -36,3 +47,19 @@ class SaleOrderLine(models.Model):
             self.name = u"[POS: {}]: {}".format(self.position, self.product_id.name)
         else:
             self.name = self.product_id.name
+
+
+    @api.multi
+    def _prepare_order_line_procurement(self, group_id=False):
+        if not self.delivery_date:
+            self.delivery_date = self._default_delivery_date()
+
+        date_format = "%Y-%m-%d"
+        start_date = datetime.datetime.strptime(fields.Date.today(), date_format)
+        end_date = datetime.datetime.strptime(self.delivery_date, date_format)
+
+        delta = end_date - start_date
+        self.customer_lead = delta.days+2
+
+        res = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id)
+        return res
