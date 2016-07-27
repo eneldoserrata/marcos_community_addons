@@ -18,6 +18,11 @@ class ProductProduct(models.Model):
             ids = set([id[0] for id in res])
             result = self.browse(ids).name_get()
 
+        if not result:
+            res = self.search([('barcode','like','%{}%'.format(name))])
+            ids = set([rec.id for rec in res])
+            result = self.browse(ids).name_get()
+
         return result
 
     @api.model
