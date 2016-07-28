@@ -3,6 +3,8 @@
 from openerp import models, fields, api, tools
 
 
+
+
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
