@@ -3,7 +3,9 @@
 from openerp import models, fields, api, tools
 
 
-
+class product_attribute_value(models.Model):
+    _inherit = "product.attribute.value"
+    _order = 'name'
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
