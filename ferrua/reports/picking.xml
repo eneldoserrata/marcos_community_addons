@@ -2,13 +2,44 @@
 <openerp>
     <data>
 
-        <template id="ferrua_picking" inherit_id="stock.report_picking">
+
+        <template id="ferrua_report_delivery_document" inherit_id="stock.report_delivery_document">
+
+            <xpath expr="//h2" position="replace">
+                <table class="table">
+                    <tr>
+                        <td><strong>Conduce: </strong> <span t-field="o.name"/> </td>
+                        <td><strong>Pedido de venta: </strong> <span t-field="o.sale_id"/> </td>
+                        <td><strong>Orden de compra: </strong> <span t-field="o.sale_id.client_order_ref"/> </td>
+                    </tr>
+                </table>
+            </xpath>
+
             <xpath expr="//table[@t-if='o.pack_operation_ids']//thead//tr//th" position="before">
-                <th><strong>Posición</strong></th>
+                <th>
+                    <strong>Posición</strong>
+                </th>
             </xpath>
 
             <xpath expr="//tr[@t-foreach='o.pack_operation_ids']//td" position="before">
-                <td><span t-field="pack_operation.position"/></td>
+                <td>
+                    <span t-field="pack_operation.position"/>
+                </td>
+            </xpath>
+        </template>
+
+
+        <template id="ferrua_picking" inherit_id="stock.report_picking">
+            <xpath expr="//table[@t-if='o.pack_operation_ids']//thead//tr//th" position="before">
+                <th>
+                    <strong>Posición</strong>
+                </th>
+            </xpath>
+
+            <xpath expr="//tr[@t-foreach='o.pack_operation_ids']//td" position="before">
+                <td>
+                    <span t-field="pack_operation.position"/>
+                </td>
             </xpath>
         </template>
 
