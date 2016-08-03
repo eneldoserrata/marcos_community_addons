@@ -1,0 +1,12 @@
+.openerp .oe_sidebar_thumbnail_attachment {
+  cursor: pointer;
+  padding: 3px 20px;
+}
+.openerp .oe_sidebar_thumbnail_attachment:hover {
+  background-color: #f5f5f5;
+}
+.openerp .oe_sidebar_thumbnail_attachment .oe_sidebar_thumbnail_item {
+  padding: 0;
+  position: absolute;
+  right: 10px;
+}

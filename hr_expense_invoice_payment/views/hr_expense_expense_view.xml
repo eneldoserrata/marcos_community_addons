@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_expenses_form_invoice" model="ir.ui.view">
+            <field name="name">hr.expense.form.invoice</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form//field[@name='product_id']" position="before">
+                    <field name="invoice"
+                           context="{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase'}"
+                    />
+                </xpath>
+                <xpath expr="//form//field[@name='product_id']" position="attributes">
+                    <attribute name="attrs">{
+                            'readonly': [('invoice', '!=', False)],
+                            'required': [('invoice', '=', False)],
+                        }</attribute>
+                </xpath>
+                <xpath expr="//form//field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('invoice', '!=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//form//field[@name='product_uom_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('invoice', '!=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//form//field[@name='unit_amount']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('invoice', '!=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//form//field[@name='quantity']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('invoice', '!=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//form//field[@name='tax_ids']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('invoice', '!=', False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

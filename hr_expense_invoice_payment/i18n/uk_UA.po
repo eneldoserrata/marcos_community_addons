@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_expense_invoice_payment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-27 12:27+0000\n"
+"PO-Revision-Date: 2016-07-27 15:27+0300\n"
+"Last-Translator: Bogdan Lisnenko <lem8r.ka11a@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: uk\n"
+"X-Generator: Poedit 1.8.5\n"
+
+#. module: hr_expense_invoice_payment
+#: code:addons/hr_expense_invoice_payment/models/hr_expense_expense.py:96
+#, python-format
+msgid "Cannot reconcile supplier invoice payable with generated line. Please check amounts and see if the invoice is already added or paid. Invoice: %s"
+msgstr "Неможливо узгодити рахунок постачальника з створеним проведенням, рахунок: %s"
+
+#. module: hr_expense_invoice_payment
+#: model:ir.model,name:hr_expense_invoice_payment.model_hr_expense
+msgid "Expense"
+msgstr "Витрати"
+
+#. module: hr_expense_invoice_payment
+#: model:ir.model.fields,field_description:hr_expense_invoice_payment.field_hr_expense_invoice_payment
+msgid "Invoice"
+msgstr "Рахунок"
+
+#. module: hr_expense_invoice_payment
+#: code:addons/hr_expense_invoice_payment/models/hr_expense_expense.py:39
+#, python-format
+msgid "No Expense account found for the product %s (or for it's category), please configure one."
+msgstr "Не вказано витратний рахунок для товару %s."
+
+#. module: hr_expense_invoice_payment
+#: code:addons/hr_expense_invoice_payment/models/hr_expense_expense.py:46
+#, python-format
+msgid "Please configure Default Expense account for Product expense: `property_account_expense_categ_id`."
+msgstr "Вкажіть типовий рахунок витрат для товару: `property_account_expense_categ_id`."
