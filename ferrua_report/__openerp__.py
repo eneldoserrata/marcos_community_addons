@@ -30,6 +30,7 @@
         'reports/header.xml',
         'reports/invoice.xml',
         'reports/sales.xml',
+        'reports/footer.xml',
         'views/views.xml',
         'views/templates.xml',
     ],
