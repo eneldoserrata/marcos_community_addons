@@ -36,8 +36,8 @@
                              style="max-height: 70px;"/>
                     </div>
 
-                    <div class="col-xs-6" style="padding-bottom:10px;" name="company_address">
-                        <p style="text-align:justify;font-size:10px !important;">
+                    <div class="col-xs-6" style="padding-bottom:11px;" name="company_address">
+                        <p style="text-align:justify;font-size:11px !important;">
                             <span class="fa fa-map-marker fa-lg"/>
                             <span t-field="company.street"/>
                             <span t-if="company.street and company.street2">,</span>
@@ -84,13 +84,13 @@
                     border-top-color: #0a4b6e;
                     border-bottom: 2px solid;
                     border-bottom-color: #0a4b6e;
-                    font-size:10px !important;
+                    font-size:11px !important;
                     background-color: #e6e6e6;
-                    padding-bottom: 10px;
+                    padding-bottom: 11px;
                     }
                     .info-table {
                     background-color: #75feff;
-                    padding: 10px;
+                    padding: 11px;
                     margin-top:15px
                     }
                 </style>
@@ -182,7 +182,7 @@
                     <!--line start-->
                     <div class="row">
                         <div class="col-xs-12"
-                             t-attf-style="font-size:10px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+                             t-attf-style="font-size:11px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
                             <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
                                 <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
                                     <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
@@ -270,7 +270,7 @@
 
                     <div class="row">
                         <div class="col-xs-12 pull-left"
-                             style="padding-left:0px; padding-right:0px; page-break-inside: avoid ! important;font-size:10px !important;">
+                             style="padding-left:0px; padding-right:0px; page-break-inside: avoid ! important;font-size:11px !important;">
                             <p t-if="doc.note">
                                 <span t-field="doc.note"/>
                             </p>
@@ -296,7 +296,7 @@
             </div>
 
             <div class="footer col-xs-12"
-                 t-attf-style="color:#0a4b6e !important; padding-left:0px; padding-right:0px;font-size:10px !important;">
+                 t-attf-style="color:#0a4b6e !important; padding-left:0px; padding-right:0px;font-size:11px !important;">
 
                 <div class="row">
                     <div class="col-xs-6">
