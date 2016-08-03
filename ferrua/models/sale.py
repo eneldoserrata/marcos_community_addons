@@ -13,10 +13,12 @@ class Sale(models.Model):
     def action_confirm(self):
         for rec in self:
             mrp_exep = []
-            for product in rec.order_line:
-                routes_to_built = [route.id for route in product.product_tmpl_id.route_ids if route.id == 6]
-                if routes_to_built and not product.product_tmpl_id.bom_count:
-                    mrp_exep.append(product.product_tmpl_id.name)
+            for line in rec.order_line:
+                route_ids = [route.id for route in line.product_id.route_ids]
+                if 6 in route_ids:
+                    product_bom = self.env["mrp.bom"].search([('product_id','=',line.product_id.id)])
+                    if not product_bom:
+                        mrp_exep.append(line.product_id.name_get()[0][1])
 
             if mrp_exep:
                 res = ""
