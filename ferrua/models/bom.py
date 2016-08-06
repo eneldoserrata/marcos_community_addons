@@ -7,6 +7,14 @@ class MrpBom(models.Model):
     _inherit = "mrp.bom"
 
     @api.multi
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append((rec.id, u"{} - Cantidad: {} - Unidad: {}".format(rec.product_id.name, rec.product_qty, rec.product_uom.name)))
+
+        return result
+
+    @api.multi
     @api.depends("sustrato","NO_DE_ETIQUETAS","ETIQUETAS_A_TRAVES","REPITE","ETIQUETAS_AL_REDEDOR")
     def _compute_producer(self):
         for rec in self:
@@ -62,9 +70,6 @@ class MrpBom(models.Model):
             rec.cilinder_station_6 = rec.REPITE*8
             rec.cilinder_station_7 = rec.REPITE*8
             rec.cilinder_station_8 = rec.REPITE*8
-
-
-
 
     @api.onchange("sustrato","laminado_roll")
     def onchange_calc(self):
@@ -129,6 +134,8 @@ class MrpBom(models.Model):
     cilinder_station_8 = fields.Integer("Cilindro Estacion 8", compute=_compute_producer)
 
     note = fields.Text("Notas")
+
+    attribute_value_ids = fields.Many2many(related="product_id.attribute_value_ids")
     
     
     @api.model

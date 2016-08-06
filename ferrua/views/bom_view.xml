@@ -164,6 +164,18 @@
             </field>
         </record>
 
+        <!-- Inherit Form View to Modify it -->
+        <record id="ferrua_view_mrp_bom_filter" model="ir.ui.view">
+            <field name="name">ferrua_view_mrp_bom_filter</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.view_mrp_bom_filter"/>
+            <field name="arch" type="xml">
+                <field name="product_tmpl_id" position="after">
+                    <field name="attribute_value_ids" string="Variante"/>
+                </field>
+            </field>
+        </record>
+
 
         <record id="rew_img_action" model="ir.actions.act_window">
             <field name="name">rew_img_action</field>
