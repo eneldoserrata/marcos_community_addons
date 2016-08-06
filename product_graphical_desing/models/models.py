@@ -21,6 +21,19 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     desing_id = fields.One2many("product.graphical.desing", "product_id", u"Diseños")
+    description_sale = fields.Text('Sale Description', translate=False,
+                                    help="A description of the Product that you want to communicate to your customers. "
+                                         "This description will be copied to every Sale Order, Delivery Order and Customer Invoice/Refund")
+    description_purchase = fields.Text('Purchase Description', translate=False,
+                                        help="A description of the Product that you want to communicate to your vendors. "
+                                             "This description will be copied to every Purchase Order, Receipt and Vendor Bill/Refund.")
+    description_picking = fields.Text('Description on Picking', translate=False)
+    # @api.multi
+    # def write(self, vals):
+    #     if "description_sale" in vals:
+    #         if vals["description_sale"] == False:
+    #             vals.update({"description_sale":" "})
+    #     return super(ProductTemplate, self).write(vals)
 
 
 class ResPartner(models.Model):
