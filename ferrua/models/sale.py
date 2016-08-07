@@ -38,12 +38,14 @@ class Sale(models.Model):
                     res += u"{},\n".format(msg)
                 raise exceptions.ValidationError(u"Es necesaria la lista de materiales para el producto:\n {}".format(res))
 
-        if self.delivery_date:
-            self.update_line_delivery_date()
+            if not rec.client_order_ref:
+                raise exceptions.UserError(u"Para confirmar una orden coloque el número de la orden de compra del cliente en el campo: Referencia cliente para el pedido {}.".format(rec.name))
 
-        if not self.client_order_ref:
-            raise exceptions.UserError(u"Para confirmar una orden coloque el número de la orden de compra del cliente en el campo: Referencia cliente.")
-
+            client_order_ref = rec.search([('partner_id','=',rec.partner_id.id),
+                                           ('client_order_ref','=',rec.client_order_ref),
+                                           ('id', '!=', rec.id)])
+            if client_order_ref:
+                raise exceptions.ValidationError("La orden de compra en la referencia del cliente ya fue utilizada en el pedido {}".format(min(client_order_ref).name))
         return super(Sale, self).action_confirm()
 
 

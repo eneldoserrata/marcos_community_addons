@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields, api
+from openerp import models, fields, api, exceptions
 
 import decimal
 
@@ -10,6 +10,8 @@ class ResCompany(models.Model):
 
     report_logo = fields.Binary("Logo para reportes", attachment=True,
                                  help="This the image used as logo for any report, if non is uploaded, the company logo will be used by default")
+
+
 
 
 class SaleOrder(models.Model):
@@ -25,7 +27,6 @@ class SaleOrder(models.Model):
         self.filtered(lambda s: s.state == 'draft').write({'state': 'sent'})
         return self.env['report'].get_action(self, 'ferrua_report.sale_order')
 
-
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
@@ -37,6 +38,15 @@ class SaleOrderLine(models.Model):
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
+
+    @api.multi
+    def action_date_assign(self):
+        if self.payment_term_id.print_currency_id:
+            if self.currency_id.id != self.payment_term_id.print_currency_id.id:
+                raise exceptions.ValidationError(
+                        u"Debe de cambiar la moneda de la factura antes porque la factura esta configurada para ser validada en {}.".format(self.payment_term_id.print_currency_id.name))
+
+        return super(AccountInvoice, self).action_date_assign()
 
     def render_report_payment_term_note(self):
         return self.payment_term_id.note.format(
@@ -67,7 +77,6 @@ class AccountInvoiceLine(models.Model):
         qty = decimal.Decimal(self.quantity)
         return "{}".format(qty, 0 if qty == qty else 2)
 
-
 class AccountPaymentTerm(models.Model):
     _inherit = "account.payment.term"
 
@@ -89,6 +98,7 @@ class AccountPaymentTerm(models.Model):
     def _get_currency_domain(self):
         return [('id','!=',self.env.user.company_id.currency_id.id)]
 
+    print_currency_id = fields.Many2one("res.currency", require=True, string=u"Facturar en la moneda")
     currency_id = fields.Many2one("res.currency", domain=_get_currency_domain, require=True, string=u"Segunda moneda")
     invoice_report_type = fields.Boolean(u"Imprime dos monedas en la factura")
     note = fields.Html(string='Description on the Invoice', translate=True, sanitize=False)
