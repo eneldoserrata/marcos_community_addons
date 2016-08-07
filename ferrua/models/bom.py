@@ -191,3 +191,9 @@ class RewImg(models.Model):
 
     name = fields.Integer()
     img = fields.Binary()
+
+
+class mrp_bom(models.Model):
+    _inherit = 'mrp.production'
+
+    qty_available = fields.Float(related="product_id.qty_available", string="Cantidad en inventario")

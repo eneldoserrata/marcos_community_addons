@@ -2,6 +2,30 @@
 <openerp>
     <data>
 
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="ferrua_mrp_production_form_view" model="ir.ui.view">
+            <field name="name">ferrua_mrp_production_form_view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+
+                <field name="bom_id" position="after">
+                    <field name="qty_available"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="ferrua_mrp_production_tree_view" model="ir.ui.view">
+            <field name="name">ferrua_mrp_production_tree_view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp_sale_info.mrp_production_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="commitment_date" position="replace"/>
+            </field>
+        </record>
+
         <!-- Inherit Form View to Modify it -->
         <record id="ferrua_mrp_bom_form_view" model="ir.ui.view">
             <field name="name">ferrua_mrp_bom_form_view</field>
