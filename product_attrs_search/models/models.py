@@ -23,7 +23,7 @@ class ProductProduct(models.Model):
             result = self.browse(ids).name_get()
 
         if not result:
-            res = self.search([('barcode','like','%{}%'.format(name))])
+            res = self.search([(u'barcode',u'like',u'%{}%'.format(name))])
             ids = set([rec.id for rec in res])
             result = self.browse(ids).name_get()
 

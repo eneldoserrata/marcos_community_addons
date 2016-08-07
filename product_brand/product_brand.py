@@ -38,3 +38,19 @@ class ProductTemplate(models.Model):
         string='Brand',
         help='Select a brand for this product'
     )
+
+
+class ProductProduct(models.Model):
+    _inherit = "product.product"
+
+    @api.model
+    def name_search(self, name, args=None, operator=u'ilike', limit=100):
+
+        result = super(ProductProduct, self).name_search(name, args=args, operator=operator, limit=limit)
+
+        if not result:
+            res = self.search([(u'product_brand_id.name',u'like',u'%{}%'.format(name))])
+            ids = set([rec.id for rec in res])
+            result = self.browse(ids).name_get()
+
+        return result
