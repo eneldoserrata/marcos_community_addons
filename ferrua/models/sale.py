@@ -9,6 +9,18 @@ import datetime
 class Sale(models.Model):
     _inherit = "sale.order"
 
+    delivery_date = fields.Date(u"Para entregar", copy=False)
+
+
+    @api.onchange("delivery_date")
+    def onchage_delivery_date(self):
+        self.update_line_delivery_date()
+
+    def update_line_delivery_date(self):
+        for line in self.order_line:
+            line.delivery_date = self.delivery_date
+
+
     @api.multi
     def action_confirm(self):
         for rec in self:
@@ -25,6 +37,12 @@ class Sale(models.Model):
                 for msg in mrp_exep:
                     res += u"{},\n".format(msg)
                 raise exceptions.ValidationError(u"Es necesaria la lista de materiales para el producto:\n {}".format(res))
+
+        if self.delivery_date:
+            self.update_line_delivery_date()
+
+        if not self.client_order_ref:
+            raise exceptions.UserError(u"Para confirmar una orden coloque el número de la orden de compra del cliente en el campo: Referencia cliente.")
 
         return super(Sale, self).action_confirm()
 

@@ -72,33 +72,33 @@
                         </p>
                     </div>
                 </div>
-                    <div class="row text-center" style="background-color: #0a4b6e;color:white;">
-                        <h4>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'final' and (doc.state == 'open' or doc.state == 'paid')">
-                                Factura para consumidor final -
-                            </span>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'fiscal' and (doc.state == 'open' or doc.state == 'paid')">
-                                Factura para crédito fiscal -
-                            </span>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'gov' and (doc.state == 'open' or doc.state == 'paid')">
-                                Factura Gubernamental -
-                            </span>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'special' and (doc.state == 'open' or doc.state == 'paid')">
-                                Factura para regímenes especiales -
-                            </span>
-                            <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'unico' and (doc.state == 'open' or doc.state == 'paid')">
-                                Registro de unico ingreso -
-                            </span>
+                <div class="row text-center" style="background-color: #0a4b6e;color:white;">
+                    <h4>
+                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'final' and (doc.state == 'open' or doc.state == 'paid')">
+                            Factura para consumidor final -
+                        </span>
+                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'fiscal' and (doc.state == 'open' or doc.state == 'paid')">
+                            Factura para crédito fiscal -
+                        </span>
+                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'gov' and (doc.state == 'open' or doc.state == 'paid')">
+                            Factura Gubernamental -
+                        </span>
+                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'special' and (doc.state == 'open' or doc.state == 'paid')">
+                            Factura para regímenes especiales -
+                        </span>
+                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'unico' and (doc.state == 'open' or doc.state == 'paid')">
+                            Registro de unico ingreso -
+                        </span>
 
-                            <span t-if="doc.type == 'out_invoice' and doc.state == 'proforma2'">PRO-FORMA</span>
-                            <span t-if="doc.type == 'out_invoice' and doc.state == 'draft'">Draft Invoice</span>
-                            <span t-if="doc.type == 'out_invoice' and doc.state == 'cancel'">Cancelled Invoice</span>
-                            <span t-if="doc.type == 'out_refund'">Nota de crédito -</span>
-                            <span t-if="doc.type == 'in_refund'">Nota de crédito proveedor -</span>
-                            <span t-if="doc.type == 'in_invoice'">Factura de compra -</span>
-                            <span t-field="doc.number"/>
-                        </h4>
-                    </div>
+                        <span t-if="doc.type == 'out_invoice' and doc.state == 'proforma2'">PRO-FORMA</span>
+                        <span t-if="doc.type == 'out_invoice' and doc.state == 'draft'">Draft Invoice</span>
+                        <span t-if="doc.type == 'out_invoice' and doc.state == 'cancel'">Cancelled Invoice</span>
+                        <span t-if="doc.type == 'out_refund'">Nota de crédito -</span>
+                        <span t-if="doc.type == 'in_refund'">Nota de crédito proveedor -</span>
+                        <span t-if="doc.type == 'in_invoice'">Factura de compra -</span>
+                        <span t-field="doc.number"/>
+                    </h4>
+                </div>
             </div>
 
             <div class="page">
@@ -247,7 +247,7 @@
                                             </td>
                                             <td class="text-right">
                                                 <span t-esc="l.tax_amount"
-                                                t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                      t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                             </td>
                                             <td class="text-right">
                                                 <span t-field="l.price_subtotal"/>
@@ -288,23 +288,42 @@
                                             </td>
                                         </tr>
 
-                                        <tr t-if="doc.partner_id.two_currency">
-                                            <t t-set="local_amount_untaxed" t-value="doc.amount_untaxed*doc.rate"/>
-                                            <t t-set="local_amount_tax" t-value="doc.amount_tax*doc.rate"/>
-                                            <t t-set="local_amount_total" t-value="doc.amount_total*doc.rate"/>
-                                            <td>
-                                                <span t-esc="local_amount_untaxed"
-                                                      t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
-                                            </td>
-                                            <td>
-                                                <span t-esc="local_amount_tax"
-                                                      t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
-                                            </td>
-                                            <td>
-                                                <span style="font-weight:bold; text-decoration:underline;"
-                                                      t-esc="local_amount_total"
-                                                      t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
-                                            </td>
+                                        <tr t-if="doc.payment_term_id.invoice_report_type">
+
+                                            <t t-if="user.company_id.currency_id.id != doc.currency_id.id">
+                                                <t t-set="local_amount_untaxed" t-value="doc.amount_untaxed*doc.rate"/>
+                                                <t t-set="local_amount_tax" t-value="doc.amount_tax*doc.rate"/>
+                                                <t t-set="local_amount_total" t-value="doc.amount_total*doc.rate"/>
+
+                                                <td>
+                                                    <span t-esc="local_amount_untaxed" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="local_amount_tax" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                                </td>
+                                                <td>
+                                                    <span style="font-weight:bold; text-decoration:underline;" t-esc="local_amount_total" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                                </td>
+                                            </t>
+
+                                            <t t-if="user.company_id.currency_id.id == doc.currency_id.id">
+                                                <t t-set="second_currency" t-value="doc.payment_term_id.currency_id"/>
+                                                <t t-set="second_rate" t-value="doc.payment_term_id._get_rate(doc.date_invoice)"/>
+                                                <t t-set="local_amount_untaxed" t-value="doc.amount_untaxed/second_rate"/>
+                                                <t t-set="local_amount_tax" t-value="doc.amount_tax*doc.rate/second_rate"/>
+                                                <t t-set="local_amount_total" t-value="doc.amount_total*doc.rate/second_rate"/>
+                                                <td>
+                                                    <span t-esc="local_amount_untaxed" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="local_amount_tax" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                                <td>
+                                                    <span style="font-weight:bold; text-decoration:underline;" t-esc="local_amount_total" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                            </t>
+
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -320,7 +339,7 @@
                                 <span t-field="doc.comment"/>
                             </p>
                             <p t-if="doc.payment_term_id.note">
-                                <span t-field="doc.payment_term_id.note"/>
+                                <span t-raw="doc.render_report_payment_term_note()"/>
                             </p>
                             <p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">
                                 <span t-field="doc.partner_id.property_payment_term_id.note"/>
@@ -340,18 +359,21 @@
 
             </div>
 
-            <div class="footer col-xs-12" t-attf-style="color:#0a4b6e !important; padding-left:0px; padding-right:0px;font-size:11px !important;">
+            <div class="footer col-xs-12"
+                 t-attf-style="color:#0a4b6e !important; padding-left:0px; padding-right:0px;font-size:11px !important;">
 
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="text-center" t-attf-style="border-top: 2px solid #0a4b6e;">
-                            <span t-field="company.name"/><br></br>
+                            <span t-field="company.name"/>
+                            <br></br>
                             Firma Autorizada
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <div class="text-center" t-attf-style="border-top: 2px solid #0a4b6e;">
-                            En nombre y representación de "EL ACEPTANTE"<br></br>
+                            En nombre y representación de "EL ACEPTANTE"
+                            <br></br>
                             (Firma y Sello)
                         </div>
                     </div>

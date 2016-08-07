@@ -9,6 +9,14 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
+                <field name="client_order_ref" position="replace"/>
+
+                <field name="payment_term_id" position="after">
+                    <field name="client_order_ref"/>
+                    <field name="delivery_date"/>
+                </field>
+
+
                 <xpath expr="//tree//field[@name='name']" position="after">
                     <field name="position"/>
                     <field name="delivery_date"/>

@@ -12,13 +12,6 @@ class ResCompany(models.Model):
                                  help="This the image used as logo for any report, if non is uploaded, the company logo will be used by default")
 
 
-class ResPartner(models.Model):
-    _inherit = "res.partner"
-
-    two_currency = fields.Boolean("Imprimir dos monedas")
-
-
-
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
@@ -45,6 +38,16 @@ class SaleOrderLine(models.Model):
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    def render_report_payment_term_note(self):
+        return self.payment_term_id.note.format(
+            tasa        = self.rate,
+            fecha       = self.date_invoice,
+            vence       = self.date_due,
+            cliente     = self.partner_id.name,
+            numero      = self.number,
+            subtotal    = self.amount_untaxed,
+            impuesto    = self.amount_tax,
+            total       = self.amount_total)
 
     @api.multi
     def invoice_print(self):
@@ -63,3 +66,29 @@ class AccountInvoiceLine(models.Model):
     def format_qty(self):
         qty = decimal.Decimal(self.quantity)
         return "{}".format(qty, 0 if qty == qty else 2)
+
+
+class AccountPaymentTerm(models.Model):
+    _inherit = "account.payment.term"
+
+    def _get_rate(self, rate_date):
+        if self.currency_id:
+
+            self._cr.execute("""SELECT rate FROM res_currency_rate
+                               WHERE currency_id = %s
+                                 AND name = %s
+                                 AND (company_id is null
+                                     OR company_id = %s)
+                            ORDER BY company_id, name desc LIMIT 1""",
+                           (self.currency_id.id, rate_date, self.env.user.company_id.id))
+            if self._cr.rowcount > 0:
+                return (1 / self._cr.fetchone()[0])
+
+            return False
+
+    def _get_currency_domain(self):
+        return [('id','!=',self.env.user.company_id.currency_id.id)]
+
+    currency_id = fields.Many2one("res.currency", domain=_get_currency_domain, require=True, string=u"Segunda moneda")
+    invoice_report_type = fields.Boolean(u"Imprime dos monedas en la factura")
+    note = fields.Html(string='Description on the Invoice', translate=True, sanitize=False)
