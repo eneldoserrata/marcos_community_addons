@@ -33,7 +33,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     position = fields.Integer(u"Posición")
-    delivery_date = fields.Date(u"Para entregar")
+    delivery_date = fields.Date(u"Para entregar", copy=False)
 
 
     def _default_delivery_date(self):
