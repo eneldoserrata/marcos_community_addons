@@ -207,130 +207,213 @@
                     </div>
 
                     <br/>
-                    <!--line start-->
-                    <div class="row">
-                        <div class="col-xs-12"
-                             t-attf-style="font-size:11px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
-                            <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
-                                <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
-                                    <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
-                                        <th class="text-right"
-                                            t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Cantidad
-                                        </th>
-                                        <th t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Descripción
-                                        </th>
-                                        <th class="text-right"
-                                            t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Precio unitario
-                                        </th>
-                                        <th class="text-right"
-                                            t-attf-style="border-bottom: 1px solid #0a4b6e !important;">ITBIS
-                                        </th>
-                                        <th class="text-right"
-                                            t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Total
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <t t-foreach="doc.invoice_line_ids" t-as="l">
-                                        <tr t-if="l.quantity"
-                                            t-attf-style="page-break-inside: avoid !important;">
-                                            <td class="text-right">
-                                                <t t-set="format_qty" t-value="l.format_qty()"/>
-                                                <span t-esc="format_qty"/>
-                                                <span t-field="l.uom_id" groups="product.group_uom"/>
-                                            </td>
-                                            <td>
-                                                <span t-field="l.name"/>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-field="l.price_unit"/>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-esc="l.tax_amount"
-                                                      t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-field="l.price_subtotal"/>
-                                            </td>
-                                        </tr>
-                                    </t>
-                                </tbody>
-                            </table>
-                        </div><!--End of DATA-->
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12" t-attf-style="font-size:12px !important;">
-                            <div class="col-xs-6 pull-right"
-                                 style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
 
-                                <table class="table table-condensed text-right" t-attf-style="color:#0a4b6e;">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-right">SUBTOTAL</th>
-                                            <th class="text-right">ITBIS</th>
-                                            <th class="text-right">TOTAL</th>
+
+                    <!--line start-->
+                    <t t-if="not doc.payment_term_id.invoice_report_type">
+                        <div class="row">
+                            <div class="col-xs-12"
+                                 t-attf-style="font-size:11px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+                                <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
+                                    <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
+                                        <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Cantidad
+                                            </th>
+                                            <th t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Descripción
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Precio
+                                                unitario
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">ITBIS
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Total
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <span t-field="doc.amount_untaxed"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
-                                            </td>
-                                            <td>
-                                                <span t-field="doc.amount_tax"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
-                                            </td>
-                                            <td>
-                                                <span style="font-weight:bold; text-decoration:underline;"
-                                                      t-field="doc.amount_total"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
-                                            </td>
-                                        </tr>
-
-                                        <tr t-if="doc.payment_term_id.invoice_report_type">
-
-                                            <t t-if="user.company_id.currency_id.id != doc.currency_id.id">
-                                                <t t-set="local_amount_untaxed" t-value="doc.amount_untaxed*doc.rate"/>
-                                                <t t-set="local_amount_tax" t-value="doc.amount_tax*doc.rate"/>
-                                                <t t-set="local_amount_total" t-value="doc.amount_total*doc.rate"/>
-
-                                                <td>
-                                                    <span t-esc="local_amount_untaxed" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                        <t t-foreach="doc.invoice_line_ids" t-as="l">
+                                            <tr t-if="l.quantity"
+                                                t-attf-style="page-break-inside: avoid !important;">
+                                                <td class="text-right">
+                                                    <t t-set="format_qty" t-value="l.format_qty()"/>
+                                                    <span t-esc="format_qty"/>
+                                                    <span t-field="l.uom_id" groups="product.group_uom"/>
                                                 </td>
                                                 <td>
-                                                    <span t-esc="local_amount_tax" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                                    <span t-field="l.name"/>
                                                 </td>
-                                                <td>
-                                                    <span style="font-weight:bold; text-decoration:underline;" t-esc="local_amount_total" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                                <td class="text-right">
+                                                    <span t-field="l.price_unit"/>
                                                 </td>
-                                            </t>
-
-                                            <t t-if="user.company_id.currency_id.id == doc.currency_id.id">
-                                                <t t-set="second_currency" t-value="doc.payment_term_id.currency_id"/>
-                                                <t t-set="second_rate" t-value="doc.payment_term_id._get_rate(doc.date_invoice)"/>
-                                                <t t-set="local_amount_untaxed" t-value="doc.amount_untaxed/second_rate"/>
-                                                <t t-set="local_amount_tax" t-value="doc.amount_tax*doc.rate/second_rate"/>
-                                                <t t-set="local_amount_total" t-value="doc.amount_total*doc.rate/second_rate"/>
-                                                <td>
-                                                    <span t-esc="local_amount_untaxed" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                <td class="text-right">
+                                                    <span t-esc="l.tax_amount"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                                 </td>
-                                                <td>
-                                                    <span t-esc="local_amount_tax" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                <td class="text-right">
+                                                    <span t-field="l.price_subtotal"/>
                                                 </td>
-                                                <td>
-                                                    <span style="font-weight:bold; text-decoration:underline;" t-esc="local_amount_total" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
-                                                </td>
-                                            </t>
-
-
-                                        </tr>
+                                            </tr>
+                                        </t>
                                     </tbody>
                                 </table>
+                            </div><!--End of DATA-->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" t-attf-style="font-size:12px !important;">
+                                <div class="col-xs-6 pull-right"
+                                     style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
 
+                                    <table class="table table-condensed text-right" t-attf-style="color:#0a4b6e;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-right">SUBTOTAL</th>
+                                                <th class="text-right">ITBIS</th>
+                                                <th class="text-right">TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span t-field="doc.amount_untaxed"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="doc.amount_tax"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td>
+                                                    <span style="font-weight:bold; text-decoration:underline;"
+                                                          t-field="doc.amount_total"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </t>
+
+
+                    <t t-if="doc.payment_term_id.invoice_report_type">
+                        <t t-set="second_currency" t-value="doc.payment_term_id.currency_id"/>
+                        <t t-set="second_rate" t-value="doc.payment_term_id._get_rate(doc.date_invoice)"/>
+                        <t t-set="local_amount_untaxed" t-value="doc.amount_untaxed*second_rate"/>
+                        <t t-set="local_amount_tax" t-value="doc.amount_tax*doc.rate*second_rate"/>
+                        <t t-set="local_amount_total" t-value="doc.amount_total*doc.rate*second_rate"/>
+
+                        <div class="row">
+                            <div class="col-xs-12"
+                                 t-attf-style="font-size:11px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+                                <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
+                                    <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
+                                        <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Cantidad
+                                            </th>
+                                            <th t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Descripción
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Precio
+                                                unitario
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">ITBIS
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Total
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.invoice_line_ids" t-as="l">
+                                            <tr t-if="l.quantity"
+                                                t-attf-style="page-break-inside: avoid !important;">
+                                                <td class="text-right">
+                                                    <t t-set="format_qty" t-value="l.format_qty()"/>
+                                                    <span t-esc="format_qty"/>
+                                                    <span t-field="l.uom_id" groups="product.group_uom"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="l.name"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="l.price_unit*doc.rate" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="l.tax_amount*doc.rate"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="l.price_subtotal*doc.rate" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div><!--End of DATA-->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" t-attf-style="font-size:12px !important;">
+
+                                <div class="col-xs-6 pull-right"
+                                     style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+
+                                    <table class="table table-condensed text-right" t-attf-style="color:#0a4b6e;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-right">SUBTOTAL</th>
+                                                <th class="text-right">ITBIS</th>
+                                                <th class="text-right">TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="doc.amount_untaxed*doc.rate"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="doc.amount_tax*doc.rate"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                                <td>
+                                                    <span style="font-weight:bold; text-decoration:underline;"
+                                                          t-esc="doc.amount_total*doc.rate"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span t-field="doc.amount_untaxed"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="doc.amount_tax"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td>
+                                                    <span style="font-weight:bold; text-decoration:underline;"
+                                                          t-field="doc.amount_total"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                        <!--lines end-->
 
                     <div class="row">
                         <div class="col-xs-12 pull-left"
@@ -353,7 +436,8 @@
                             <div class="oe_structure"/>
                         </div>
                     </div>
-                    <!--lines end-->
+
+
                 </div>
 
 

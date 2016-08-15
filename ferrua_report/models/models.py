@@ -98,7 +98,7 @@ class AccountPaymentTerm(models.Model):
     def _get_currency_domain(self):
         return [('id','!=',self.env.user.company_id.currency_id.id)]
 
-    print_currency_id = fields.Many2one("res.currency", require=True, string=u"Facturar en la moneda")
-    currency_id = fields.Many2one("res.currency", domain=_get_currency_domain, require=True, string=u"Segunda moneda")
+    print_currency_id = fields.Many2one("res.currency", require=True, string=u"Debe facturarse en")
+    currency_id = fields.Many2one("res.currency", require=True, string=u"Segunda moneda en la impresión")
     invoice_report_type = fields.Boolean(u"Imprime dos monedas en la factura")
     note = fields.Html(string='Description on the Invoice', translate=True, sanitize=False)
