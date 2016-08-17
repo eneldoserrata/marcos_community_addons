@@ -10,7 +10,7 @@ class MrpBom(models.Model):
     def name_get(self):
         result = []
         for rec in self:
-            result.append((rec.id, u"{} - Cantidad: {} - Unidad: {}".format(rec.product_id.name, rec.product_qty, rec.product_uom.name)))
+            result.append((rec.id, u"{} - Cantidad: {} - Unidad: {}".format(rec.product_id.name_get()[0][1], rec.product_qty, rec.product_uom.name)))
 
         return result
 
