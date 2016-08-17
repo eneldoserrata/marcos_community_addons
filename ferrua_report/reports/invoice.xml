@@ -218,6 +218,9 @@
                                     <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
                                         <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
                                             <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Conduce
+                                            </th>
+                                            <th class="text-right"
                                                 t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Cantidad
                                             </th>
                                             <th t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Descripción
@@ -238,6 +241,11 @@
                                         <t t-foreach="doc.invoice_line_ids" t-as="l">
                                             <tr t-if="l.quantity"
                                                 t-attf-style="page-break-inside: avoid !important;">
+                                                <td class="text-right">
+                                                    <t t-foreach="l.stock_move_id" t-as="stock_move">
+                                                        <span t-field="stock_move.picking_id.name"/>
+                                                    </t>
+                                                </td>
                                                 <td class="text-right">
                                                     <t t-set="format_qty" t-value="l.format_qty()"/>
                                                     <span t-esc="format_qty"/>
@@ -315,6 +323,9 @@
                                     <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
                                         <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
                                             <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Conduce
+                                            </th>
+                                            <th class="text-right"
                                                 t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Cantidad
                                             </th>
                                             <th t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Descripción
@@ -335,6 +346,11 @@
                                         <t t-foreach="doc.invoice_line_ids" t-as="l">
                                             <tr t-if="l.quantity"
                                                 t-attf-style="page-break-inside: avoid !important;">
+                                                <td class="text-right">
+                                                    <t t-foreach="l.stock_move_id" t-as="stock_move">
+                                                        <span t-field="stock_move.picking_id.name"/><br/>
+                                                    </t>
+                                                </td>
                                                 <td class="text-right">
                                                     <t t-set="format_qty" t-value="l.format_qty()"/>
                                                     <span t-esc="format_qty"/>

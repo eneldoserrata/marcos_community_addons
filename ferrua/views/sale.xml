@@ -25,5 +25,20 @@
             </field>
         </record>
 
+
+        <!-- Inherit Form View to Modify it -->
+        <!--<record id="ferrua_invoice_form" model="ir.ui.view">-->
+            <!--<field name="name">ferrua_invoice_form</field>-->
+            <!--<field name="model">account.invoice</field>-->
+            <!--<field name="inherit_id" ref="account.invoice_form"/>-->
+            <!--<field name="arch" type="xml">-->
+
+                <!--<field name="sequence" position="after">-->
+                    <!--<field name="stock_move_id" widget="many2many_tags" readonly="1"/>-->
+                <!--</field>-->
+
+            <!--</field>-->
+        <!--</record>-->
+
     </data>
 </openerp>

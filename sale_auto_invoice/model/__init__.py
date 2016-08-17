@@ -17,5 +17,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import sale
-from . import picking
+import sale
+import picking
