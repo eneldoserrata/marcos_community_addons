@@ -39,6 +39,9 @@ class SaleOrderLine(models.Model):
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+
+
+
     @api.multi
     def action_date_assign(self):
         if self.payment_term_id.print_currency_id:
@@ -55,9 +58,10 @@ class AccountInvoice(models.Model):
             vence       = self.date_due,
             cliente     = self.partner_id.name,
             numero      = self.number,
-            subtotal    = self.amount_untaxed,
-            impuesto    = self.amount_tax,
-            total       = self.amount_total)
+            subtotal    = '{0:,.2f}'.format(self.amount_untaxed),
+            impuesto    = '{0:,.2f}'.format(self.amount_tax),
+            total       = '{0:,.2f}'.format(self.amount_total)
+        )
 
     @api.multi
     def invoice_print(self):
