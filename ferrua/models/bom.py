@@ -141,7 +141,7 @@ class MrpBom(models.Model):
     @api.model
     def create(self, vals):
         res = super(MrpBom, self).create(vals)
-        self.update_component_list()
+        self.update_component_list(res)
         return res
 
     @api.multi
@@ -150,40 +150,45 @@ class MrpBom(models.Model):
         self.update_component_list()
         return res
 
-    def update_component_list(self):
-        bom_line = self.env["mrp.bom.line"]
+    def update_component_list(self, res=False):
 
-        bom_line.search([("bom_id",'=',self.id)]).unlink()
 
-        if self.sustrato:
-            bom_line.create({"bom_id": self.id, "product_id": self.sustrato.id, "product_qty": self.sustrato_roll})
+        if res:
+            bom = res
+        else:
+            bom = self
 
-        if self.laminado:
-            bom_line.create({"bom_id": self.id, "product_id": self.laminado.id, "product_qty": self.laminado_roll})
+        if bom.sustrato:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.sustrato.id, "product_qty": bom.sustrato_roll})
 
-        if self.color_station_1:
-            bom_line.create({"bom_id": self.id, "product_id": self.color_station_1.id, "product_qty": 1})
+        if bom.laminado:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.laminado.id, "product_qty": bom.laminado_roll})
 
-        if self.color_station_2:
-            bom_line.create({"bom_id": self.id, "product_id": self.color_station_2.id, "product_qty": 1})
+        if bom.color_station_1:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.color_station_1.id, "product_qty": 1})
 
-        if self.color_station_3:
-            bom_line.create({"bom_id": self.id, "product_id": self.color_station_3.id, "product_qty": 1})
+        if bom.color_station_2:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.color_station_2.id, "product_qty": 1})
 
-        if self.color_station_4:
-            bom_line.create({"bom_id": self.id, "product_id": self.color_station_4.id, "product_qty": 1})
+        if bom.color_station_3:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.color_station_3.id, "product_qty": 1})
 
-        if self.color_station_5:
-            bom_line.create({"bom_id": self.id, "product_id": self.color_station_5.id, "product_qty": 1})
+        if bom.color_station_4:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.color_station_4.id, "product_qty": 1})
 
-        if self.color_station_6:
-            bom_line.create({"bom_id": self.id, "product_id": self.color_station_6.id, "product_qty": 1})
+        if bom.color_station_5:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.color_station_5.id, "product_qty": 1})
 
-        if self.color_station_7:
-            bom_line.create({"bom_id": self.id, "product_id": self.color_station_7.id, "product_qty": 1})
+        if bom.color_station_6:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.color_station_6.id, "product_qty": 1})
 
-        if self.color_station_8:
-            bom_line.create({"bom_id": self.id, "product_id": self.color_station_8.id, "product_qty": 1})
+        if bom.color_station_7:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.color_station_7.id, "product_qty": 1})
+
+        if bom.color_station_8:
+            bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.color_station_8.id, "product_qty": 1})
+
+        return True
         
 
 class RewImg(models.Model):
