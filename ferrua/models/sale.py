@@ -52,13 +52,8 @@ class Sale(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-
-    def _get_default_delivery(self):
-        return self.order_id.delivery_date
-
-
     position = fields.Integer(u"Posición")
-    delivery_date = fields.Date(u"Para entregar", copy=False, default=_get_default_delivery)
+    delivery_date = fields.Date(u"Para entregar", copy=False)
 
 
     def _default_delivery_date(self):
