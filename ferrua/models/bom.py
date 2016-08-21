@@ -158,6 +158,9 @@ class MrpBom(models.Model):
         else:
             bom = self
 
+
+        bom.bom_line_ids.unlink()
+
         if bom.sustrato:
             bom.bom_line_ids.create({"bom_id": bom.id, "product_id": bom.sustrato.id, "product_qty": bom.sustrato_roll})
 
