@@ -206,7 +206,7 @@
                                 <table class="tg" style="undefined;table-layout: fixed; width: 634px">
                                     <colgroup>
                                         <col style="width: 130px"/>
-                                        <col style="width: 272px"/>
+                                        <col style="width: 372px"/>
                                         <col style="width: 185px"/>
                                         <col style="width: 147px"/>
                                     </colgroup>
@@ -225,14 +225,14 @@
                                         <td class="tg-25al tg-botton-border" colspan="2">
                                             <span t-field="o.product_id"/>
                                         </td>
-                                        <td class="tg-wjl1 ">Código Sigma</td>
+                                        <td class="tg-wjl1 ">CÓDIGO DE BARRA</td>
                                     </tr>
                                     <tr>
                                         <td class="tg-25al tg-botton-border"></td>
                                         <td class="tg-25al tg-botton-border" colspan="2">
                                         </td>
                                         <td class="tg-t7bp tg-doble-border">
-                                            <span t-field="o.product_id.default_code"/>
+                                            <span t-field="o.product_id.barcode"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -282,7 +282,14 @@
                                     </tr>
                                     <tr>
                                         <td class="tg-25al">LAMINACION</td>
-                                        <td class="tg-b56p"><span t-field="o.laminado"/></td>
+                                        <td class="tg-b56p">
+                                            <t t-if="o.laminado">
+                                                <span t-field="o.laminado"/>
+                                            </t>
+                                            <t t-if="not o.laminado">
+                                                <span>NO LLEVA</span>
+                                            </t>
+                                        </td>
                                         <td class="tg-nrw1">CANTIDAD DE ROLLOS</td>
                                         <td class="tg-ir4y"><span t-field="o.laminado_roll"/></td>
                                     </tr>
@@ -407,8 +414,8 @@
                                         <td class="tg-62xo"><span t-field="o.ROLLOS_DOBLES"/></td>
                                     </tr>
                                     <tr>
-                                        <td class="tg-25al">CODIGO DE BARRA</td>
-                                        <td class="tg-rg0h"><span t-field="o.product_id.barcode"/></td>
+                                        <td class="tg-25al"></td>
+                                        <td class="tg-rg0h"></td>
                                         <td class="tg-25al">ROLLOS TRIPLES _____</td>
                                         <td class="tg-62xo"><span t-field="o.ROLLOS_TRIPLES"/></td>
                                     </tr>

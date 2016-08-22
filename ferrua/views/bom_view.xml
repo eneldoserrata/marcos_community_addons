@@ -33,6 +33,10 @@
             <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
             <field name="arch" type="xml">
 
+                <field name="product_id" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+
                 <field name="code" position="before">
                     <field name="arte_id"/>
                     <field name="arte_img" widget="image"/>

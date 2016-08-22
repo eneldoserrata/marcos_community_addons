@@ -234,19 +234,19 @@ class MrpProduction(models.Model):
             NO_DE_REBOBINADO = NO_DE_ETIQUETAS/(10/(REPITE/ETIQUETAS_AL_REDEDOR))
 
             return {
-                "sustrato_roll": round(sustrato_roll,2),
-                "laminado_roll": round(laminado_roll,2),
-                "CONTEO_A_IMPRIMIR": round(CONTEO_A_IMPRIMIR,2),
-                "NO_DE_REBOBINADO": round(NO_DE_REBOBINADO,2),
-                "ROLLOS_DOBLES": round(NO_DE_REBOBINADO/2,2),
-                "ROLLOS_TRIPLES": round(NO_DE_REBOBINADO/3,2),
-                "TOTAL_DE_ROLLOS": round(CANTIDAD/NO_DE_ETIQUETAS,2),
-                "cilinder_station_1": round(REPITE*8,2),
-                "cilinder_station_2": round(REPITE*8,2),
-                "cilinder_station_3": round(REPITE*8,2),
-                "cilinder_station_4": round(REPITE*8,2),
-                "cilinder_station_5": round(REPITE*8,2),
-                "cilinder_station_6": round(REPITE*8,2),
-                "cilinder_station_7": round(REPITE*8,2),
-                "cilinder_station_8": round(REPITE*8,2)
+                "sustrato_roll":        round(sustrato_roll,2),
+                "laminado_roll":        round(laminado_roll,2),
+                "CONTEO_A_IMPRIMIR":    int(round(CONTEO_A_IMPRIMIR,2)),
+                "NO_DE_REBOBINADO":     int(round(NO_DE_REBOBINADO,2)),
+                "ROLLOS_DOBLES":        int(round(NO_DE_REBOBINADO/2,2)),
+                "ROLLOS_TRIPLES":       int(round(NO_DE_REBOBINADO/3,2)),
+                "TOTAL_DE_ROLLOS":      int(round(CANTIDAD/NO_DE_ETIQUETAS,2)),
+                "cilinder_station_1":   int(round(REPITE*8,2)),
+                "cilinder_station_2":   int(round(REPITE*8,2)),
+                "cilinder_station_3":   int(round(REPITE*8,2)),
+                "cilinder_station_4":   int(round(REPITE*8,2)),
+                "cilinder_station_5":   int(round(REPITE*8,2)),
+                "cilinder_station_6":   int(round(REPITE*8,2)),
+                "cilinder_station_7":   int(round(REPITE*8,2)),
+                "cilinder_station_8":   int(round(REPITE*8,2))
             }
