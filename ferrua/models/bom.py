@@ -201,7 +201,52 @@ class RewImg(models.Model):
     img = fields.Binary()
 
 
-class mrp_bom(models.Model):
+class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
     qty_available = fields.Float(related="product_id.qty_available", string="Cantidad en inventario")
+
+    def get_production_qty(self):
+
+            ANCHO_BANDA = self.bom_id.ANCHO_BANDA or 1
+            LARGO = self.bom_id.LARGO or 1
+            LAMINADO_ANCHO_BANDA = self.bom_id.LAMINADO_ANCHO_BANDA or 1
+            LAMINADO_LARGO = self.bom_id.LAMINADO_LARGO or 1
+
+            CANTIDAD = self.product_uom._compute_qty(self.product_uom.id, self.product_qty, self.product_id.uom_id.id)
+
+            ETIQUETAS_A_TRAVES = self.bom_id.ETIQUETAS_A_TRAVES
+            REPITE = self.bom_id.REPITE
+            ETIQUETAS_AL_REDEDOR = self.bom_id.ETIQUETAS_AL_REDEDOR
+            CONTEO_A_IMPRIMIR = self.bom_id.CONTEO_A_IMPRIMIR
+            NO_DE_ETIQUETAS = self.bom_id.NO_DE_ETIQUETAS
+            LARGO = self.bom_id.LARGO
+
+            CONTEO_A_IMPRIMIR = CANTIDAD/(ETIQUETAS_A_TRAVES*(10/(REPITE/ETIQUETAS_AL_REDEDOR)))
+
+            sustrato_roll = ((CONTEO_A_IMPRIMIR+1200)/LARGO)
+
+            if LAMINADO_LARGO > 1:
+                laminado_roll = (CONTEO_A_IMPRIMIR/LAMINADO_LARGO)
+            else:
+                laminado_roll = 0
+
+            NO_DE_REBOBINADO = NO_DE_ETIQUETAS/(10/(REPITE/ETIQUETAS_AL_REDEDOR))
+
+            return {
+                "sustrato_roll": round(sustrato_roll,2),
+                "laminado_roll": round(laminado_roll,2),
+                "CONTEO_A_IMPRIMIR": round(CONTEO_A_IMPRIMIR,2),
+                "NO_DE_REBOBINADO": round(NO_DE_REBOBINADO,2),
+                "ROLLOS_DOBLES": round(NO_DE_REBOBINADO/2,2),
+                "ROLLOS_TRIPLES": round(NO_DE_REBOBINADO/3,2),
+                "TOTAL_DE_ROLLOS": round(CANTIDAD/NO_DE_ETIQUETAS,2),
+                "cilinder_station_1": round(REPITE*8,2),
+                "cilinder_station_2": round(REPITE*8,2),
+                "cilinder_station_3": round(REPITE*8,2),
+                "cilinder_station_4": round(REPITE*8,2),
+                "cilinder_station_5": round(REPITE*8,2),
+                "cilinder_station_6": round(REPITE*8,2),
+                "cilinder_station_7": round(REPITE*8,2),
+                "cilinder_station_8": round(REPITE*8,2)
+            }
