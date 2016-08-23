@@ -444,13 +444,21 @@
                                         <td class="tg-25al">TOTAL DE ROLLOS</td>
                                         <td class="tg-rg0h"><span t-esc="production_qty['TOTAL_DE_ROLLOS']"/></td>
                                         <td class="tg-25al">ROLLOS DOBLES_____</td>
-                                        <td class="tg-62xo"><span t-esc="production_qty['ROLLOS_DOBLES']"/></td>
+                                        <td class="tg-62xo">
+                                            <t t-if="o.bom_id.ETIQUETAS_A_TRAVES == 2">
+                                                <span t-esc="production_qty['ROLLOS_DOBLES']"/>
+                                            </t>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tg-25al"></td>
                                         <td class="tg-rg0h"></td>
                                         <td class="tg-25al">ROLLOS TRIPLES _____</td>
-                                        <td class="tg-62xo"><span t-esc="production_qty['ROLLOS_TRIPLES']"/></td>
+                                        <td class="tg-62xo">
+                                            <t t-if="o.bom_id.ETIQUETAS_A_TRAVES == 3">
+                                                <span t-esc="production_qty['ROLLOS_TRIPLES']"/>
+                                            </t>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
