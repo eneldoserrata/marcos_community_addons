@@ -10,7 +10,7 @@
                         <div class="col-xs-6">
                             <div>
                                 <span>
-                                    <strong>Customer Address:</strong>
+                                    <strong>Dirección del cliente:</strong>
                                 </span>
                             </div>
                             <div t-if="o.partner_id" name="partner_header">
@@ -34,10 +34,10 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <strong>Order (Origin)</strong>
+                                    <strong>Origen</strong>
                                 </th>
                                 <th name="td_sched_date_h">
-                                    <strong>Scheduled Date</strong>
+                                    <strong>Fecha</strong>
                                 </th>
                             </tr>
                         </thead>
@@ -47,7 +47,7 @@
                                     <span t-field="o.picking_type_id"/>
                                 </td>
                                 <td name="td_sched_date">
-                                    <span t-field="o.min_date"/>
+                                    <span t-field="o.date_done"/>
                                 </td>
                             </tr>
                         </tbody>
@@ -56,12 +56,12 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <strong>Product</strong>
+                                    <strong>Producto</strong>
                                 </th>
                                 <!--<th><strong>Status</strong></th>-->
                                 <!--<th><strong>Location</strong></th>-->
                                 <th class="text-right">
-                                    <strong>Quantity</strong>
+                                    <strong>cantidad</strong>
                                 </th>
                             </tr>
                         </thead>
@@ -91,10 +91,10 @@
                                     <strong>Posición</strong>
                                 </th>
                                 <th>
-                                    <strong>Product</strong>
+                                    <strong>Producto</strong>
                                 </th>
                                 <th t-if="has_serial_number">
-                                    <strong>Serial Number</strong>
+                                    <strong>Número de Lote / Cantidad entregada</strong>
                                 </th>
                                 <!--<th><strong>Status</strong></th>-->
                                 <!--<th><strong>Location</strong></th>-->
