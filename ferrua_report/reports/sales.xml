@@ -280,12 +280,12 @@
                             <!--<p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">-->
                                 <!--<span t-field="doc.partner_id.property_payment_term_id.note"/>-->
                             <!--</p>-->
-                            <p id="fiscal_position_remark"
-                               t-if="doc.fiscal_position_id.note and doc.fiscal_position_id">
-                                <strong>Posición fiscal:</strong>
-                                <span t-field="doc.fiscal_position_id.note"/>
+                            <!--<p id="fiscal_position_remark"-->
+                               <!--t-if="doc.fiscal_position_id.note and doc.fiscal_position_id">-->
+                                <!--<strong>Posición fiscal:</strong>-->
+                                <!--<span t-field="doc.fiscal_position_id.note"/>-->
 
-                            </p>
+                            <!--</p>-->
                             <div class="oe_structure"/>
                         </div>
                     </div>
