@@ -28,11 +28,13 @@
         'views/templates.xml',
         'views/product.xml',
         'views/purchase.xml',
+        'wizard/update_delivery_date_wizard_view.xml',
         'views/sale.xml',
         'views/bom_view.xml',
         'reports/picking.xml',
         'reports/producer.xml',
-        'reports/bom.xml'
+        'reports/bom.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [

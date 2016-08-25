@@ -11,16 +11,6 @@ class Sale(models.Model):
 
     delivery_date = fields.Date(u"Para entregar", copy=False)
 
-
-    @api.onchange("delivery_date")
-    def onchage_delivery_date(self):
-        self.update_line_delivery_date()
-
-    def update_line_delivery_date(self):
-        for line in self.order_line:
-            line.delivery_date = self.delivery_date
-
-
     @api.multi
     def action_confirm(self):
         for rec in self:

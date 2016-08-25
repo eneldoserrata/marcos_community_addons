@@ -9,11 +9,15 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
+                <div class="oe_button_box" name="button_box">
+                    <button name="%(ferrua.update_delivery_date_wizard_action)d"
+                            class="oe_stat_button" icon="fa-calendar-check-o" string="Para entregar" states="draft" type="action"/>
+                </div>
+
                 <field name="client_order_ref" position="replace"/>
 
                 <field name="payment_term_id" position="after">
                     <field name="client_order_ref"/>
-                    <field name="delivery_date"/>
                 </field>
 
 
