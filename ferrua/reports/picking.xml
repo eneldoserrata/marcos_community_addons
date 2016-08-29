@@ -120,8 +120,8 @@
                                         <table class="table table-condensed" t-if="pack_operation.pack_lot_ids">
                                             <thead>
                                                 <tr>
-                                                    <th>Lot</th>
-                                                    <th>Qty</th>
+                                                    <th>Lote</th>
+                                                    <th>Cantidad</th>
                                                 </tr>
                                             </thead>
                                             <tr t-foreach="pack_operation.pack_lot_ids" t-as="packlot">
@@ -253,7 +253,7 @@
                                 <table class="table table-condensed" t-if="pack_operation.pack_lot_ids">
                                     <thead>
                                         <tr>
-                                            <th>Lot</th>
+                                            <th>Lote</th>
                                             <th>Cantidad</th>
                                         </tr>
                                     </thead>
