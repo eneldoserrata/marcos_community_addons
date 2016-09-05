@@ -255,7 +255,8 @@
                                                     <span t-field="l.name"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-field="l.price_unit"/>
+                                                    <span t-esc="l.price_unit"
+                                                        t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                                 </td>
                                                 <td class="text-right">
                                                     <span t-esc="l.tax_amount"
