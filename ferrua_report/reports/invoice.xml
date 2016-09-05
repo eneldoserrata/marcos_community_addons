@@ -103,6 +103,19 @@
 
             <div class="page">
 
+
+                <style type="text/css">
+                <![CDATA[
+                /* Arvo */
+                @font-face {
+                  font-family: 'Arvo';
+                  font-style: normal;
+                  font-weight: 400;
+                  src: local('Arvo'), url(http://fonts.gstatic.com/s/arvo/v8/MViwy4K6e56oHcyeMzjbCQ.ttf) format('truetype');
+                }
+                ]]>
+                </style>
+
                 <style>
                     .info-row {
                     border-top: 2px solid;
@@ -272,7 +285,7 @@
                             </div><!--End of DATA-->
                         </div>
                         <div class="row">
-                            <div class="col-xs-12" t-attf-style="font-size:12px !important;">
+                            <div class="col-xs-12" t-attf-style="font-size:11px !important;">
                                 <div class="col-xs-6 pull-right"
                                      style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
 
@@ -377,7 +390,7 @@
                             </div><!--End of DATA-->
                         </div>
                         <div class="row">
-                            <div class="col-xs-12" t-attf-style="font-size:12px !important;">
+                            <div class="col-xs-12" t-attf-style="font-size:11px !important;">
 
                                 <div class="col-xs-6 pull-right"
                                      style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
