@@ -85,31 +85,17 @@ class AccountInvoice(models.Model):
 
     @api.model
     def create(self, vals):
-        temp = {'account_analytic_id': False,
-                 'account_id': 3039,
-                 'discount': 0.0,
-                 'invoice_id': 159322,
-                 'invoice_line_tax_ids': [(6, 0, [13])],
-                 'name': u'[POS: 2]: [1023320] Salchicha Desayuno',
-                 'origin': u'SO243',
-                 'price_unit': 2974.82,
-                 'product_id': 4883,
-                 'quantity': 10.0,
-                 'sale_line_ids': [(6, 0, [1080])],
-                 'sequence': 11,
-                 'uom_id': 22}
+
         res = super(AccountInvoice, self).create(vals)
 
-        uom_obj = self.env['product.uom']
         for sale_line in res.sale_line_ids:
-            qty_done = sum([uom_obj._compute_qty_obj(x.uom_id, x.quantity, x.product_id.uom_id) for x in sale_line.invoice_lines if x.invoice_id.state in ('open', 'paid')])
-            quantity = uom_obj._compute_qty_obj(res.uom_id, res.quantity, res.product_id.uom_id)
 
             stock_moves = self.env['stock.move']
 
             for procurement in sale_line.procurement_ids:
                 stock_moves |= procurement.move_ids
-                stock_moves.sorted(lambda x: x.date)
+
+            stock_moves.sorted(lambda x: x.date)
 
             stock_moves = stock_moves.filtered(lambda r: r.state == "done" and not r.invoice_line_id)
 
@@ -118,7 +104,6 @@ class AccountInvoice(models.Model):
             if move_total_qty == res.quantity:
                 res.stock_move_id = stock_moves
             else:
-                acumulado = 0
                 for sm in stock_moves:
                     if sm.product_uom_qty == res.quantity:
                         res.stock_move_id = sm
