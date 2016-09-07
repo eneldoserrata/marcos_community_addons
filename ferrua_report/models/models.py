@@ -86,8 +86,9 @@ class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
     def format_qty(self):
-        qty = decimal.Decimal(self.quantity)
+        qty = round(decimal.Decimal(self.quantity),3)
         return "{}".format(qty, 0 if qty == qty else 2)
+
 
 class AccountPaymentTerm(models.Model):
     _inherit = "account.payment.term"
