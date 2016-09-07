@@ -407,7 +407,11 @@
                                     </tr>
                                     <tr>
                                         <td class="tg-25al">TROQUELADO</td>
-                                        <td class="tg-ir4y"><span t-esc="', '.join(map(lambda x: x.default_code, o.bom_id.TROQUELADO))"/></td>
+                                        <td class="tg-ir4y">
+                                            <t t-if="o.bom_id.TROQUELADO">
+                                                <span t-esc="', '.join(map(lambda x: x.default_code, o.bom_id.TROQUELADO))"/>
+                                            </t>
+                                        </td>
                                         <td class="tg-25al">CANTIDAD DE ROLLOS</td>
                                         <td class="tg-baqh"><span t-field="o.bom_id.CANTIDAD_DE_ROLLOS"/></td>
                                     </tr>
