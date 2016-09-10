@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="FormView">
+        
+        <div class="oe_formview">
+            <div class="oe_form_buttons"/>
+            <div class="oe_form_sidebar"/>
+            <div class="oe_form_pager"/>
+            <div class="oe_form_container"/>
+            <div class="upload"/>
+        </div>
+    </t>
+
+    <t t-name="web_upload.MultiUploads">
+        <div class="upload hidden">
+            <form class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Select files...</span>
+                <input id="fileupload" type="file" name="files" multiple="true"/>
+                <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                <input type="hidden" name="id" t-att-value="id"/>
+                <input type="hidden" name="model" t-att-value="model"/>
+                <div id="progress" class="progress">
+                    <div class="progress-bar progress-bar-success"></div>
+                </div>
+                <div id="files" class="files"></div>
+            </form>
+        </div>
+    </t>
+
+</templates>

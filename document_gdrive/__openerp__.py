@@ -30,7 +30,7 @@ Module that allows to attach a Google Drive Document.
     'website': 'http://www.be-cloud.be',
     'license': 'AGPL-3',
     'depends': [
-        'document',
+        'base_setup', 'document',
     ],
     'data': [
         'res_config.xml',

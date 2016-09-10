@@ -25,8 +25,7 @@
 
         <template id="assets_backend" name="google_drive documents" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-            	<script type="text/javascript" src="/document_gdrive/static/src/js/gdrive_api_load.js"></script>
-            	<script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>
+            	<script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
                 <script type="text/javascript" src="/document_gdrive/static/src/js/gdrive.js"></script>
             </xpath>
         </template>

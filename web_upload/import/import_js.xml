@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+        <template id="web_assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/web_upload/static/lib/js/jquery.fileupload.js"/>
+                <script type="text/javascript" src="/web_upload/static/lib/js/jquery.ui.widget.js"/>
+                <script type="text/javascript" src="/web_upload/static/lib/js/jquery.iframe-transport.js"/>
+                <script type="text/javascript" src="/web_upload/static/lib/js/sweetalert2.js"/>
+                <link href="/web_upload/static/lib/css/sweetalert2.min.css" rel="stylesheet"/>
+                <script type="text/javascript" src="/web_upload/static/src/js/form_view.js"/>
+            </xpath>
+        </template>
+
+	</data>
+</openerp>
