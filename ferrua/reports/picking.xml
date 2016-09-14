@@ -11,7 +11,7 @@
                 file="ferrua.ferrua_report_deliveryslip"
         />
 
-        <template id="ferrua_report_delivery_document">
+        <template id="ferrua_report_delivery_document" name="ferrua_report_delivery_document_custom">
             <t t-call="report.html_container">
                 <t t-call="report.external_layout">
                     <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
