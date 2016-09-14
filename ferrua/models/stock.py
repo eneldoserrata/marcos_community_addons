@@ -45,26 +45,30 @@ class StockPicking(models.Model):
 
     def get_coil_report_data(self):
         report_data = {}
+        coil_ids = []
         for line in self.pack_operation_product_ids:
-            for coil in line.result_package_id.coil_pack_ids:
-                if not report_data.get(line.result_package_id.name, False):
-                    report_data.update({line.result_package_id.name: {"lines": [{"position": coil.position,
-                                                                                 "product_id": coil.product_id.name,
-                                                                                 "lot_id": coil.lot_id.name,
-                                                                                 "coil_qty": coil.coil_qty,
-                                                                                 "label_in_coin_qty": '{:20,.2f}'.format(coil.label_in_coin_qty),
-                                                                                 "labels_total": '{:20,.2f}'.format(coil.labels_total)
-                                                                                 }],
-                                                                      "total": coil.labels_total}})
-                else:
-                    report_data[line.result_package_id.name]["lines"].append({"position": coil.position,
-                                                                              "product_id": coil.product_id.name,
-                                                                              "lot_id": coil.lot_id.name,
-                                                                              "coil_qty": coil.coil_qty,
-                                                                              "label_in_coin_qty": '{:20,.2f}'.format(coil.label_in_coin_qty),
-                                                                              "labels_total": '{:20,.2f}'.format(coil.labels_total)
-                                                                              })
-                    report_data[line.result_package_id.name]["total"] += coil.labels_total
+            if line.result_package_id:
+                for coil in line.result_package_id.coil_pack_ids:
+                    if not coil.id in coil_ids:
+                        if not report_data.get(line.result_package_id.name, False):
+                            report_data.update({line.result_package_id.name: {"lines": [{"position": coil.position,
+                                                                                         "product_id": coil.product_id.name,
+                                                                                         "lot_id": coil.lot_id.name,
+                                                                                         "coil_qty": coil.coil_qty,
+                                                                                         "label_in_coin_qty": '{:20,.2f}'.format(coil.label_in_coin_qty),
+                                                                                         "labels_total": '{:20,.2f}'.format(coil.labels_total)
+                                                                                         }],
+                                                                              "total": coil.labels_total}})
+                        else:
+                            report_data[line.result_package_id.name]["lines"].append({"position": coil.position,
+                                                                                      "product_id": coil.product_id.name,
+                                                                                      "lot_id": coil.lot_id.name,
+                                                                                      "coil_qty": coil.coil_qty,
+                                                                                      "label_in_coin_qty": '{:20,.2f}'.format(coil.label_in_coin_qty),
+                                                                                      "labels_total": '{:20,.2f}'.format(coil.labels_total)
+                                                                                      })
+                            report_data[line.result_package_id.name]["total"] += coil.labels_total
+                    coil_ids.append(coil.id)
 
 
         report_data_list = []
@@ -73,7 +77,6 @@ class StockPicking(models.Model):
             report_data_list.append(
                 {"name": pack, "lines": sorted(report_data[pack]["lines"], key=lambda k: k['position']),
                  "total": report_data[pack]["total"]})
-
         return sorted(report_data_list, key=lambda k: k['name'])
 
     def open_coil_packing(self):
