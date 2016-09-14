@@ -11,10 +11,6 @@
                 file="ferrua.ferrua_report_deliveryslip"
         />
 
-        <record id="ferrua.ferrua_report_delivery_document_report" model="ir.actions.report.xml">
-            <field name="paperformat_id" ref="ferrua_report.ferrua_invoice_and_qoutation_paper"/>
-        </record>
-
         <template id="ferrua_report_delivery_document">
             <t t-call="report.html_container">
                 <t t-call="report.external_layout">
@@ -250,5 +246,9 @@
                 <t t-call="ferrua.ferrua_report_delivery_document" t-lang="o.partner_id.lang"/>
             </t>
         </template>
+
+        <record id="ferrua.ferrua_report_delivery_document_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="ferrua_report.ferrua_invoice_and_qoutation_paper"/>
+        </record>
     </data>
 </openerp>

@@ -168,21 +168,3 @@ class CoilPack(models.Model):
 
 
 
-
-    # class ParticularReport(models.AbstractModel):
-    #     _name = 'report.ferrua.ferrua_report_deliveryslip'
-    #
-    #
-    #     @api.multi
-    #     def render_html(self, data=None):
-    #         report_obj = self.env['report']
-    #         report = report_obj._get_report_from_name('ferrua.ferrua_report_deliveryslip')
-    #
-    #         for o in self:
-    #             print o.partner_id
-    #         docargs = {
-    #             'doc_ids': self._ids,
-    #             'doc_model': report.model,
-    #             'docs': self,
-    #         }
-    #         # return report_obj.render('ferrua.ferrua_report_deliveryslip', docargs)
