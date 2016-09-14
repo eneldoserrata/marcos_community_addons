@@ -7,3 +7,4 @@ access_composer_size,access_composer_size,model_composer_size,,1,1,1,1
 access_composer_uom,access_composer_uom,model_composer_uom,,1,1,1,1
 access_purchase_order_line_roll,access_purchase_order_line_roll,model_purchase_order_line_roll,,1,1,1,1
 access_img_rew,access_img_rew,model_img_rew,,1,1,1,1
+access_coil_pack,access_coil_pack,model_coil_pack,,1,0,0,0

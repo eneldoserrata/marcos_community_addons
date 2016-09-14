@@ -29,11 +29,14 @@
         'views/product.xml',
         'views/purchase.xml',
         'wizard/update_delivery_date_wizard_view.xml',
+        'wizard/coil_pack_wizard.xml',
         'views/sale.xml',
         'views/bom_view.xml',
+        'views/stock.xml',
         'reports/picking.xml',
         'reports/producer.xml',
         'reports/bom.xml',
+
 
     ],
     # only loaded in demonstration mode
