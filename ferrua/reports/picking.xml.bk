@@ -110,7 +110,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>PEDIDO DE VENTA</th>
+                                            <th>PEIDO DE VENTA</th>
                                             <td>
                                                 <span t-field="o.origin"/>
                                             </td>
@@ -138,50 +138,65 @@
 
                         <t t-if="pack_list">
                             <style type="text/css">
-                                .tg {border-collapse:collapse;border-spacing:0;}
-                                .tg td{font-family:Arial, sans-serif;font-size:11px;padding:10px
-                                5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-                                .tg th{font-family:Arial, sans-serif;font-size:11px;font-weight:normal;padding:10px
-                                5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-                                .tg .tg-baqh{text-align:center;vertical-align:top}
-                                .tg .tg-lqy6{text-align:right;vertical-align:top}
-                                .tg .tg-yw4l{vertical-align:top}
-                                .tg .tg-l2oz{font-weight:bold;text-align:right;vertical-align:top}
-                                .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
+                                .tg {border-collapse:collapse;border-spacing:0;border:none;}
+                                .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px
+                                5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+                                .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px
+                                5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+                                .tg .tg-g5xs{font-size:11px;text-align:center;vertical-align:top}
+                                .tg .tg-z6qf{font-size:11px;text-align:right;vertical-align:top}
+                                .tg .tg-b56p{font-weight:bold;font-size:11px;text-align:center;vertical-align:top}
+                                .tg .tg-q19q{font-size:11px;vertical-align:top}
                             </style>
 
                             <table class="tg table table-condensed table-striped table-bordered"
                                    t-if="o.pack_operation_ids">
                                 <t t-foreach="pack_list" t-as="pack">
 
+                                    <tr>
+                                        <th class="tg-b56p">CAJA</th>
+                                        <th class="tg-b56p">
+                                            <span t-esc="pack['name']"/>
+                                        </th>
+                                        <th class="tg-q19q" colspan="3"></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="tg-b56p">Posición</th>
+                                        <th class="tg-b56p">Bobinas</th>
+                                        <th class="tg-b56p">Descripción/Contenido</th>
+                                        <th class="tg-b56p">Lote</th>
+                                        <th class="tg-b56p">Subtotal</th>
+                                    </tr>
 
                                     <t t-foreach="pack['lines']" t-as="line">
                                         <tr>
-                                            <th class="tg-yw4l">
-                                                <nobr><strong>Posición: </strong>
-                                                <span t-esc="line['position']"/></nobr>
-                                            </th>
-                                            <th class="tg-baqh">
-                                                <nobr><span t-esc="line['coil_qty']"/>
+                                            <td class="tg-g5xs">
+                                                <span t-esc="line['position']"/>
+                                            </td>
+                                            <td class="tg-g5xs">
+                                                <span t-esc="line['coil_qty']"/>
                                                 Bobinas de
-                                                <span t-esc="line['label_in_coin_qty']"/></nobr>
-                                            </th>
-                                            <th class="tg-yw4l"><span t-esc="line['product_id']"/></th>
-                                            <th class="tg-baqh"><nobr><strong>Lote: </strong><span t-esc="line['lot_id']"/></nobr></th>
-                                            <th class="tg-lqy6"><nobr><span t-esc="line['labels_total']"/></nobr></th>
+                                                <span t-esc="line['label_in_coin_qty']"/>
+                                            </td>
+                                            <td class="tg-q19q">
+                                                <span t-esc="line['product_id']"/>
+                                            </td>
+                                            <td class="tg-g5xs">
+                                                <span t-esc="line['lot_id']"/>
+                                            </td>
+                                            <td class="tg-z6qf">
+                                                <span t-esc="line['labels_total']"/>
+                                            </td>
                                         </tr>
-
                                     </t>
                                     <tr>
-                                        <td class="tg-l2oz">CAJA:</td>
-                                        <td class="tg-yw4l" colspan="2"><span t-esc="pack['name']"/></td>
-                                        <td class="tg-amwm">TOTAL</td>
-                                        <td class="tg-lqy6"><span t-esc="pack['total']"/></td>
+                                        <td class="tg-q19q" colspan="3"></td>
+                                        <td class="tg-b56p">Total</td>
+                                        <td class="tg-z6qf">
+                                            <span t-esc="pack['total']"/>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td colspan="4"></td>
-                                    </tr>
-
 
                                 </t>
                             </table>
