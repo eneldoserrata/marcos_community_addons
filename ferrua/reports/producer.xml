@@ -282,7 +282,7 @@
                                     <tr>
                                         <td class="tg-25al tg-no-border">PARA ENTREGAR</td>
                                         <td class="tg-3j8g tg-no-border">
-                                            <span t-field="o.date_planned" t-field-options='{"format": "d &apos;de&apos; MMMM"}'/>
+                                            <span t-field="o.delivery_date" t-field-options='{"format": "d &apos;de&apos; MMMM"}'/>
                                         </td>
                                         <td class="tg-nrw1 tg-no-border">LARGO DE LA TIRADA</td>
                                         <td class="tg-6nwz tg-doble-border">
