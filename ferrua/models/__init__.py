@@ -6,3 +6,4 @@ import sale
 import stock
 import mrp
 import bom
+import account_invoice

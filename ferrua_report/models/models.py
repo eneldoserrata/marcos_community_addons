@@ -4,16 +4,6 @@ from openerp import models, fields, api, exceptions
 
 import decimal
 
-import xlrd, xlwt
-from xlutils.copy import copy
-
-# class MrpProduction(models.Model):
-#     _inherit = "mrp.production"
-#
-#     @api.multi
-#     def xls_produccion(self):
-#         pass
-
 
 class ResCompany(models.Model):
     _inherit = "res.company"
@@ -46,9 +36,6 @@ class SaleOrderLine(models.Model):
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
-
-
-
 
     @api.multi
     def action_date_assign(self):

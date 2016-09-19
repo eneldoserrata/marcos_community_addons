@@ -77,44 +77,10 @@ class SaleOrderLine(models.Model):
         return res
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice.line"
-
-    stock_move_id = fields.One2many("stock.move", "invoice_line_id")
 
 
-    @api.model
-    def create(self, vals):
-
-        res = super(AccountInvoice, self).create(vals)
-
-        for sale_line in res.sale_line_ids:
-
-            stock_moves = self.env['stock.move']
-
-            for procurement in sale_line.procurement_ids:
-                stock_moves |= procurement.move_ids
-
-            stock_moves.sorted(lambda x: x.date)
-
-            stock_moves = stock_moves.filtered(lambda r: r.state == "done" and not r.invoice_line_id)
-
-            move_total_qty = sum([m.product_uom_qty for m in stock_moves])
-
-            if move_total_qty == res.quantity:
-                res.stock_move_id = stock_moves
-            else:
-                for sm in stock_moves:
-                    if sm.product_uom_qty == res.quantity:
-                        res.stock_move_id = sm
-                        break
-        return res
 
 
-class StockMove(models.Model):
-    _inherit = "stock.move"
-
-    invoice_line_id = fields.Many2one("account.invoice.line")
 
 
 

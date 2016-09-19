@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product','sale','stock','purchase','mrp','product_graphical_desing','mrp_sale_info'],
+    'depends': ['base','product','sale','stock','purchase','mrp','product_graphical_desing','mrp_sale_info','report'],
 
     # always loaded
     'data': [
@@ -33,6 +33,7 @@
         'views/sale.xml',
         'views/bom_view.xml',
         'views/stock.xml',
+        'views/account_invoice.xml',
         'reports/picking.xml',
         'reports/producer.xml',
         'reports/bom.xml',

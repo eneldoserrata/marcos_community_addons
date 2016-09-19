@@ -242,9 +242,7 @@
                                             <tr t-if="l.quantity"
                                                 t-attf-style="page-break-inside: avoid !important;">
                                                 <td class="text-right">
-                                                    <t t-foreach="l.stock_move_id" t-as="stock_move">
-                                                        <span t-field="stock_move.picking_id.name"/>
-                                                    </t>
+                                                    <span t-field="l.picking_names"/>
                                                 </td>
                                                 <td class="text-right">
                                                     <t t-set="format_qty" t-value="l.format_qty()"/>
@@ -348,9 +346,7 @@
                                             <tr t-if="l.quantity"
                                                 t-attf-style="page-break-inside: avoid !important;">
                                                 <td class="text-right">
-                                                    <t t-foreach="l.stock_move_id" t-as="stock_move">
-                                                        <span t-field="stock_move.picking_id.name"/><br/>
-                                                    </t>
+                                                    <span t-field="l.picking_names"/>
                                                 </td>
                                                 <td class="text-right">
                                                     <t t-set="format_qty" t-value="l.format_qty()"/>

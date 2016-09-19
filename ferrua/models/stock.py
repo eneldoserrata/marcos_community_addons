@@ -8,29 +8,30 @@ import operator
 class stock_move(models.Model):
     _inherit = "stock.pack.operation"
 
-    position = fields.Integer(string=u'Posición')
+    @api.one
+    def _get_sale_line_position(self):
+        operation_link = self.env["stock.move.operation.link"].search([('operation_id','=',self.id)])
+        if operation_link:
+            operation_link = operation_link[0]
+            self.position = operation_link.move_id.procurement_id.sale_line_id.position
 
-    @api.model
-    def create(self, vals):
 
-        picking = self.env["stock.picking"].browse(vals.get("picking_id", False))
-
-        order = False
-        if picking.group_id.name:
-            order = self.env["sale.order"].search([('name', '=', picking.group_id.name)])
-
-        product_id = vals.get("product_id", False)
-        if order:
-            for line in order.order_line:
-                if line.product_id.id == product_id:
-                    vals.update({"position": line.position})
-                    break
-
-        return super(stock_move, self).create(vals)
+    position = fields.Integer(string=u'Posición', compute=_get_sale_line_position)
 
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
+
+    @api.multi
+    def do_new_transfer(self):
+        for rec in self:
+            if rec.location_dest_id.usage == "customer":
+                for line in rec.pack_operation_product_ids:
+                    if line.product_id.tracking == "lot" and not line.result_package_id and line.qty_done > 0:
+                        raise exceptions.UserError("Los productos que requiren lote deben ser empacados.")
+
+
+        return super(StockPicking, self).do_new_transfer()
 
     @api.one
     def _get_client_order_ref(self):
@@ -170,4 +171,7 @@ class CoilPack(models.Model):
     labels_total = fields.Integer("Total de etiquetas", compute=_labels_total)
 
 
+class StockMove(models.Model):
+    _inherit = "stock.move"
 
+    invoice_line_id = fields.Many2one("account.invoice.line")
