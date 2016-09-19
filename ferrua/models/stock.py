@@ -53,7 +53,7 @@ class StockPicking(models.Model):
                     if not coil.id in coil_ids:
                         if not report_data.get(line.result_package_id.name, False):
                             report_data.update({line.result_package_id.name: {"lines": [{"position": coil.position,
-                                                                                         "product_id": coil.product_id.name,
+                                                                                         "product_id": coil.product_id.name_get()[0][1],
                                                                                          "lot_id": coil.lot_id.name,
                                                                                          "coil_qty": coil.coil_qty,
                                                                                          "label_in_coin_qty": '{:20,.2f}'.format(coil.label_in_coin_qty),
@@ -62,7 +62,7 @@ class StockPicking(models.Model):
                                                                               "total": coil.labels_total}})
                         else:
                             report_data[line.result_package_id.name]["lines"].append({"position": coil.position,
-                                                                                      "product_id": coil.product_id.name,
+                                                                                      "product_id": coil.product_id.name_get()[0][1],
                                                                                       "lot_id": coil.lot_id.name,
                                                                                       "coil_qty": coil.coil_qty,
                                                                                       "label_in_coin_qty": '{:20,.2f}'.format(coil.label_in_coin_qty),
