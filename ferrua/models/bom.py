@@ -205,6 +205,7 @@ class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
     qty_available = fields.Float(related="product_id.qty_available", string="Cantidad en inventario")
+    position = fields.Integer(string=u"Posición", readonly=True, related="move_prod_id.procurement_id.sale_line_id.position")
 
     def get_production_qty(self):
 

@@ -298,8 +298,10 @@
                                     <tr>
                                         <td class="tg-1bzc">MATERIA PRIMA</td>
                                         <td class="tg-ir4y"></td>
-                                        <td class="tg-yw4l"></td>
-                                        <td class="tg-yw4l"></td>
+                                        <td class="tg-1bzc">Pedido de venta y posición</td>
+                                        <td class="tg-ir4y">
+                                            <span t-field="o.sale_name"/> - <span t-field="o.position"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="tg-3cwu">Codigos Inventario</td>
