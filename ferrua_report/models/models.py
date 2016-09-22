@@ -47,6 +47,11 @@ class AccountInvoice(models.Model):
         return super(AccountInvoice, self).action_date_assign()
 
     def render_report_payment_term_note(self):
+        if self.rate == self.env.user.company_id.currency_id:
+            impuesto = '{0:,.2f}'.format(self.amount_tax)
+        else:
+            impuesto = '{0:,.2f}'.format(self.amount_tax*self.rate)
+
         return self.payment_term_id.note.format(
             tasa        = self.rate,
             fecha       = self.date_invoice,
@@ -54,7 +59,7 @@ class AccountInvoice(models.Model):
             cliente     = self.partner_id.name,
             numero      = self.number,
             subtotal    = '{0:,.2f}'.format(self.amount_untaxed),
-            impuesto    = '{0:,.2f}'.format(self.amount_tax),
+            impuesto    = impuesto,
             total       = '{0:,.2f}'.format(self.amount_total)
         )
 
