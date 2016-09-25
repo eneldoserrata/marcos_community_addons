@@ -3,6 +3,7 @@
 from openerp import models, fields, api
 import openerp.addons.decimal_precision as dp
 
+
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
@@ -50,7 +51,6 @@ class PurchaseOrder(models.Model):
 
                     
         return super(PurchaseOrder, self).button_confirm()
-
 
 
 class PurchaseOrderLine(models.Model):

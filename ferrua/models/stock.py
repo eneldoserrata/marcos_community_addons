@@ -10,11 +10,10 @@ class stock_move(models.Model):
 
     @api.one
     def _get_sale_line_position(self):
-        operation_link = self.env["stock.move.operation.link"].search([('operation_id','=',self.id)])
+        operation_link = self.env["stock.move.operation.link"].search([('operation_id', '=', self.id)])
         if operation_link:
             operation_link = operation_link[0]
             self.position = operation_link.move_id.procurement_id.sale_line_id.position
-
 
     position = fields.Integer(string=u'Posición', compute=_get_sale_line_position)
 
@@ -30,14 +29,13 @@ class StockPicking(models.Model):
                     if line.product_id.tracking == "lot" and not line.result_package_id and line.qty_done > 0:
                         raise exceptions.UserError("Los productos que requiren lote deben ser empacados.")
 
-
         return super(StockPicking, self).do_new_transfer()
 
     @api.one
     def _get_client_order_ref(self):
         res = "No aplica"
         if self.group_id:
-            order = self.env["sale.order"].search([('name','=',self.group_id.name)])
+            order = self.env["sale.order"].search([('name', '=', self.group_id.name)])
             if order:
                 res = order.client_order_ref
         self.client_order_ref = res
@@ -47,38 +45,62 @@ class StockPicking(models.Model):
     def get_coil_report_data(self):
         report_data = {}
         coil_ids = []
+        report_summary = {}
         for line in self.pack_operation_product_ids:
             if line.result_package_id:
                 for coil in line.result_package_id.coil_pack_ids:
                     if not coil.id in coil_ids:
+
+                        if not report_summary.get(coil.position, False):
+                            report_summary.update({coil.position: {"product_id": coil.product_id.name_get()[0][1],
+                                                                   "labels_total": coil.labels_total}
+                                                   })
+                        else:
+                            report_summary[coil.position]["labels_total"] += coil.labels_total
+
                         if not report_data.get(line.result_package_id.name, False):
                             report_data.update({line.result_package_id.name: {"lines": [{"position": coil.position,
-                                                                                         "product_id": coil.product_id.name_get()[0][1],
+                                                                                         "product_id":
+                                                                                             coil.product_id.name_get()[
+                                                                                                 0][1],
                                                                                          "lot_id": coil.lot_id.name,
                                                                                          "coil_qty": coil.coil_qty,
-                                                                                         "label_in_coin_qty": '{:20,.2f}'.format(coil.label_in_coin_qty),
-                                                                                         "labels_total": '{:20,.2f}'.format(coil.labels_total)
+                                                                                         "label_in_coin_qty": '{:20,.0f}'.format(
+                                                                                             coil.label_in_coin_qty),
+                                                                                         "labels_total": '{:20,.0f}'.format(
+                                                                                             coil.labels_total)
                                                                                          }],
                                                                               "total": coil.labels_total}})
                         else:
                             report_data[line.result_package_id.name]["lines"].append({"position": coil.position,
-                                                                                      "product_id": coil.product_id.name_get()[0][1],
+                                                                                      "product_id":
+                                                                                          coil.product_id.name_get()[0][
+                                                                                              1],
                                                                                       "lot_id": coil.lot_id.name,
                                                                                       "coil_qty": coil.coil_qty,
-                                                                                      "label_in_coin_qty": '{:20,.2f}'.format(coil.label_in_coin_qty),
-                                                                                      "labels_total": '{:20,.2f}'.format(coil.labels_total)
+                                                                                      "label_in_coin_qty": '{:20,.0f}'.format(
+                                                                                          coil.label_in_coin_qty),
+                                                                                      "labels_total": '{:20,.0f}'.format(
+                                                                                          coil.labels_total)
                                                                                       })
                             report_data[line.result_package_id.name]["total"] += coil.labels_total
                     coil_ids.append(coil.id)
 
-
         report_data_list = []
         for pack in report_data:
-            report_data[pack]["total"] = '{:20,.2f}'.format(report_data[pack]["total"])
+            report_data[pack]["total"] = '{:20,.0f}'.format(report_data[pack]["total"])
             report_data_list.append(
                 {"name": pack, "lines": sorted(report_data[pack]["lines"], key=lambda k: k['position']),
                  "total": report_data[pack]["total"]})
-        return sorted(report_data_list, key=lambda k: k['name'])
+
+        report_data_sumary = []
+        for detail in report_summary:
+            report_data_sumary.append({"position": detail,
+                                       "product_id": report_summary[detail]["product_id"],
+                                       "labels_total": '{:20,.0f}'.format(report_summary[detail]["labels_total"])
+                                       })
+
+        return {"report_data_list": sorted(report_data_list, key=lambda k: k['name']), "report_data_sumary": report_data_sumary}
 
     def open_coil_packing(self):
         operations = [x for x in self.pack_operation_ids if x.qty_done > 0 and (not x.result_package_id)]

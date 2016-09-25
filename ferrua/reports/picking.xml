@@ -136,7 +136,12 @@
 
                         <t t-set="pack_list" t-value="o.get_coil_report_data()"/>
 
+
                         <t t-if="pack_list">
+
+                            <t t-set="report_data_list" t-value="pack_list['report_data_list']"/>
+                            <t t-set="report_data_sumary" t-value="pack_list['report_data_sumary']"/>
+                            <t t-debug="pdb"/>
                             <style type="text/css">
                                 .tg {border-collapse:collapse;border-spacing:0;}
                                 .tg td{font-family:Arial, sans-serif;font-size:11px;padding:10px
@@ -152,39 +157,86 @@
 
                             <table class="tg table table-condensed table-striped table-bordered"
                                    t-if="o.pack_operation_ids">
-                                <t t-foreach="pack_list" t-as="pack">
-
+                                <t t-foreach="report_data_list" t-as="pack">
 
                                     <t t-foreach="pack['lines']" t-as="line">
                                         <tr>
                                             <th class="tg-yw4l">
-                                                <nobr><strong>Posición: </strong>
-                                                <span t-esc="line['position']"/></nobr>
+                                                <nobr>
+                                                    <strong>Posición:</strong>
+                                                    <span t-esc="line['position']"/>
+                                                </nobr>
                                             </th>
                                             <th class="tg-baqh">
-                                                <nobr><span t-esc="line['coil_qty']"/>
-                                                Bobinas de
-                                                <span t-esc="line['label_in_coin_qty']"/></nobr>
+                                                <nobr>
+                                                    <span t-esc="line['coil_qty']"/>
+                                                    Bobinas de
+                                                    <span t-esc="line['label_in_coin_qty']"/>
+                                                </nobr>
                                             </th>
-                                            <th class="tg-yw4l"><span t-esc="line['product_id']"/></th>
-                                            <th class="tg-baqh"><nobr><strong>Lote: </strong><span t-esc="line['lot_id']"/></nobr></th>
-                                            <th class="tg-lqy6"><nobr><span t-esc="line['labels_total']"/></nobr></th>
+                                            <th class="tg-yw4l">
+                                                <span t-esc="line['product_id']"/>
+                                            </th>
+                                            <th class="tg-baqh">
+                                                <nobr>
+                                                    <strong>Lote:</strong>
+                                                    <span t-esc="line['lot_id']"/>
+                                                </nobr>
+                                            </th>
+                                            <th class="tg-lqy6">
+                                                <nobr>
+                                                    <span t-esc="line['labels_total']"/>
+                                                </nobr>
+                                            </th>
                                         </tr>
 
                                     </t>
                                     <tr>
                                         <td class="tg-l2oz">CAJA:</td>
-                                        <td class="tg-yw4l" colspan="2"><span t-esc="pack['name']"/></td>
+                                        <td class="tg-yw4l" colspan="2">
+                                            <span t-esc="pack['name']"/>
+                                        </td>
                                         <td class="tg-amwm">TOTAL</td>
-                                        <td class="tg-lqy6"><span t-esc="pack['total']"/></td>
+                                        <td class="tg-lqy6">
+                                            <span t-esc="pack['total']"/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="4"></td>
                                     </tr>
-
-
                                 </t>
                             </table>
+
+                            <style type="text/css">
+                                .tg {border-collapse:collapse;border-spacing:0;}
+                                .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px
+                                5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+                                .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px
+                                5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+                                .tg .tg-baqh{text-align:center;vertical-align:top}
+                                .tg .tg-lqy6{text-align:right;vertical-align:top}
+                                .tg .tg-9hbo{font-weight:bold;vertical-align:top}
+                                .tg .tg-yw4l{vertical-align:top}
+                            </style>
+                            <table class="tg table table-condensed table-striped table-bordered">
+                                <tr>
+                                    <th class="tg-yw4l" colspan="3">Resumen del conduce
+                                        <strong><span t-field="o.name"/></strong>
+                                         relacionado con la orden de compra
+                                        <strong><span t-field="o.client_order_ref"/></strong>
+                                    </th>
+                                </tr>
+                                <t t-foreach="report_data_sumary" t-as="summary">
+                                <tr>
+                                    <td class="tg-9hbo">POS: <span t-esc="summary['position']"/></td>
+                                    <td class="tg-yw4l"><span t-esc="summary['product_id']"/></td>
+                                    <td class="tg-lqy6"><span t-esc="summary['labels_total']"/></td>
+                                </tr>
+                                </t>
+                            </table>
+
+
+
                         </t>
 
                         <t t-if="not pack_list">
