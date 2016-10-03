@@ -95,7 +95,12 @@
                         <span t-if="doc.type == 'out_invoice' and doc.state == 'cancel'">Cancelled Invoice</span>
                         <span t-if="doc.type == 'out_refund'">Nota de crédito -</span>
                         <span t-if="doc.type == 'in_refund'">Nota de crédito proveedor -</span>
-                        <span t-if="doc.type == 'in_invoice'">Factura de compra -</span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'normal'">FACTURA DE COMPRA -</span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'minor'">GASTO MENOR -</span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'informal'">PROVEEDOR INFORMAL -</span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'exterior'">PAGOS AL EXTERIOR -</span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'import'">IMPORTACION -</span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'others'">OTRAS COMPRAS -</span>
                         <span t-field="doc.number"/>
                     </h4>
                 </div>
@@ -115,18 +120,25 @@
                     }
                     .info-table {
                     background-color: #75feff;
-                    padding: 11px;
+                    padding-top: 11px;
                     margin-top:15px
                     }
                 </style>
-                <br></br>
+
                 <div class="container">
 
                     <div class="row info-row">
                         <div class="col-xs-7">
+
                             <h4 t-if="doc.partner_id">
-                                CLIENTE:
+                                <t t-if="doc.type == 'out_invoice'">
+                                    CLIENTE:
+                                </t>
+                                <t t-if="doc.type == 'in_invoice'">
+                                    SUPLIDOR:
+                                </t>
                             </h4>
+
                             <h5 t-if="doc.partner_id"
                                 t-attf-style="margin-top:2px; margin-bottom:5px; margin-left:0px;">
                                 <span t-if="doc.partner_id.title" t-field="doc.partner_id.title"/>
@@ -206,9 +218,6 @@
                         </div>
                     </div>
 
-                    <br/>
-
-
                     <!--line start-->
                     <t t-if="not doc.payment_term_id.invoice_report_type">
                         <div class="row">
@@ -254,7 +263,7 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <span t-esc="l.price_unit"
-                                                        t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                                 </td>
                                                 <td class="text-right">
                                                     <span t-esc="l.tax_amount"
@@ -357,14 +366,16 @@
                                                     <span t-field="l.name"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="l.price_unit*doc.rate" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                    <span t-esc="l.price_unit*doc.rate"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
                                                 </td>
                                                 <td class="text-right">
                                                     <span t-esc="l.tax_amount*doc.rate"
                                                           t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="l.price_subtotal*doc.rate" t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                    <span t-esc="l.price_subtotal*doc.rate"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
                                                 </td>
                                             </tr>
                                         </t>
@@ -425,33 +436,28 @@
                             </div>
                         </div>
                     </t>
+                    <!--lines end-->
 
-                        <!--lines end-->
-                    <br/>
-                    <br/>
-                    <br/>
-                    <div class="row">
-                        <div class="col-xs-12 pull-left"
-                             style="padding-left:0px; padding-right:0px; page-break-inside: avoid ! important;font-size:11px !important;">
+                    <div class="row last-page" style="page-break-inside: avoid; font-size:11px !important;">
+                            <br></br>
                             <p t-if="doc.comment">
                                 <span t-field="doc.comment"/>
                             </p>
                             <p t-if="doc.payment_term_id.note">
                                 <span t-raw="doc.render_report_payment_term_note()"/>
                             </p>
-                            <p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">
-                                <span t-field="doc.partner_id.property_payment_term_id.note"/>
-                            </p>
-                            <p id="fiscal_position_remark"
-                               t-if="doc.fiscal_position_id.note and doc.fiscal_position_id">
-                                <strong>Posición fiscal:</strong>
-                                <span t-field="doc.fiscal_position_id.note"/>
+                            <!--<p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">-->
+                                <!--<span t-field="doc.partner_id.property_payment_term_id.note"/>-->
+                            <!--</p>-->
+                            <!--<p id="fiscal_position_remark"-->
+                               <!--t-if="doc.fiscal_position_id.note and doc.fiscal_position_id">-->
+                                <!--<strong>Posición fiscal:</strong>-->
+                                <!--<span t-field="doc.fiscal_position_id.note"/>-->
+<!---->
+                            <!--</p>-->
+                            <!--<div class="oe_structure"/>-->
 
-                            </p>
-                            <div class="oe_structure"/>
-                        </div>
                     </div>
-
 
                 </div>
 
