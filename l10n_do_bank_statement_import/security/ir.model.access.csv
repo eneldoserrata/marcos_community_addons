@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_l10n_do_bank_statement_import_l10n_do_bank_statement_import,l10n_do_bank_statement_import.l10n_do_bank_statement_import,model_l10n_do_bank_statement_import_l10n_do_bank_statement_import,,1,0,0,0

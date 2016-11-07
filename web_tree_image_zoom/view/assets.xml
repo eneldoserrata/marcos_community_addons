@@ -1,8 +1,0 @@
-<odoo>
-    <template id="assets_backend_tree_image" name="tree image" inherit_id="web.assets_backend">
-        <xpath expr="." position="inside">
-            <script type="text/javascript" src="/web_tree_image_zoom/static/src/js/tree_image.js"></script>
-            <link rel="stylesheet" href="/web_tree_image_zoom/static/src/css/pro_img.css" />
-        </xpath>
-    </template>
-</odoo>

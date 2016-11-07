@@ -1,6 +1,0 @@
-<templates id="tree_image_zoom" xml:space="preserve">
-    <img t-name="ListView.row.image"
-         t-att-height="widget.height || 50"
-         t-att-src="src" 
-         class="oe_image_tree"/>
-</templates>
