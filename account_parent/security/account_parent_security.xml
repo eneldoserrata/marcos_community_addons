@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="1">
+
+
+    <record id="group_coas_user" model="res.groups">
+        <field name="name">Show Chart of Account Structure</field>
+        <field name="implied_ids" eval="[(4, ref('account.group_account_manager'))]"/>
+    </record>
+</data>
+</openerp>
