@@ -108,23 +108,6 @@ class SaleOrderLine(models.Model):
 
 
 
-    # @api.onchange('price_unit')
-    # def product_uom_change(self):
-    #     if self.product_id:
-    #         self.update_lst_price(self.create_date, self.price_unit, self.product_id.id)
-
-        # company_currency = self.company_id.currency_id
-        # price_list_currency = self.order_id.pricelist_id.currency_id
-        #
-        # if company_currency.id != price_list_currency.id:
-        #     new_price = price_list_currency.with_context({'date': self.create_date}).compute(self.price_unit, company_currency,round=False)
-        # else:
-        #     new_price = self.price_unit
-        #
-        # if new_price and self.product_id:
-        #     self.env["product.product"].browse(self.product_id.id).write({'lst_price': new_price})
-
-
 
 
 

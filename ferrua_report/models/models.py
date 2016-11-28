@@ -29,9 +29,8 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     def format_qty(self):
-        qty = decimal.Decimal(self.product_uom_qty)
+        qty = round(decimal.Decimal(self.product_uom_qty),3)
         return "{}".format(qty, 0 if qty == qty else 2)
-
 
 
 class AccountInvoice(models.Model):
