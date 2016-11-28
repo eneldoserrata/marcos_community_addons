@@ -2,7 +2,7 @@
 
 from openerp import models, fields, api, exceptions, _
 
-import operator
+import collections
 
 
 class stock_move(models.Model):
@@ -94,10 +94,11 @@ class StockPicking(models.Model):
                  "total": report_data[pack]["total"]})
 
         report_data_sumary = []
+        report_summary = sorted(report_summary.items())
         for detail in report_summary:
-            report_data_sumary.append({"position": detail,
-                                       "product_id": report_summary[detail]["product_id"],
-                                       "labels_total": '{:20,.0f}'.format(report_summary[detail]["labels_total"])
+            report_data_sumary.append({"position": detail[0],
+                                       "product_id": detail[1]["product_id"],
+                                       "labels_total": '{:20,.0f}'.format(detail[1]["labels_total"])
                                        })
 
         return {"report_data_list": sorted(report_data_list, key=lambda k: k['name']), "report_data_sumary": report_data_sumary}
