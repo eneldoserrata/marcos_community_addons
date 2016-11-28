@@ -56,7 +56,10 @@ class SaleOrderLine(models.Model):
     @api.onchange("position")
     def onchange_position(self):
         if self.position > 0:
-            self.name = u"[POS: {}]: {}".format(self.position, self.name)
+            positions = re.findall(u"\[POS\: ?[0-9]+\]\:", self.name)
+            for pos in positions:
+                self.name = self.name.replace(pos, "")
+            self.name = u"[POS: {}]: {}".format(self.position, self.name.strip())
         else:
             self.name = self.name
 
