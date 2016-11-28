@@ -2,9 +2,30 @@
 
 from openerp import models, fields, api
 
+
+class ProductProduct(models.Model):
+    _inherit = 'product.product'
+
+    @api.multi
+    def _sales_count(self):
+        r = {}
+        sql = """SELECT min(sale_report.id) AS id, count(sale_report.id) AS product_id_count , sum("sale_report"."product_uom_qty") AS "product_uom_qty" ,"sale_report"."product_id" as "product_id"
+            FROM "sale_report" LEFT JOIN "product_product" as "sale_report__product_id" ON ("sale_report"."product_id" = "sale_report__product_id"."id")
+            WHERE (("sale_report"."state" in ('sale','done'))  AND  ("sale_report"."product_id" in {}))
+            GROUP BY "sale_report"."product_id","sale_report__product_id"."default_code","sale_report__product_id"."name_template"
+            ORDER BY  "sale_report__product_id"."default_code" ,"sale_report__product_id"."name_template"
+        """.format(str(tuple(self.ids)).replace(",)",")"))
+        self.env.cr.execute(sql)
+        result = self.env.cr.fetchall()
+        for rec in result:
+            r[rec[3]] = rec[2]
+        for product in self:
+            product.sales_count = r.get(product.id, 0)
+        return r
+
+
 class NewModule(models.TransientModel):
     _name = 'product.name.composer'
-
 
     partner = fields.Many2many("composer.partner", string=u"Cliente o Fabricante")
     type = fields.Many2many("composer.type", string=u"Tipo de Producto")
@@ -12,7 +33,6 @@ class NewModule(models.TransientModel):
     brand = fields.Many2many("composer.brand", string=u"Línea del Producto")
     size = fields.Many2many("composer.size", string=u"Medida o Cantidad de unidades del producto")
     uom = fields.Many2many("composer.uom", string=u"Unidad de Medida")
-
 
     @api.multi
     def create_name(self):
@@ -53,10 +73,12 @@ class ComposerBrand(models.Model):
 
     name = fields.Char()
 
+
 class ComposerSize(models.Model):
     _name = "composer.size"
 
     name = fields.Char()
+
 
 class ComposerUom(models.Model):
     _name = "composer.uom"
@@ -67,6 +89,6 @@ class ComposerUom(models.Model):
 class ProductCategory(models.Model):
     _inherit = "product.category"
 
-    extra_info = fields.Selection([('exact','Plan Exact'),
-                                   ('master','Master Rolls'),
-                                   ('lamination','Laminación')], string=u"Información extra")
+    extra_info = fields.Selection([('exact', 'Plan Exact'),
+                                   ('master', 'Master Rolls'),
+                                   ('lamination', 'Laminación')], string=u"Información extra")
