@@ -246,7 +246,7 @@
                                         <td class="tg-25al tg-botton-border" colspan="2">
                                             <span t-field="o.product_id"/>
                                         </td>
-                                        <td class="tg-wjl1 ">CÓDIGO DE BARRA</td>
+                                        <td class="tg-wjl1 ">REFERENCIA INTERNA / CÓDIGO DE BARRA</td>
                                     </tr>
                                     <tr>
                                         <td class="tg-25al tg-botton-border">CLIENTE</td>
@@ -254,7 +254,7 @@
                                             <span t-field="o.partner_id"/>
                                         </td>
                                         <td class="tg-t7bp tg-doble-border">
-                                            <span t-field="o.product_id.barcode"/>
+                                            <span t-field="o.product_id.default_code"/> / <span t-field="o.product_id.barcode"/>
                                         </td>
                                     </tr>
                                     <tr>
