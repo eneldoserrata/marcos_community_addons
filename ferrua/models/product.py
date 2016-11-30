@@ -92,3 +92,4 @@ class ProductCategory(models.Model):
     extra_info = fields.Selection([('exact', 'Plan Exact'),
                                    ('master', 'Master Rolls'),
                                    ('lamination', 'Laminación')], string=u"Información extra")
+    uom_id = fields.Many2one("product.uom", string="Unidad de medida para la venta")

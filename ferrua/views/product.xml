@@ -112,6 +112,7 @@
 
                 <xpath expr="//field[@name='type']" position="after">
                     <field name="extra_info"/>
+                    <field name="uom_id"/>
                 </xpath>
 
             </field>
