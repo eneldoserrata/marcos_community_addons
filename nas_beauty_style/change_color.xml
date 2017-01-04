@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+        <template id="change_menu_color_css_replace" name="change_color assets" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/nas_beauty_style/static/src/css/menu.css"/>
+            </xpath>
+        </template>
+        <template id="change_component_style_css_replace" name="change_color assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/nas_beauty_style/static/src/css/components.css"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>
