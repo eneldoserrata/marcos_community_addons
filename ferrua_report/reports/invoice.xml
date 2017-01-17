@@ -95,12 +95,24 @@
                         <span t-if="doc.type == 'out_invoice' and doc.state == 'cancel'">Cancelled Invoice</span>
                         <span t-if="doc.type == 'out_refund'">Nota de crédito -</span>
                         <span t-if="doc.type == 'in_refund'">Nota de crédito proveedor -</span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'normal'">FACTURA DE COMPRA -</span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'minor'">GASTO MENOR -</span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'informal'">PROVEEDOR INFORMAL -</span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'exterior'">PAGOS AL EXTERIOR -</span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'import'">IMPORTACION -</span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'others'">OTRAS COMPRAS -</span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'normal'">FACTURA DE
+                            COMPRA -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'minor'">GASTO MENOR
+                            -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'informal'">PROVEEDOR
+                            INFORMAL -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'exterior'">PAGOS AL
+                            EXTERIOR -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'import'">IMPORTACION
+                            -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'others'">OTRAS COMPRAS
+                            -
+                        </span>
                         <span t-field="doc.number"/>
                     </h4>
                 </div>
@@ -110,18 +122,19 @@
 
                 <style>
                     .info-row {
-                    border-top: 2px solid;
-                    border-top-color: #0a4b6e;
-                    border-bottom: 2px solid;
-                    border-bottom-color: #0a4b6e;
-                    font-size:11px !important;
-                    background-color: #e6e6e6;
-                    padding-bottom: 11px;
+                        border-top: 2px solid;
+                        border-top-color: #0a4b6e;
+                        border-bottom: 2px solid;
+                        border-bottom-color: #0a4b6e;
+                        font-size: 11px !important;
+                        background-color: #e6e6e6;
+                        padding-bottom: 11px;
                     }
+
                     .info-table {
-                    background-color: #75feff;
-                    padding-top: 11px;
-                    margin-top:15px
+                        background-color: #75feff;
+                        padding-top: 11px;
+                        margin-top: 15px
                     }
                 </style>
 
@@ -436,26 +449,58 @@
                             </div>
                         </div>
                     </t>
+
+
+                    <t t-if="doc.type == 'in_invoice'">
+                        <div class="row" t-if="doc.tax_line_ids" t-attf-style="font-size:12px !important;">
+                            <div class="col-xs-6">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Impuesto</th>
+                                            <th class="text-right">Base</th>
+                                            <th class="text-right">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="doc.tax_line_ids" t-as="t">
+                                            <td>
+                                                <span t-field="t.name"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="t.base"
+                                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="t.amount"
+                                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
                     <!--lines end-->
 
                     <div class="row last-page" style="page-break-inside: avoid; font-size:11px !important;">
-                            <br></br>
-                            <p t-if="doc.comment">
-                                <span t-field="doc.comment"/>
-                            </p>
-                            <p t-if="doc.payment_term_id.note">
-                                <span t-raw="doc.render_report_payment_term_note()"/>
-                            </p>
-                            <!--<p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">-->
-                                <!--<span t-field="doc.partner_id.property_payment_term_id.note"/>-->
-                            <!--</p>-->
-                            <!--<p id="fiscal_position_remark"-->
-                               <!--t-if="doc.fiscal_position_id.note and doc.fiscal_position_id">-->
-                                <!--<strong>Posición fiscal:</strong>-->
-                                <!--<span t-field="doc.fiscal_position_id.note"/>-->
-<!---->
-                            <!--</p>-->
-                            <!--<div class="oe_structure"/>-->
+                        <br></br>
+                        <p t-if="doc.comment">
+                            <span t-field="doc.comment"/>
+                        </p>
+                        <p t-if="doc.payment_term_id.note">
+                            <span t-raw="doc.render_report_payment_term_note()"/>
+                        </p>
+                        <!--<p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">-->
+                        <!--<span t-field="doc.partner_id.property_payment_term_id.note"/>-->
+                        <!--</p>-->
+                        <!--<p id="fiscal_position_remark"-->
+                        <!--t-if="doc.fiscal_position_id.note and doc.fiscal_position_id">-->
+                        <!--<strong>Posición fiscal:</strong>-->
+                        <!--<span t-field="doc.fiscal_position_id.note"/>-->
+                        <!---->
+                        <!--</p>-->
+                        <!--<div class="oe_structure"/>-->
 
                     </div>
 
