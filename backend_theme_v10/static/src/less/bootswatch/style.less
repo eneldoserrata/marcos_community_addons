@@ -16,6 +16,10 @@
 	font-family: @font-family-sans-serif;
 }
 
+a:hover {
+	text-decoration: none;
+}
+
 // Adjust menu counter position
 
 //@-moz-document url-prefix() {
@@ -130,6 +134,12 @@ body a {
 //    margin: 3px;
 //    position: relative;
 //}
+
+// Bigger font in buttons
+
+.btn-sm, .btn-group-sm > .btn {
+    font-size: 13px;
+}
 
 // =========================================
 // Make formwidth wider to screen
@@ -283,7 +293,7 @@ textarea, select, .o_form_view.o_form_editable .o_form_field_many2manytags,
 
 .breadcrumb {
     background-color: transparent;
-	padding: 8px 0px;
+	padding: 0;
 }
 
 // Make lookup button background transparent
