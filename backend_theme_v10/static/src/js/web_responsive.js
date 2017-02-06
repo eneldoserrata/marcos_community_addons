@@ -283,6 +283,13 @@ odoo.define('web_responsive', function(require) {
     // It inits a new AppDrawer when the web client is ready
     core.bus.on('web_client_ready', null, function () {
         new AppDrawer();
+
+        if (window.location.hash.includes("action=88")){
+            $('.drawer').drawer('open');
+        }
+
+
+
     });
 
     return {
@@ -290,5 +297,6 @@ odoo.define('web_responsive', function(require) {
         'SearchView': SearchView,
         'Menu': Menu,
     };
+
 
 });
