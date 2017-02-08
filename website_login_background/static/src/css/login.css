@@ -13,3 +13,7 @@ main .oe_website_login_container {
   width: 300px;
   margin: 40px auto;
 }
+
+.oe_reset_password_form {
+  max-width: 275px;
+}

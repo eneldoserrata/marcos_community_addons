@@ -16,6 +16,8 @@
                 <attribute name="class">oe_website_login_container modal-content</attribute>
             </xpath>
         </template>
+
+
         <template id="assets_frontend" inherit_id="website.assets_frontend" name="loginborder">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" href="/website_login_background/static/src/css/login.css"/>

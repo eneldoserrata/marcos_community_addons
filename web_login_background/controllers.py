@@ -17,6 +17,15 @@ class Background(Home):
         return super(Background, self).web_login(**kw)
 
 
+    @http.route('/web/reset_password', type='http', auth='public', website=True)
+    def web_auth_reset_password(self, *args, **kw):
+        picture_url = request.env['ir.attachment'].get_background_pic()
+        if picture_url:
+            request.params['picture_url'] = picture_url
+
+        return super(Background, self).web_auth_reset_password(**kw)
+
+
 class BackgroundSignup(AuthSignupHome):
 
     @http.route('/web/signup', type='http', auth="public")

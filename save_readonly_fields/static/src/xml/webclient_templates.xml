@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+		<template id="save_readonly_fields_assets_backend" inherit_id="web.assets_backend">
+	        <xpath expr="." position="inside">
+	            <script type="text/javascript" src="/save_readonly_fields/static/src/js/form_view.js"/>
+	        </xpath>
+	    </template>
+    </data>
+</odoo>
