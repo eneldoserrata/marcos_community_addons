@@ -239,7 +239,7 @@
                                 <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
                                     <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
                                         <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
-                                            <th class="text-right"
+                                            <th t-if="doc.type == 'out_invoice'" class="text-right"
                                                 t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Conduce
                                             </th>
                                             <th class="text-right"
@@ -260,10 +260,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <t t-set="itbis_total_amount" t-value="0"/>
                                         <t t-foreach="doc.invoice_line_ids" t-as="l">
                                             <tr t-if="l.quantity"
                                                 t-attf-style="page-break-inside: avoid !important;">
-                                                <td class="text-right">
+                                                <td t-if="doc.type == 'out_invoice'" class="text-right">
                                                     <span t-field="l.picking_names"/>
                                                 </td>
                                                 <td class="text-right">
@@ -278,8 +279,17 @@
                                                     <span t-esc="l.price_unit"
                                                           t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                                 </td>
-                                                <td class="text-right">
+
+                                                <td t-if="doc.journal_id.purchase_type != 'informal'"
+                                                    class="text-right">
                                                     <span t-esc="l.tax_amount"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td t-if="doc.journal_id.purchase_type == 'informal'"
+                                                    class="text-right">
+                                                    <t t-set="itbis_total_amount"
+                                                       t-value="itbis_total_amount+l.itbis_amount"/>
+                                                    <span t-esc="l.itbis_amount"
                                                           t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                                 </td>
                                                 <td class="text-right">
@@ -306,18 +316,31 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td class="text-right">
                                                     <span t-field="doc.amount_untaxed"
                                                           t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                                 </td>
-                                                <td>
+                                                <td t-if="doc.journal_id.purchase_type != 'informal'"
+                                                    class="text-right">
                                                     <span t-field="doc.amount_tax"
                                                           t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                                 </td>
-                                                <td>
+                                                <td t-if="doc.journal_id.purchase_type == 'informal'"
+                                                    class="text-right">
+                                                    <span t-esc="itbis_total_amount"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td t-if="doc.journal_id.purchase_type != 'informal'"
+                                                    class="text-right">
                                                     <span style="font-weight:bold; text-decoration:underline;"
                                                           t-field="doc.amount_total"
                                                           t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td t-if="doc.journal_id.purchase_type == 'informal'"
+                                                    class="text-right">
+                                                    <span style="font-weight:bold; text-decoration:underline;"
+                                                          t-esc="doc.amount_untaxed+itbis_total_amount"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                                 </td>
                                             </tr>
 
@@ -451,33 +474,39 @@
                     </t>
 
 
-                    <t t-if="doc.type == 'in_invoice'">
+                    <t t-if="doc.journal_id.purchase_type == 'informal'">
                         <div class="row" t-if="doc.tax_line_ids" t-attf-style="font-size:12px !important;">
                             <div class="col-xs-6">
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
-                                            <th>Impuesto</th>
-                                            <th class="text-right">Base</th>
-                                            <th class="text-right">Total</th>
+                                            <th class="text-left">Impuesto</th>
+                                            <!--<th class="text-left">Base</th>-->
+                                            <th class="text-left">Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr t-foreach="doc.tax_line_ids" t-as="t">
-                                            <td>
-                                                <span t-field="t.name"/>
+                                        <tr t-foreach="doc.tax_line_ids" t-as="tax">
+                                            <td class="text-left">
+                                                <span t-field="tax.name"/>
                                             </td>
+                                            <!--<td class="text-right">-->
+                                            <!--<span t-field="tax.base"-->
+                                            <!--t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>-->
+                                            <!--</td>-->
                                             <td class="text-right">
-                                                <span t-field="t.base"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-field="t.amount"
-                                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                                <span t-field="tax.amount"
+                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <strong>Total a pagar:
+                                    <span t-esc="doc.amount_total"
+                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                </strong>
                             </div>
                         </div>
                     </t>

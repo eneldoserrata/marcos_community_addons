@@ -76,6 +76,17 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
+    @api.multi
+    @api.depends("invoice_line_tax_ids", "price_subtotal")
+    def _get_itbis_only(self):
+        for rec in self:
+            if rec.invoice_id.journal_id.purchase_type == "informal":
+                for tax in rec.invoice_line_tax_ids:
+                    if tax.purchase_tax_type == "itbis":
+                        rec.itbis_amount = round(rec.price_subtotal * (tax.amount / 100), 2)
+
+    itbis_amount = fields.Monetary("Itbis", compute=_get_itbis_only)
+
     def format_qty(self):
         qty = round(decimal.Decimal(self.quantity),3)
         return "{}".format(qty, 0 if qty == qty else 2)
