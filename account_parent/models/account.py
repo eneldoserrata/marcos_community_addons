@@ -75,9 +75,9 @@ class AccountAccount(models.Model):
             account.debit = debit
     
     move_line_ids = fields.One2many('account.move.line','account_id','Journal Entry Lines')
-    balance = fields.Float(compute="compute_values", digits_compute=dp.get_precision('Account'), string='Balance')
-    credit = fields.Float(compute="compute_values",digits_compute=dp.get_precision('Account'), string='Credit')
-    debit = fields.Float(compute="compute_values",digits_compute=dp.get_precision('Account'), string='Debit')
+    balance = fields.Float(compute="compute_values", digits=dp.get_precision('Account'), string='Balance')
+    credit = fields.Float(compute="compute_values",digits=dp.get_precision('Account'), string='Credit')
+    debit = fields.Float(compute="compute_values",digits=dp.get_precision('Account'), string='Debit')
     parent_id = fields.Many2one('account.account','Parent Account',ondelete="set null")
     child_ids = fields.One2many('account.account','parent_id', 'Child Accounts')
     parent_left = fields.Integer('Left Parent', index=1)
