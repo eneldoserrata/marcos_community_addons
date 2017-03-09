@@ -95,6 +95,20 @@ class AccountInvoiceLine(models.Model):
 class AccountPaymentTerm(models.Model):
     _inherit = "account.payment.term"
 
+    def get_amount_untaxed(self, invoice):
+        currency_id = invoice.currency_id.with_context(date=invoice.date_invoice)
+        return currency_id.compute(invoice.amount_untaxed, invoice.company_id.currency_id)
+
+    def amount_tax(self, invoice):
+        amount_tax = 0
+        for tax in invoice.tax_line_ids:
+            amount_tax += tax.amount
+            print amount_tax
+        currency_id = invoice.currency_id.with_context(date=invoice.date_invoice)
+        amount_tax = currency_id.compute(amount_tax, invoice.company_id.currency_id)
+        print amount_tax
+        return amount_tax
+
     def _get_rate(self, rate_date):
         if self.currency_id:
 

@@ -356,9 +356,14 @@
                     <t t-if="doc.payment_term_id.invoice_report_type">
                         <t t-set="second_currency" t-value="doc.payment_term_id.currency_id"/>
                         <t t-set="second_rate" t-value="doc.payment_term_id._get_rate(doc.date_invoice)"/>
-                        <t t-set="local_amount_untaxed" t-value="doc.amount_untaxed*second_rate"/>
-                        <t t-set="local_amount_tax" t-value="doc.amount_tax*doc.rate*second_rate"/>
-                        <t t-set="local_amount_total" t-value="doc.amount_total*doc.rate*second_rate"/>
+                        <t t-debug="pdb"/>
+
+
+                        <t t-set="local_amount_untaxed" t-value="doc.payment_term_id.get_amount_untaxed(doc)"/>
+
+                        <t t-set="local_amount_tax" t-value="doc.payment_term_id.amount_tax(doc)"/>
+
+                        <t t-set="local_amount_total" t-value="local_amount_untaxed+local_amount_tax"/>
 
                         <div class="row">
                             <div class="col-xs-12"
@@ -436,16 +441,16 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <span t-esc="doc.amount_untaxed*doc.rate"
+                                                    <span t-esc="local_amount_untaxed"
                                                           t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
                                                 </td>
                                                 <td>
-                                                    <span t-esc="doc.amount_tax*doc.rate"
+                                                    <span t-esc="local_amount_tax"
                                                           t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
                                                 </td>
                                                 <td>
                                                     <span style="font-weight:bold; text-decoration:underline;"
-                                                          t-esc="doc.amount_total*doc.rate"
+                                                          t-esc="local_amount_total"
                                                           t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
                                                 </td>
                                             </tr>
