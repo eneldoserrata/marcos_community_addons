@@ -21,9 +21,12 @@ odoo.define('inputmask_widgets', function (require) {
         },
         render_value: function (mask) {
             this._super();
-            if (this.$input !== undefined && this.attributes) {
-                this.$input.inputmask(mask);
-            }
+            if (this.attributes){
+                if (this.$input !== undefined)
+                    this.$input.inputmask(mask);
+                else if ('contenteditable' in this.node.attrs)
+                    this.$el.inputmask(mask);
+                }
         },
     });
     var FieldMaskRegex = FieldMask.extend({

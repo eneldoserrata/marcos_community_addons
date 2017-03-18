@@ -32,7 +32,8 @@ The new configurable Odoo Web Login Screen
     'author': "binhnguyenxuan (www.xubi.me)",
     'website': 'http://www.xubi.me',
     'license': 'AGPL-3',
-    'depends': [],
+    'depends': [
+    ],
     'data': [
         'data/ir_config_parameter.xml',
         'templates/webclient_templates.xml',
