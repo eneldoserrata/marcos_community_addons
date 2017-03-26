@@ -18,3 +18,4 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     parent_id = fields.Integer()
+    state_old = fields.Char()
