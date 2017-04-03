@@ -6,10 +6,10 @@ import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
-import openerp.tests.common as common
+from odoo.tests.common import TransactionCase
 
 
-class TestAccountFiscalYear(common.TransactionCase):
+class TestAccountFiscalYear(TransactionCase):
 
     def setUp(self):
         super(TestAccountFiscalYear, self).setUp()

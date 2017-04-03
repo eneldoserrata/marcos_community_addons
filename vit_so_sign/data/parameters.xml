@@ -1,0 +1,23 @@
+<openerp>
+    <data>
+
+        <record model="ir.config_parameter" id="spc_hostname">
+        	<field name="key">spc.hostname</field>
+        	<field name="value">127.0.0.1</field>
+        </record>
+        <record model="ir.config_parameter" id="spc_dbname">
+        	<field name="key">spc.dbname</field>
+        	<field name="value">spc</field>
+        </record>
+
+        <record model="ir.config_parameter" id="spc_username">
+        	<field name="key">spc.username</field>
+        	<field name="value">root</field>
+        </record>
+
+        <record model="ir.config_parameter" id="spc_password">
+        	<field name="key">spc.password</field>
+        	<field name="value">1234</field>
+        </record>
+    </data>
+</openerp>

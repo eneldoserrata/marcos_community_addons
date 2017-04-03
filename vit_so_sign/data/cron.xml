@@ -1,0 +1,18 @@
+<openerp>
+    <data>
+        <!-- scheduler : process import -->
+        <record forcecreate="True" model="ir.cron" id="process_import_invoice">
+            <field name="name">Read ca_pembayaran tabel from MySQL SPC and create payment voucher for the related invoice</field>
+            <field name="active">True</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">50</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'account.voucher'"/>
+            <field name="function" eval="'cron_process_import'"/>
+            <field name="args" eval="'()'"/>
+        </record>    
+           
+    </data>
+</openerp>

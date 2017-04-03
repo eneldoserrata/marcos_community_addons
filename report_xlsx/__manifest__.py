@@ -1,16 +1,12 @@
-# -*- coding: utf-8 -*-
-# Copyright 2015 ACSONE SA/NV (<http://acsone.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': "Base report xlsx",
-
     'summary': """
-        Base module to create xlsx report""",
-    'author': 'ACSONE SA/NV,'
-              'Odoo Community Association (OCA)',
-    'website': "http://acsone.eu",
+        Simple upgradation of v9 OCA module 'report_xlsx' to v10""",
+    'author': 'Cybrosys Techno Solutions',
+    'company': 'Cybrosys Techno Solutions',
+    'website': 'http://www.cybrosys.com',
     'category': 'Reporting',
-    'version': '9.0.1.0.0',
+    'version': '0.2',
     'license': 'AGPL-3',
     'external_dependencies': {'python': ['xlsxwriter']},
     'depends': [

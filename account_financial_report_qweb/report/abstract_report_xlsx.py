@@ -33,6 +33,9 @@ class AbstractReportXslx(ReportXlsx):
         self.format_amount = None
         self.format_percent_bold_italic = None
 
+    def get_workbook_options(self):
+        return {'constant_memory': True}
+
     def generate_xlsx_report(self, workbook, data, objects):
         report = objects
 

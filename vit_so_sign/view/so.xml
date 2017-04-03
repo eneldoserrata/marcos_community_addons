@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_order_form_validated" model="ir.ui.view">
+            <field name="name">view_order_form_validated</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <field name="user_id" position="after">
+                    <field name="validated_id"/>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

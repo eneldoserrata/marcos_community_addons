@@ -9,7 +9,7 @@ from odoo import models, fields, api, _, exceptions
 class DateRangeType(models.Model):
     _inherit = "date.range.type"
 
-    fiscal_year = fields.Boolean(string='Is fiscal year ?', default=False)
+    fiscal_year = fields.Boolean(string='Is fiscal year?', default=False)
 
     @api.multi
     def unlink(self):
