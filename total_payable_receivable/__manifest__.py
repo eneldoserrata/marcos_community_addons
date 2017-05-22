@@ -2,8 +2,8 @@
 ##############################################################################
 #
 #    Cybrosys Technologies Pvt. Ltd.
-#    Copyright (C) 2009-TODAY Cybrosys Technologies(<http://www.cybrosys.com>).
-#    Author: Nilmar Shereef(<http://www.cybrosys.com>)
+#    Copyright (C) 2017-TODAY Cybrosys Technologies(<http://www.cybrosys.com>).
+#    Author: Niyas Raphy(<http://www.cybrosys.com>)
 #    you can modify it under the terms of the GNU LESSER
 #    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
 #
@@ -21,19 +21,21 @@
 #
 ##############################################################################
 {
-    'name': "POS Chat Box",
-    'summary': """Chat Box In POS Screen""",
-    'description': "This module adds chat interface in Point of sale screen.",
-    'author': "Cybrosys Techno Solutions",
-    'company': "Cybrosys Techno Solutions",
-    'website': "http://www.cybrosys.com",
-    'category': 'Point Of Sale',
-    'version': '0.4',
-    'depends': ['base', 'point_of_sale'],
-    'data': ['views/pos_chat.xml'],
-    'qweb': ['static/src/xml/pos_msg.xml'],
+    'name': 'Payable And Receivable Amount',
+    'summary': """Amount Payable & Receivable In Partner Form""",
+    'version': '10.0.1.0.0',
+    'description': """Amount Payable & Receivable In Partner Form""",
+    'author': 'Cybrosys Techno Solutions',
+    'company': 'Cybrosys Techno Solutions',
+    'website': 'http://www.cybrosys.com',
+    'category': 'Accounting',
+    'depends': ['base'],
+    'license': 'LGPL-3',
+    'data': [
+        'views/total_payable_receivable_view.xml',
+    ],
+    'demo': [],
     'images': ['static/description/banner.jpg'],
-    'license': 'AGPL-3',
     'installable': True,
     'auto_install': False,
 }
