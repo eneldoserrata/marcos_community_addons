@@ -1,0 +1,42 @@
+
+.h1{
+    margin: 0;
+    font: 700 50px/1 "Roboto";
+    border: 6px solid #fff;
+    padding: 20px 50px;
+    display: inline-block;
+    color:#fff;
+    width: 60%;
+}
+
+h3{
+    color:#fff;
+}
+.chevron .fa-chevron-left{
+        background: rgba(255, 255, 255, 0.7);
+        color: #42464d;
+        line-height: 80px;
+        height: 80px;
+        width: 50px;
+        transition: all 1s;
+        top: 40%;
+        position: absolute;
+        z-index: 5;
+        right: 95%;
+
+    }
+
+.chevron .fa-chevron-right{
+        background: rgba(255, 255, 255, 0.7);
+        color: #42464d;
+        line-height: 80px;
+        height: 80px;
+        width: 50px;
+        transition: all 1s;
+        top: 40%;
+        position: absolute;
+        
+        z-index: 5;
+        left: 95%;
+    }
+

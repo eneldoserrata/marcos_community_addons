@@ -1,0 +1,66 @@
+.navbar-inverse .navbar-text {
+  color: #fff;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #fff;
+}
+
+.btn{
+	border-radius: 0px;
+}
+
+button{
+	border-radius: 0px !important;
+}
+
+.o_searchview{
+	border-radius: 0px !important;
+}
+
+input{
+	border-radius: 0px !important;
+}
+
+.o_form_view ul.oe_form_status li > .arrow span, 
+.o_form_view ul.oe_form_status_clickable li > .arrow span{
+	background-color: #eceaea !important;
+	background: -webkit-gradient(linear, left top, right bottom, from(#eceaea), to(#eceaea)) ;
+}
+
+.o_form_view ul.oe_form_status li,
+.o_form_view ul.oe_form_status_clickable li{
+	background-image: none !important
+}
+
+li.oe_active > span.arrow > span{
+	background-color: #7c7bad !important;
+	background: -webkit-gradient(linear, left top, right bottom, from(#7c7bad), to(#7c7bad)) !important;
+}
+
+.o_form_view ul.oe_form_status li.oe_active, 
+.o_form_view ul.oe_form_status_clickable li.oe_active{
+	background-color: #7c7bad !important;
+}
+
+.o_form_view > header{
+	background-image: none;
+}
+
+input[type="text"], input[type="password"], input[type="number"], textarea, select{
+	border-radius: 0px !important;
+}
+
+.o_searchview .o_searchview_autocomplete{
+	left: 0px !important;
+}
+
+.dropdown-menu{
+	border-radius: 0px !important;
+}
+
+.o_loading{
+	background-color: #eaeaea !important;
+	color: #443a1c !important;
+}
+

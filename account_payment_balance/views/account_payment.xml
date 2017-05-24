@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+  <data>
+
+        <record id="add_payment_balance_on_vendor_payment_tree_view" model="ir.ui.view">
+            <field name="name">add.payment.balance.on.vendor.tree.view</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_supplier_payment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='amount']" position="after">
+                    <field name="payment_balance" sum="Total"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="add_payment_balance_on_customer_payment_tree_view" model="ir.ui.view">
+            <field name="name">add.payment.balance.on.customer.tree.view</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='amount']" position="after">
+                    <field name="payment_balance" sum="Total"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="add_payment_balance_on_payment_form_view" model="ir.ui.view">
+            <field name="name">add.payment.balance.on.payment.form.view</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <div name="amount_div" position="after"> 
+                    <label for="payment_balance" attrs="{'invisible': [('state','=','draft')]}"/>
+                    <div name="balance_div" class="o_row"> 
+                        <field name="payment_balance" attrs="{'readonly': True, 'invisible': [('state','=','draft')]}"/>
+                        <field name="currency_id" options="{'readonly': True, 'no_create': True, 'no_open': True}" attrs="{'invisible': [('state','=','draft')]}" 
+                               groups="base.group_multi_currency"/> 
+                    </div>
+               </div>
+            </field>
+       </record>
+
+       <record id="add_payment_balance_filter_on_search_view" model="ir.ui.view">
+           <field name="name">add.payment.balance.filter.on.search.view</field>
+           <field name="model">account.payment</field>
+           <field name="inherit_id" ref="account.view_account_payment_search"/>
+           <field name="arch" type="xml">
+               <filter name="state_posted" position="after">
+                   <filter string="To Apply" domain="[('payment_balance','>',0)]" name="unapplied_balance"/>
+               </filter>
+           </field>
+       </record>
+
+  </data>
+</odoo>
+
+ 
