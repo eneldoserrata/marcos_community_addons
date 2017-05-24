@@ -1,1 +1,0 @@
-For Odoo Version 10.0, this module shows the unapplied balance of Payments on the list and form view, with a filter to show payments with a positive unapplied balance.
