@@ -83,7 +83,6 @@ class DelayableRecordset(object):
                                eta=self.eta,
                                description=self.description,
                                channel=self.channel)
-
         return delay
 
     def __str__(self):
@@ -639,7 +638,7 @@ def job(func=None, default_channel='root', retry_pattern=None):
         raise AttributeError(
             "method.delay() can no longer be used, the general form is "
             "env['res.users'].with_delay().method()"
-        )
+            )
 
     assert default_channel == 'root' or default_channel.startswith('root.'), (
         "The channel path must start by 'root'")
@@ -720,10 +719,8 @@ def related_action(action=None, **kwargs):
                 # ...
 
     """
-
     def decorate(func):
         func.related_action = action
         func.kwargs = kwargs
         return func
-
     return decorate

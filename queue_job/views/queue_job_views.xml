@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="action_botton_done" model="ir.actions.server">
+        <field name="name">Set to done</field>
+        <field name="model_id" ref="model_queue_job"/>
+        <field name="condition">True</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">records.button_done()</field>
+    </record>
+
+    <record id="action_botton_done_action_menu" model="ir.values">
+        <field name="name">Set to done</field>
+        <field name="action_id" ref="action_botton_done"/>
+        <field name="value" eval="'ir.actions.server,' + str(ref('action_botton_done'))"/>
+        <field name="key">action</field>
+        <field name="model_id" ref="model_queue_job"/>
+        <field name="model">queue.job</field>
+        <field name="key2">client_action_multi</field>
+    </record>
+
     <record id="view_queue_job_form" model="ir.ui.view">
         <field name="name">queue.job.form</field>
         <field name="model">queue.job</field>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_general_configuration_form_inherit_auth_ldap" model="ir.ui.view">
+            <field name="name">base.config.settings.form.inherit.auth.ldap</field>
+            <field name="model">base.config.settings</field>
+            <field name="inherit_id" ref="auth_ldap.view_general_configuration_form_inherit_auth_ldap"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ldap_filter']" position="after">
+                             <field name="email"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
