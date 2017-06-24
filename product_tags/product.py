@@ -19,9 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-from openerp import api
-from openerp import fields
-from openerp import models
+
+from odoo import models, fields, api
 
 
 class ProductTag(models.Model):
