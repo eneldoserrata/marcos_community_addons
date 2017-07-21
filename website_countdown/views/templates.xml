@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="head" inherit_id="website.assets_frontend" name="Timer">
+            <xpath expr="/t" position="inside">
+                <script type="text/javascript" src="/website_countdown/static/src/js/jquery.downCount.js"/>
+                <script type="text/javascript" src="/website_countdown/static/src/js/countdown.js"/>
+                <link rel='stylesheet' href="/website_countdown/static/src/css/styles.css"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

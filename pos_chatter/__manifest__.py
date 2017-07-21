@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Cybrosys Technologies Pvt. Ltd.
-#    Copyright (C) 2008-TODAY Cybrosys Technologies(<http://www.cybrosys.com>).
+#    Copyright (C) 2009-TODAY Cybrosys Technologies(<http://www.cybrosys.com>).
 #    Author: Nilmar Shereef(<http://www.cybrosys.com>)
 #    you can modify it under the terms of the GNU LESSER
 #    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
@@ -21,14 +21,14 @@
 #
 ##############################################################################
 {
-    'name': "POS Chat",
-    'summary': """Chat in POS""",
+    'name': "POS Chat Box",
+    'summary': """Chat Box In POS Screen""",
     'description': "This module adds chat interface in Point of sale screen.",
     'author': "Cybrosys Techno Solutions",
     'company': "Cybrosys Techno Solutions",
     'website': "http://www.cybrosys.com",
     'category': 'Point Of Sale',
-    'version': '0.3',
+    'version': '0.4',
     'depends': ['base', 'point_of_sale'],
     'data': ['views/pos_chat.xml'],
     'qweb': ['static/src/xml/pos_msg.xml'],

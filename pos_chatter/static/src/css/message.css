@@ -27,7 +27,7 @@
 }
 .pos .pos-new_message{
     margin-left :90px;
-    color: #337ab7
+    color: #7f82ac;
     }
 
 .pos .message a {
@@ -38,12 +38,12 @@
 
 }
 .pos .message a:hover {
-    color: #337ab7;
+    color: #7f82ac;
 }
 
 .pos .pos-selected {
     font-weight: bold;
-    color : #337ab7;
+    color : #7f82ac;
     }
 
 .pos .fa-close {
@@ -78,5 +78,9 @@
 .ui-menu .ui-menu-item a{
     height:10px;
     padding: 1px 16px;
+}
+
+.hide {
+  display: none !important;
 }
 
