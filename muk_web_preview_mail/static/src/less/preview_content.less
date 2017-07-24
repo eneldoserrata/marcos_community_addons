@@ -1,0 +1,231 @@
+/**********************************************************************************
+* 
+*    Copyright (C) 2017 MuK IT GmbH
+*
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU Affero General Public License as
+*    published by the Free Software Foundation, either version 3 of the
+*    License, or (at your option) any later version.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU Affero General Public License for more details.
+*
+*    You should have received a copy of the GNU Affero General Public License
+*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*
+**********************************************************************************/
+
+.o_preview_mail {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	
+	.mail-container {
+		display: none;
+		
+		.meta-panel {
+			height: 158px;
+			padding: 5px 25px 0 25px;
+			
+			.meta-table {
+				margin-bottom: 10px ! important;
+				
+				.meta-tag {
+					width: 25px;
+				}
+			}
+			
+			.meta-table > tbody > tr {
+			    border-top: 1px solid @gray-light;
+			}
+			
+			.meta-table > tbody > tr:first-child {
+			    border-top: 0;
+			}
+			
+			.meta-table > tbody > tr > td {
+			    border-top: 0;
+			    padding: 3px 8px 3px 8px;
+			}
+		}
+		
+		/* Based on Bootstrap Line Tabs by @keenthemes, Licensed under MIT */
+		.content-panel {
+			padding: 0 10px 10px 10px;
+			
+			.tab-line > .nav-tabs {
+				border: none;
+				margin: 0px;
+			}
+	
+			.tab-line > .nav-tabs > li {
+				margin-right: 2px;
+			}
+	
+			.tab-line > .nav-tabs > li > a {
+				border: 0;
+				margin-right: 0;
+				color: @gray;
+			}
+			
+			.tab-line > .nav-tabs > li > a > span {
+				padding-left: 5px;
+			}
+			
+			.tab-line > .nav-tabs > li > a > i {
+				font-size: 15px;
+			}
+	
+			.tab-line > .nav-tabs > li.open,
+			.tab-line > .nav-tabs > li:hover {
+				border-bottom: 4px solid  lighten(@brand-primary, 20%);
+			}
+	
+			.tab-line > .nav-tabs > li.open > a,
+			.tab-line > .nav-tabs > li:hover > a {
+				border: 0;
+				color: @gray-light;
+				background: none ! important;
+			}
+	
+			.tab-line > .nav-tabs > li.open .dropdown-menu,
+			.tab-line > .nav-tabs > li:hover .dropdown-menu {
+				margin-top: 0px;
+			}
+	
+			.tab-line > .nav-tabs > li.active {
+				position: relative;
+				border-bottom: 4px solid @brand-primary;
+			}
+	
+			.tab-line > .nav-tabs > li.active > a {
+				border: 0;
+				color: @gray-dark;
+			}
+	
+			.tab-line > .tab-content {
+				border: 0;
+				border-top: 1px solid #eee;
+				margin-top: -3px;
+				padding: 15px 0;
+			}
+			
+			.attachment-container {
+				position: absolute;
+				width: calc(~'100% - 20px');
+				height: calc(~'100% - 215px');
+			}
+		}
+	}
+
+	/* Based on a CodePen Snippet by Dave McCarthy */
+	.mail-loader {
+		height: 20px;
+		width: 250px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		
+		.loader--dot {
+			animation-name: loader;
+			animation-timing-function: ease-in-out;
+			animation-duration: 3s;
+			animation-iteration-count: infinite;
+			height: 20px;
+			width: 20px;
+			border-radius: 100%;
+			background-color: black;
+			position: absolute;
+			border: 2px solid white;
+		}
+
+		.loader--dot:first-child {
+			background-color: #8cc759;
+			animation-delay: 0.5s;
+		}
+
+		.loader--dot:nth-child(2) {
+			background-color: #8c6daf;
+			animation-delay: 0.4s;
+		}
+
+		.loader--dot:nth-child(3) {
+			background-color: #ef5d74;
+			animation-delay: 0.3s;
+		}
+
+		.loader--dot:nth-child(4) {
+			background-color: #f9a74b;
+			animation-delay: 0.2s;
+		}
+
+		.loader--dot:nth-child(5) {
+			background-color: #60beeb;
+			animation-delay: 0.1s;
+		}
+
+		.loader--dot:nth-child(6) {
+			background-color: #fbef5a;
+			animation-delay: 0s;
+		}
+
+		.loader--text {
+			position: absolute;
+			top: 200%;
+			left: 0;
+			right: 0;
+			width: 4rem;
+			margin: auto;
+		}
+
+		.loader--text:after {
+			content: "Loading";
+			font-weight: bold;
+			animation-name: loading-text;
+			animation-duration: 3s;
+			animation-iteration-count: infinite;
+		}
+
+		@keyframes loader {
+			15% {
+				transform: translateX(0);
+			}
+
+			45% {
+				transform: translateX(230px);
+			}
+
+			65% {
+				transform: translateX(230px);
+			}
+
+			95% {
+				transform: translateX(0);
+			}
+		}
+
+		@keyframes loading-text {
+			0% {
+				content: "Loading";
+			}
+
+			25% {
+				content: "Loading.";
+			}
+
+			50% {
+				content: "Loading..";
+			}
+
+			75% {
+				content: "Loading...";
+			}
+		}
+	}
+}
+
