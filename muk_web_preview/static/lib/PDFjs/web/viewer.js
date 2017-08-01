@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 'use strict';
+var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
 ;
 var pdfjsWebLibs;
 {
@@ -1150,29 +1151,13 @@ var pdfjsWebLibs;
     return state;
    }
    function parseQueryString(query) {
-	var innerUrl;
-	if(query.indexOf("?url=") > -1) {
-		var parts = query.split('?url=');
-		query = parts[0];
-		innerUrl = parts[1];
-	}
     var parts = query.split('&');
     var params = {};
     for (var i = 0, ii = parts.length; i < ii; ++i) {
      var param = parts[i].split('=');
      var key = param[0].toLowerCase();
-     var value = param.length > 1 ? param.slice(1, param.length).join("=") : null;
+     var value = param.length > 1 ? param[1] : null;
      params[decodeURIComponent(key)] = decodeURIComponent(value);
-    }
-    for(var key in params) {
-    	if(!params.hasOwnProperty(key) || key === 'file') {
-    		continue;
-    	} else {
-    		params.file += ('&' + key + '=' + params[key]);
-    	}
-    }
-    if(params.file && innerUrl) {
-    	params.file += ('?url=' + innerUrl);
     }
     return params;
    }
@@ -6285,10 +6270,7 @@ var pdfjsWebLibs;
       var info = data.info, metadata = data.metadata;
       self.documentInfo = info;
       self.metadata = metadata;
-// console.log('PDF ' + pdfDocument.fingerprint + ' [' +
-// info.PDFFormatVersion + ' ' + (info.Producer || '-').trim() + ' / ' +
-// (info.Creator || '-').trim() + ']' + ' (PDF.js: ' + (pdfjsLib.version
-// || '-') + (!pdfjsLib.PDFJS.disableWebGL ? ' [WebGL]' : '') + ')');
+      console.log('PDF ' + pdfDocument.fingerprint + ' [' + info.PDFFormatVersion + ' ' + (info.Producer || '-').trim() + ' / ' + (info.Creator || '-').trim() + ']' + ' (PDF.js: ' + (pdfjsLib.version || '-') + (!pdfjsLib.PDFJS.disableWebGL ? ' [WebGL]' : '') + ')');
       var pdfTitle;
       if (metadata && metadata.has('dc:title')) {
        var title = metadata.get('dc:title');
@@ -6503,11 +6485,7 @@ var pdfjsWebLibs;
     var file;
     var queryString = document.location.search.substring(1);
     var params = parseQueryString(queryString);
-    if('file' in params) {
-    	file = params.file;
-    } else {
-    	return;
-    }
+    file = 'file' in params ? params.file : DEFAULT_URL;
     validateFileURL(file);
     var waitForBeforeOpening = [];
     var appConfig = PDFViewerApplication.appConfig;
