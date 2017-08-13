@@ -6,6 +6,8 @@
 from odoo import models, api, fields
 from odoo.tools.safe_eval import safe_eval
 from operator import itemgetter
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class MassReconcileBase(models.AbstractModel):
@@ -163,6 +165,8 @@ class MassReconcileBase(models.AbstractModel):
                 writeoff_acc_id=writeoff_account,
                 writeoff_journal_id=self.journal_id
                 )
+            _logger.info("===============> below_writeoff lines {}".format(line_rs))
+            self._cr.commit()
             return True, True
         elif allow_partial:
             # We need to give a writeoff_acc_id
@@ -181,5 +185,7 @@ class MassReconcileBase(models.AbstractModel):
                 writeoff_acc_id=writeoff_account,
                 writeoff_journal_id=self.journal_id
                 )
+            _logger.info("===============> allow_partial lines {}".format(line_rs))
+            self._cr.commit()
             return True, False
         return False, False

@@ -5,6 +5,9 @@
 
 from odoo import models, api
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 class MassReconcileSimple(models.AbstractModel):
     _name = 'mass.reconcile.simple'
@@ -20,6 +23,7 @@ class MassReconcileSimple(models.AbstractModel):
             raise ValueError("_key_field has to be defined")
         count = 0
         res = []
+        lines_total = len(lines)
         while (count < len(lines)):
             for i in xrange(count + 1, len(lines)):
                 if lines[count][self._key_field] != lines[i][self._key_field]:
@@ -40,6 +44,8 @@ class MassReconcileSimple(models.AbstractModel):
                     allow_partial=False
                     )
                 if reconciled:
+                    _logger.info("===============> rec_auto_lines_simple lines {}".format(lines_total))
+                    lines_total -= 2
                     res += [credit_line['id'], debit_line['id']]
                     del lines[i]
                     break
