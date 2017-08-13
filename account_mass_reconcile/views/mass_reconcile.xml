@@ -116,7 +116,7 @@ The lines should have the partner, the credit entry ref. is matched vs the debit
         <field name="priority">20</field>
         <field name="model">account.mass.reconcile.method</field>
         <field name="arch" type="xml">
-            <tree editable="top" string="Automatic Mass Reconcile Method">
+            <tree string="Automatic Mass Reconcile Method">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="write_off"/>
@@ -126,6 +126,7 @@ The lines should have the partner, the credit entry ref. is matched vs the debit
                 <field name="expense_exchange_account_id" groups="base.group_multi_currency"/>
                 <field name="journal_id" attrs="{'required':[('write_off','>',0)]}"/>
                 <field name="date_base_on"/>
+                <field name="filter"/>
             </tree>
         </field>
     </record>
