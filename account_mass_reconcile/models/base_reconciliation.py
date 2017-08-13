@@ -152,7 +152,6 @@ class MassReconcileBase(models.AbstractModel):
                  or partial (False)
         """
         self.ensure_one()
-        ml_obj = self.env['account.move.line']
         line_ids = [l['id'] for l in lines]
         below_writeoff, sum_debit, sum_credit = self._below_writeoff_limit(
             lines, self.write_off
@@ -200,6 +199,7 @@ class MassReconcileBase(models.AbstractModel):
     @api.multi
     @job
     def reconcile_job(self, line_ids, writeoff_account, journal_id):
+        ml_obj = self.env['account.move.line']
         line_rs = ml_obj.browse(line_ids)
         line_rs.reconcile(
             writeoff_acc_id=writeoff_account,
