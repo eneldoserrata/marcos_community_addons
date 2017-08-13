@@ -305,3 +305,11 @@ class AccountMassReconcile(models.Model):
         older = reconciles[0]
         older.run_reconcile()
         return True
+
+    @api.multi
+    def run_all_as_cron(self):
+        mass_reconciles = self.search([])
+        for mass_reconcile in mass_reconciles:
+            mass_reconcile.run_reconcile()
+
+
