@@ -162,7 +162,7 @@ class MassReconcileBase(models.AbstractModel):
             else:
                 writeoff_account = self.account_lost_id
 
-            self.with_delay(channel="root.migration").reconcile_job(line_ids, writeoff_account, self.journal_id)
+            self.with_delay(channel="root.migration").mass_reconcile_job(line_ids, writeoff_account, self.journal_id)
             # line_rs = ml_obj.browse(line_ids)
             # line_rs.reconcile(
             #     writeoff_acc_id=writeoff_account,
@@ -184,7 +184,7 @@ class MassReconcileBase(models.AbstractModel):
             else:
                 writeoff_account = self.expense_exchange_account_id
 
-            self.with_delay(channel="root.migration").reconcile_job(line_ids, writeoff_account, self.journal_id)
+            self.with_delay(channel="root.migration").mass_reconcile_job(line_ids, writeoff_account, self.journal_id)
             # line_rs = ml_obj.browse(line_ids)
             # line_rs.reconcile(
             #     writeoff_acc_id=writeoff_account,
@@ -198,7 +198,7 @@ class MassReconcileBase(models.AbstractModel):
 
     @api.multi
     @job
-    def reconcile_job(self, line_ids, writeoff_account, journal_id):
+    def mass_reconcile_job(self, line_ids, writeoff_account, journal_id):
         ml_obj = self.env['account.move.line']
         line_rs = ml_obj.browse(line_ids)
         line_rs.reconcile(
