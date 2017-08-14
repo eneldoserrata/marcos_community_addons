@@ -23,9 +23,11 @@ class MassReconcileSimple(models.AbstractModel):
             raise ValueError("_key_field has to be defined")
         count = 0
         res = []
+        loops = 0
         while (count < len(lines)):
             for i in xrange(count + 1, len(lines)):
-                _logger.info("===============> rec_auto_lines_simple count {} de {}".format(count, len(lines)))
+                _logger.info("===============> rec_auto_lines_simple {} count {} de {}".format(loops, count, len(lines)))
+                loops += 1
 
                 if lines[count][self._key_field] != lines[i][self._key_field]:
                     break
