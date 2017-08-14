@@ -26,6 +26,9 @@ class MassReconcileSimple(models.AbstractModel):
         lines_total = len(lines)
         while (count < len(lines)):
             for i in xrange(count + 1, len(lines)):
+                _logger.info("===============> rec_auto_lines_simple lines {}".format(lines_total))
+                lines_total -= 2
+
                 if lines[count][self._key_field] != lines[i][self._key_field]:
                     break
                 check = False
@@ -44,8 +47,6 @@ class MassReconcileSimple(models.AbstractModel):
                     allow_partial=False
                     )
                 if reconciled:
-                    _logger.info("===============> rec_auto_lines_simple lines {}".format(lines_total))
-                    lines_total -= 2
                     res += [credit_line['id'], debit_line['id']]
                     del lines[i]
                     break
