@@ -6,11 +6,8 @@
 from odoo import models, api, fields
 from odoo.tools.safe_eval import safe_eval
 from operator import itemgetter
-
-from odoo.addons.queue_job.job import job
 import logging
 _logger = logging.getLogger(__name__)
-
 
 class MassReconcileBase(models.AbstractModel):
 
@@ -152,6 +149,7 @@ class MassReconcileBase(models.AbstractModel):
                  or partial (False)
         """
         self.ensure_one()
+        ml_obj = self.env['account.move.line']
         line_ids = [l['id'] for l in lines]
         below_writeoff, sum_debit, sum_credit = self._below_writeoff_limit(
             lines, self.write_off
@@ -161,15 +159,13 @@ class MassReconcileBase(models.AbstractModel):
                 writeoff_account = self.account_profit_id
             else:
                 writeoff_account = self.account_lost_id
-
-            self.with_delay(channel="root.migration").mass_reconcile_job(line_ids, writeoff_account, self.journal_id)
-            # line_rs = ml_obj.browse(line_ids)
-            # line_rs.reconcile(
-            #     writeoff_acc_id=writeoff_account,
-            #     writeoff_journal_id=self.journal_id
-            #     )
-            # _logger.info("===============> below_writeoff lines {}".format(line_rs))
-            # self._cr.commit()
+            line_rs = ml_obj.browse(line_ids)
+            line_rs.reconcile(
+                writeoff_acc_id=writeoff_account,
+                writeoff_journal_id=self.journal_id
+                )
+            _logger.info("===============> below_writeoff lines {}".format(line_rs))
+            self._cr.commit()
             return True, True
         elif allow_partial:
             # We need to give a writeoff_acc_id
@@ -183,27 +179,12 @@ class MassReconcileBase(models.AbstractModel):
                 writeoff_account = self.income_exchange_account_id
             else:
                 writeoff_account = self.expense_exchange_account_id
-
-            self.with_delay(channel="root.migration").mass_reconcile_job(line_ids, writeoff_account, self.journal_id)
-            # line_rs = ml_obj.browse(line_ids)
-            # line_rs.reconcile(
-            #     writeoff_acc_id=writeoff_account,
-            #     writeoff_journal_id=self.journal_id
-            #     )
-            # _logger.info("===============> allow_partial lines {}".format(line_rs))
-            # self._cr.commit()
+            line_rs = ml_obj.browse(line_ids)
+            line_rs.reconcile(
+                writeoff_acc_id=writeoff_account,
+                writeoff_journal_id=self.journal_id
+                )
+            _logger.info("===============> allow_partial lines {}".format(line_rs))
+            self._cr.commit()
             return True, False
         return False, False
-
-
-    @api.multi
-    @job
-    def mass_reconcile_job(self, line_ids, writeoff_account, journal_id):
-        ml_obj = self.env['account.move.line']
-        line_rs = ml_obj.browse(line_ids)
-        line_rs.reconcile(
-            writeoff_acc_id=writeoff_account,
-            writeoff_journal_id=self.journal_id
-        )
-        _logger.info("===============> allow_partial lines {}".format(line_rs))
-        self._cr.commit()
