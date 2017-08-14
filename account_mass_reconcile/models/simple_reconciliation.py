@@ -25,7 +25,7 @@ class MassReconcileSimple(models.AbstractModel):
         res = []
         while (count < len(lines)):
             for i in xrange(count + 1, len(lines)):
-                _logger.info("===============> rec_auto_lines_simple count {}".format(count))
+                _logger.info("===============> rec_auto_lines_simple count {} de {}".format(count, len(lines)))
 
                 if lines[count][self._key_field] != lines[i][self._key_field]:
                     break
