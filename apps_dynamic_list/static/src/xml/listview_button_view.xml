@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates t-name="selectcolumns">
-    <t t-extend="ListView.buttons">
-
-        <t t-jquery="button.o_list_button_add" t-operation="after">
-
-            <button name="select_columns" id="select_columns"
-                    class="oe_select_columns btn btn-default btn-sm dropdown-toggle dropdown-toggle"
-                    data-toggle="dropdown">
-                Set Columns
+    <t t-name="ColumnsSelector">
+        <div class="btn-group">
+            <button class="btn btn-default dropdown-toggle oe_select_columns" type="button" id="select_columns" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-columns" aria-hidden="true"></i>
                 <span class="caret"></span>
             </button>
-
-            <ul id="showcb" class="dropdown-menu" style="max-height:320px; overflow:auto;padding: 3px 10px;right:0px;left:auto;">
+            <ul id="showcb" class="dropdown-menu custom-columnsselector" aria-labelledby="select_columns">
                 <li>
                     <button name="apply" id="apply" class="oe_dropdown_btn btn btn-primary btn-block">
-                        Apply
+                        Aplicar
                     </button>
                 </li>
             </ul>
-        </t>
+        </div>
     </t>
 </templates>
