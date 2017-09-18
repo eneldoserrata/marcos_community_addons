@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="html_template_tree_view" model="ir.ui.view">
+        <field name="name">html.template.tree</field>
+        <field name="model">html.template</field>
+        <field name="arch" type="xml">
+            <tree string="HTML Template" create="false" edit="false" delete="false">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+	<record id="html_template_form_view" model="ir.ui.view">
+		<field name="name">html.template.form</field>
+		<field name="model">html.template</field>
+		<field eval="1" name="priority" />
+		<field name="arch" type="xml">
+			<form string="HTML Template" create="false" edit="false" delete="false">
+				<group>
+					<group>
+						<field name="name"/>
+						<field name="text_file"/>
+					</group>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="html_template_action" model="ir.actions.act_window">
+		<field name="name">HTML Template</field>
+		<field name="res_model">html.template</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>
