@@ -1,0 +1,9 @@
+<openerp>
+    <data>
+        <template id="assets_backend" name="arodoo_stock_barcode_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/arodoo_stock_barcode/static/src/js/picking_barcode_handler.js"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

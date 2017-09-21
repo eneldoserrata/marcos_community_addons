@@ -1,0 +1,39 @@
+<odoo>
+  <data>
+    <record id="view_picking_barcode_form" model="ir.ui.view">
+            <field name="name">stock.picking.barcode.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <form position="inside">
+                    <field name="_barcode_scanned" widget="picking_barcode_handler"/>
+                </form>
+                <xpath expr="//field[@name='pack_operation_product_ids']/tree" position="inside">
+                    <field name="product_barcode" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='pack_operation_product_ids']/kanban" position="inside">
+                    <field name="product_barcode" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='pack_operation_pack_ids']/tree" position="inside">
+                </xpath>
+                <xpath expr="//field[@name='pack_operation_product_ids']//field[@name='qty_done']"
+                       position="attributes">
+                    <attribute name="options">{'barcode_events': True}</attribute>
+                    <attribute name="widget">field_float_scannable</attribute>
+                </xpath>
+                <xpath expr="//button[@name='do_new_transfer']" position="attributes">
+                    <attribute name="barcode_trigger">validate</attribute>
+                </xpath>
+                <xpath expr="//button[@name='do_print_picking']" position="attributes">
+                    <attribute name="barcode_trigger">print</attribute>
+                </xpath>
+                <xpath expr="//button[@name='put_in_pack']" position="attributes">
+                    <attribute name="barcode_trigger">put-in-pack</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_scrap']" position="attributes">
+                    <attribute name="barcode_trigger">button_scrap</attribute>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>
