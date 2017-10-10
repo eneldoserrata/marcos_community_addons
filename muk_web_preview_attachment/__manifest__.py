@@ -24,9 +24,11 @@
     "summary": """Attachment Preview Dialog""",
     "description": """ 
         Adds a button to the Attachment Sidebar to
-        preview the content directly in the browser..
+        preview the content directly in the browser.
+        The module also enables the possibility to
+        preview attachment in the Odoo Chat Widgets.
     """,
-    "version": "10.0.1.0.3",
+    "version": "10.0.1.0.5",
     "category": "Extra Tools",
     "license": "AGPL-3",
     "website": "http://www.mukit.at",
@@ -35,10 +37,13 @@
         "Mathias Markl <mathias.markl@mukit.at>",
     ],
     "depends": [
+        "mail",
+        "document",
         "muk_web_preview",
     ],
     "data": [
         "template/assets.xml",
+        "views/ir_attachment_view.xml",
     ],
     "demo": [
     ],
