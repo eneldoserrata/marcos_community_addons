@@ -1,5 +1,27 @@
-from odoo.addons.report_xlsx.report.report_xlsx import ReportXlsx
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    Cybrosys Technologies Pvt. Ltd.
+#    Copyright (C) 2017-TODAY Cybrosys Technologies(<http://www.cybrosys.com>).
+#    Author: Jesni Banu(<https://www.cybrosys.com>)
+#    you can modify it under the terms of the GNU LESSER
+#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
+#
+#    It is forbidden to publish, distribute, sublicense, or sell copies
+#    of the Software or modified copies of the Software.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
+#
+#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
+#    GENERAL PUBLIC LICENSE (LGPL v3) along with this program.
+#    If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
 import datetime
+from odoo.addons.report_xlsx.report.report_xlsx import ReportXlsx
 
 
 class StockReportXls(ReportXlsx):
@@ -34,12 +56,12 @@ class StockReportXls(ReportXlsx):
             sale_value = 0
             purchase_value = 0
             product = self.env['product.product'].browse(obj.id)
-            sale_obj = self.env['sale.order.line'].search([('order_id.state', '=', 'done'),
+            sale_obj = self.env['sale.order.line'].search([('order_id.state', 'in', ('sale', 'done')),
                                                            ('product_id', '=', product.id),
                                                            ('order_id.warehouse_id', '=', warehouse)])
             for i in sale_obj:
                 sale_value = sale_value + i.product_uom_qty
-            purchase_obj = self.env['purchase.order.line'].search([('order_id.state', '=', 'done'),
+            purchase_obj = self.env['purchase.order.line'].search([('order_id.state', 'in', ('purchase', 'done')),
                                                                    ('product_id', '=', product.id),
                                                                    ('order_id.picking_type_id', '=', warehouse)])
             for i in purchase_obj:
@@ -68,7 +90,7 @@ class StockReportXls(ReportXlsx):
     def generate_xlsx_report(self, workbook, data, lines):
         get_warehouse = self.get_warehouse(data)
         count = len(get_warehouse[0]) * 11 + 6
-        sheet = workbook.add_worksheet()
+        sheet = workbook.add_worksheet('Stock Info')
         format1 = workbook.add_format({'font_size': 14, 'bottom': True, 'right': True, 'left': True, 'top': True, 'align': 'vcenter', 'bold': True})
         format11 = workbook.add_format({'font_size': 12, 'align': 'center', 'right': True, 'left': True, 'bottom': True, 'top': True, 'bold': True})
         format21 = workbook.add_format({'font_size': 10, 'align': 'center', 'right': True, 'left': True,'bottom': True, 'top': True, 'bold': True})

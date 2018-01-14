@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
+# Copyright 2015 ACSONE SA/NV (<http://acsone.eu>)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
 from cStringIO import StringIO
 
-from openerp.report.report_sxw import report_sxw
-from openerp.api import Environment
+from odoo.report.report_sxw import report_sxw
+from odoo.api import Environment
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -31,11 +35,14 @@ class ReportXlsx(report_sxw):
             self.env.cr, self.env.uid, ids, self.env.context)
         self.parser_instance.set_context(objs, data, ids, 'xlsx')
         file_data = StringIO()
-        workbook = xlsxwriter.Workbook(file_data)
+        workbook = xlsxwriter.Workbook(file_data, self.get_workbook_options())
         self.generate_xlsx_report(workbook, data, objs)
         workbook.close()
         file_data.seek(0)
         return (file_data.read(), 'xlsx')
+
+    def get_workbook_options(self):
+        return {}
 
     def generate_xlsx_report(self, workbook, data, objs):
         raise NotImplementedError()
