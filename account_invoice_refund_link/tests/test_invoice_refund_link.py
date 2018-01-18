@@ -2,8 +2,8 @@
 # Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.tests.common import TransactionCase
-from openerp.addons.account_invoice_refund_link import post_init_hook
+from odoo.tests.common import TransactionCase
+from odoo.addons.account_invoice_refund_link import post_init_hook
 
 
 class TestInvoiceRefundLink(TransactionCase):

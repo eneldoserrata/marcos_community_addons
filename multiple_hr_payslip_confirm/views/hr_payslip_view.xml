@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<openerp>
-	<data>
-
-		<!-- Multiple Confirm HR Payslip -->
-	    <act_window id="multiple_confirm_hr_payslip" multi="True" name="Confirm Payslip" res_model="multi.hr.payslip.wiz" src_model="hr.payslip" view_mode="form" target="new" view_type="form"/>
-
-	</data>
-</openerp>

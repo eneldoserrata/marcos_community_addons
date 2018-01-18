@@ -1,14 +1,19 @@
-.openerp{
-    .oe_sidebar_thumbnail_attachment{
-        &:hover{
-            background-color: #f5f5f5;
-        }
-        cursor: pointer;
-        padding: 3px 20px;
-        .oe_sidebar_thumbnail_item{
-            padding: 0;
-            position: absolute;
-            right: 10px;
+.o_web_client{
+    .o_sidebar_thumbnail_attachment{
+        >span{
+            display: inherit;
+            padding: 3px 25px;
+            color: #333333;
+            &:hover{
+                color: #262626;
+                background-color: #f5f5f5;
+            }
+            .o_sidebar_thumbnail_icon{
+                padding: 0px;
+                position: absolute;
+                top: 5px;
+                right: 10px;
+            }
         }
     }
 }

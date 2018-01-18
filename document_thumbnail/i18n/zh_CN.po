@@ -21,7 +21,7 @@ msgstr ""
 #. openerp-web
 #: code:addons/document_thumbnail/static/src/js/document_thumbnail.js:15
 #, python-format
-msgid "Attachment thumbnails"
+msgid "Attachment Thumbnails"
 msgstr "附件缩略图"
 
 #. module: document_thumbnail

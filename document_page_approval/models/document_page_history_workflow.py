@@ -20,9 +20,9 @@
 ##############################################################################
 
 from datetime import datetime
-from openerp.tools.translate import _
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from openerp import models, fields, api
+from odoo.tools.translate import _
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo import models, fields, api
 
 
 class DocumentPageHistoryWorkflow(models.Model):

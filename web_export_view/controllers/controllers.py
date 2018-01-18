@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
-# © 2012 Agile Business Group
-# © 2012 Domsense srl
+# Copyright 2016 Henry Zhou (http://www.maxodoo.com)
+# Copyright 2016 Rodney (http://clearcorp.cr/)
+# Copyright 2012 Agile Business Group
+# Copyright 2012 Therp BV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
-import openerp.http as http
-from openerp.http import request
-from openerp.addons.web.controllers.main import ExcelExport
+import json
+import odoo.http as http
+from odoo.http import request
+from odoo.addons.web.controllers.main import ExcelExport
 
 
 class ExcelExportView(ExcelExport):

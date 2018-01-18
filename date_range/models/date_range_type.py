@@ -2,7 +2,7 @@
 # © 2016 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class DateRangeType(models.Model):
@@ -20,7 +20,7 @@ class DateRangeType(models.Model):
         help="The active field allows you to hide the date range without "
         "removing it.", default=True)
     company_id = fields.Many2one(
-        comodel_name='res.company', string='Company', select=1,
+        comodel_name='res.company', string='Company', index=1,
         default=_default_company)
 
     _sql_constraints = [

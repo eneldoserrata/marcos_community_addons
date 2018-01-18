@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="custom_view" name="custom_view" inherit_id="web.assets_backend">
+			<xpath expr="." position="inside">
+				<link rel="stylesheet" href="/adigielite_odoo_theme_green_v2_0/static/src/css/styles.css" />
+			</xpath>
+		</template>
+		<template id="custom_view_log" name="custom_view_log" inherit_id="web.login_layout">
+			<xpath expr="." position="inside">
+				<link rel="stylesheet" href="/adigielite_odoo_theme_green_v2_0/static/src/css/styles.css" />
+			</xpath>
+		</template>
+	</data>
+</openerp>

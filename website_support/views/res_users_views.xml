@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<openerp>
+<odoo>
     <data>
-        
+
         <record id="view_users_form_inherit_website_support" model="ir.ui.view">
             <field name="name">res.users.support.ticket.inherit</field>
             <field name="model">res.users</field>
@@ -16,6 +16,6 @@
                 </notebook>
             </field>
        </record>
-       
+
    </data>
-</openerp>
+</odoo>

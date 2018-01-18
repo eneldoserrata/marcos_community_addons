@@ -3,7 +3,10 @@
 # © 2010 Sébastien Beau
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api
+from odoo import models, api
+
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class MassReconcileSimple(models.AbstractModel):
@@ -20,8 +23,12 @@ class MassReconcileSimple(models.AbstractModel):
             raise ValueError("_key_field has to be defined")
         count = 0
         res = []
+        loops = 0
         while (count < len(lines)):
             for i in xrange(count + 1, len(lines)):
+                _logger.info("===============> rec_auto_lines_simple {} count {} de {}".format(loops, count, len(lines)))
+                loops += 1
+
                 if lines[count][self._key_field] != lines[i][self._key_field]:
                     break
                 check = False

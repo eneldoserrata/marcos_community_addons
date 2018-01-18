@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="web_pdf_preview assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/max_web_pdf_preview/static/src/js/max_web_pdf_preview.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

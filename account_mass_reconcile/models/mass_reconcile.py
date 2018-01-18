@@ -4,9 +4,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
-from openerp import models, api, fields, _
-from openerp.exceptions import Warning as UserError
-from openerp import sql_db
+from odoo import models, api, fields, _
+from odoo.exceptions import Warning as UserError
+from odoo import sql_db
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -305,3 +305,11 @@ class AccountMassReconcile(models.Model):
         older = reconciles[0]
         older.run_reconcile()
         return True
+
+    @api.multi
+    def run_all_as_cron(self):
+        mass_reconciles = self.search([])
+        for mass_reconcile in mass_reconciles:
+            mass_reconcile.run_reconcile()
+
+

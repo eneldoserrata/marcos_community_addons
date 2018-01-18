@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates t-name="selectcolumns">
+    <t t-name="ColumnsSelector">
+        <div class="btn-group">
+            <button class="btn btn-default dropdown-toggle oe_select_columns" type="button" id="select_columns" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-columns" aria-hidden="true"></i>
+                <span class="caret"></span>
+            </button>
+            <ul id="showcb" class="dropdown-menu custom-columnsselector" aria-labelledby="select_columns">
+                <li>
+                    <button name="apply" id="apply" class="oe_dropdown_btn btn btn-primary btn-block">
+                        Aplicar
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </t>
+</templates>

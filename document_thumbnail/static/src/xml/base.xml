@@ -2,10 +2,10 @@
 <templates id="template" xml:space="preserve">
     <t t-extend="Sidebar">
         <t t-jquery=".dropdown-menu" t-operation="append">
-            <li t-if="section.name == 'files' and widget.items['files'].length > 0" class="oe_sidebar_thumbnail_attachment">
-                Thumbnails
-                <span class="oe_sidebar_thumbnail_item">
-                    <i class="fa fa-image"/>
+            <li t-if="section.name == 'files' and widget.items['files'].length > 0" class="o_sidebar_thumbnail_attachment">
+                <span>
+                    Thumbnails
+                    <span class="fa fa-image o_sidebar_thumbnail_icon"/>
                 </span>
             </li>
         </t>

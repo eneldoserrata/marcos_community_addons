@@ -2,13 +2,14 @@
 {
     'license': 'LGPL-3',
     'name': "Document Thumbnail",
-    'summary': "view related document thumbnail",
+    'summary': "View related document thumbnail",
     'description': """
     """,
     'author': "renjie <i@renjie.me>",
-    'website': "http://renjie.me",
+    'website': "https://renjie.me",
+    'support': 'i@renjie.me',
     'category': 'Document Management',
-    'version': '1.0',
+    'version': '1.2',
     'depends': ['document'],
     'data': [
         'views/webclient_templates.xml',

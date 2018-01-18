@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_account_invoice_form_inh_fiscal_periods">
+            <field name="name">view.account.invoice.form.inh.fiscal_periods</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="date_due" position="before">
+                    <field name="period_fiscal" readonly="1"/>
+                    <field name="year_fiscal" readonly="1"/>
+                </field>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_account_invoice_supplier_form_inh_fiscal_periods">
+            <field name="name">view.account.invoice.supplier.form.inh.fiscal_periods</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="date_due" position="before">
+                    <field name="period_fiscal" readonly="1"/>
+                    <field name="year_fiscal" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_account_invoice_tree_inh_fiscal_periods">
+            <field name="name">view.account.invoice.tree.inh.fiscal_periods</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="before">
+                    <field name="period_fiscal" readonly="1"/>
+                    <field name="year_fiscal" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_account_invoice_tree_sup_inh_fiscal_periods">
+            <field name="name">view.account.invoice.tree.inh.fiscal_periods</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="before">
+                    <field name="period_fiscal" readonly="1"/>
+                    <field name="year_fiscal" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_account_invoice_search_sup_inh_fiscal_periods">
+            <field name="name">view.account.invoice.search.inh.fiscal_periods</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <group position="inside">
+                    <filter name="period_fiscal_group" string="Periodo Fiscal" context="{'group_by':'period_fiscal'}"/>
+                    <filter name="year_fiscal_group" string="Año Fiscal" context="{'group_by':'year_fiscal'}"/>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>

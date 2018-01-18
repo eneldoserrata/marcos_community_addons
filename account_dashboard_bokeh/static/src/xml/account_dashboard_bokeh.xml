@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+
+    <t t-name="ShowCharts">
+        <div style="position:absolute; left:-20px; top:0%; width:50%; height:100%;"> 
+			 <iframe src="/account_dashboard_bokeh/invoice_plot" width="100%" height="110%" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;"> 
+			 </iframe> 
+		 </div>
+		 <div style="position:absolute; right:10px; top:0%; width:50%; height:100%;"> 
+			 <iframe src="/account_dashboard_bokeh/expense_plot" width="100%" height="110%" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;"> 
+			 </iframe> 
+		 </div>
+		 <div style="position:absolute; left:-20px; top:60%; width:50%; height:57%;"> 
+			 <iframe src="/account_dashboard_bokeh/cashflow_plot" width="100%" height="110%" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;"> 
+			 </iframe> 
+		 </div>
+		 <div style="position:absolute; right:10px; top:60%; width:50%; height:57%;"> 
+			 <iframe src="/account_dashboard_bokeh/profitloss_plot" width="100%" height="110%" marginwidth="0" marginheight="0" frameborder="no" scrolling="no" style="border-width:0px;"> 
+			 </iframe> 
+		 </div>
+    </t>
+
+</template>

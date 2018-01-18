@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template">
+
+    <t t-extend="UserMenu">
+        <t t-jquery="a[data-menu='support']" t-operation="replace"></t>
+        <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
+    </t>
+
+
+    <!--<t t-extend="WebClient.announcement_bar" >-->
+    <!--<t t-jquery="table.oe_webclient" t-operation="replace">-->
+    <!--</t>-->
+    <!--</t>-->
+
+
+</templates>

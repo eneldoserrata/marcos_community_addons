@@ -10,9 +10,9 @@ Sidebar.include({
     start : function(){
         var self = this;
         self._super.apply(self, arguments);
-        self.$el.on('click','.oe_sidebar_thumbnail_attachment', function(evt) {
+        self.$el.on('click','.o_sidebar_thumbnail_attachment', function(evt) {
             self.do_action({
-                name: _t('Attachment thumbnails'),
+                name: _t('Attachment Thumbnails'),
                 type: 'ir.actions.act_window',
                 target: 'new',
                 flags: {

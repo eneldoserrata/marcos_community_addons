@@ -3,10 +3,11 @@
 # © 2010 Sébastien Beau
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api, fields
-from openerp.tools.safe_eval import safe_eval
+from odoo import models, api, fields
+from odoo.tools.safe_eval import safe_eval
 from operator import itemgetter
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class MassReconcileBase(models.AbstractModel):
 
@@ -155,14 +156,16 @@ class MassReconcileBase(models.AbstractModel):
         )
         if below_writeoff:
             if sum_credit > sum_debit:
-                writeoff_account_id = self.account_profit_id.id
+                writeoff_account = self.account_profit_id
             else:
-                writeoff_account_id = self.account_lost_id.id
+                writeoff_account = self.account_lost_id
             line_rs = ml_obj.browse(line_ids)
             line_rs.reconcile(
-                writeoff_acc_id=writeoff_account_id,
-                writeoff_journal_id=self.journal_id.id
+                writeoff_acc_id=writeoff_account,
+                writeoff_journal_id=self.journal_id
                 )
+            _logger.info("===============> below_writeoff lines {}".format(line_rs))
+            self._cr.commit()
             return True, True
         elif allow_partial:
             # We need to give a writeoff_acc_id
@@ -173,13 +176,15 @@ class MassReconcileBase(models.AbstractModel):
             # it will do a full reconcile instead of a partial reconcile
             # and make a write-off for exchange
             if sum_credit > sum_debit:
-                writeoff_account_id = self.income_exchange_account_id.id
+                writeoff_account = self.income_exchange_account_id
             else:
-                writeoff_account_id = self.expense_exchange_account_id.id
+                writeoff_account = self.expense_exchange_account_id
             line_rs = ml_obj.browse(line_ids)
             line_rs.reconcile(
-                writeoff_acc_id=writeoff_account_id,
-                writeoff_journal_id=self.journal_id.id
+                writeoff_acc_id=writeoff_account,
+                writeoff_journal_id=self.journal_id
                 )
+            _logger.info("===============> allow_partial lines {}".format(line_rs))
+            self._cr.commit()
             return True, False
         return False, False
