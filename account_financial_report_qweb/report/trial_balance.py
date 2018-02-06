@@ -43,7 +43,6 @@ class TrialBalanceReport(models.TransientModel):
 
 
 class TrialBalanceReportAccount(models.TransientModel):
-
     _name = 'report_trial_balance_qweb_account'
     _order = 'code ASC'
 
@@ -76,7 +75,6 @@ class TrialBalanceReportAccount(models.TransientModel):
 
 
 class TrialBalanceReportPartner(models.TransientModel):
-
     _name = 'report_trial_balance_qweb_partner'
 
     report_account_id = fields.Many2one(
@@ -103,13 +101,13 @@ class TrialBalanceReportPartner(models.TransientModel):
     def _generate_order_by(self, order_spec, query):
         """Custom order to display "No partner allocated" at last position."""
         return """
-ORDER BY
-    CASE
-        WHEN "report_trial_balance_qweb_partner"."partner_id" IS NOT NULL
-        THEN 0
-        ELSE 1
-    END,
-    "report_trial_balance_qweb_partner"."name"
+        ORDER BY
+            CASE
+                WHEN "report_trial_balance_qweb_partner"."partner_id" IS NOT NULL
+                THEN 0
+                ELSE 1
+            END,
+            "report_trial_balance_qweb_partner"."name"
         """
 
 
@@ -170,36 +168,36 @@ class TrialBalanceReportCompute(models.TransientModel):
     def _inject_account_values(self):
         """Inject report values for report_trial_balance_qweb_account"""
         query_inject_account = """
-INSERT INTO
-    report_trial_balance_qweb_account
-    (
-    report_id,
-    create_uid,
-    create_date,
-    account_id,
-    code,
-    name,
-    initial_balance,
-    debit,
-    credit,
-    final_balance
-    )
-SELECT
-    %s AS report_id,
-    %s AS create_uid,
-    NOW() AS create_date,
-    rag.account_id,
-    rag.code,
-    rag.name,
-    rag.initial_balance AS initial_balance,
-    rag.final_debit - rag.initial_debit AS debit,
-    rag.final_credit - rag.initial_credit AS credit,
-    rag.final_balance AS final_balance
-FROM
-    report_general_ledger_qweb_account rag
-WHERE
-    rag.report_id = %s
-        """
+        INSERT INTO
+            report_trial_balance_qweb_account
+            (
+            report_id,
+            create_uid,
+            create_date,
+            account_id,
+            code,
+            name,
+            initial_balance,
+            debit,
+            credit,
+            final_balance
+            )
+        SELECT
+            %s AS report_id,
+            %s AS create_uid,
+            NOW() AS create_date,
+            rag.account_id,
+            rag.code,
+            rag.name,
+            rag.initial_balance AS initial_balance,
+            rag.final_debit - rag.initial_debit AS debit,
+            rag.final_credit - rag.initial_credit AS credit,
+            rag.final_balance AS final_balance
+        FROM
+            report_general_ledger_qweb_account rag
+        WHERE
+            rag.report_id = %s
+                """
         query_inject_account_params = (
             self.id,
             self.env.uid,
@@ -210,39 +208,39 @@ WHERE
     def _inject_partner_values(self):
         """Inject report values for report_trial_balance_qweb_partner"""
         query_inject_partner = """
-INSERT INTO
-    report_trial_balance_qweb_partner
-    (
-    report_account_id,
-    create_uid,
-    create_date,
-    partner_id,
-    name,
-    initial_balance,
-    debit,
-    credit,
-    final_balance
-    )
-SELECT
-    ra.id AS report_account_id,
-    %s AS create_uid,
-    NOW() AS create_date,
-    rpg.partner_id,
-    rpg.name,
-    rpg.initial_balance AS initial_balance,
-    rpg.final_debit - rpg.initial_debit AS debit,
-    rpg.final_credit - rpg.initial_credit AS credit,
-    rpg.final_balance AS final_balance
-FROM
-    report_general_ledger_qweb_partner rpg
-INNER JOIN
-    report_general_ledger_qweb_account rag ON rpg.report_account_id = rag.id
-INNER JOIN
-    report_trial_balance_qweb_account ra ON rag.code = ra.code
-WHERE
-    rag.report_id = %s
-AND ra.report_id = %s
-        """
+        INSERT INTO
+            report_trial_balance_qweb_partner
+            (
+            report_account_id,
+            create_uid,
+            create_date,
+            partner_id,
+            name,
+            initial_balance,
+            debit,
+            credit,
+            final_balance
+            )
+        SELECT
+            ra.id AS report_account_id,
+            %s AS create_uid,
+            NOW() AS create_date,
+            rpg.partner_id,
+            rpg.name,
+            rpg.initial_balance AS initial_balance,
+            rpg.final_debit - rpg.initial_debit AS debit,
+            rpg.final_credit - rpg.initial_credit AS credit,
+            rpg.final_balance AS final_balance
+        FROM
+            report_general_ledger_qweb_partner rpg
+        INNER JOIN
+            report_general_ledger_qweb_account rag ON rpg.report_account_id = rag.id
+        INNER JOIN
+            report_trial_balance_qweb_account ra ON rag.code = ra.code
+        WHERE
+            rag.report_id = %s
+        AND ra.report_id = %s
+                """
         query_inject_partner_params = (
             self.env.uid,
             self.general_ledger_id.id,
