@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--inherits the default sales report  and override its name  and file-->
+        <report
+                id="account.account_invoices"
+                model="account.invoice"
+                string="Invoices"
+                report_type="qweb-pdf"
+                name="ferrua_report.report_invoice"
+                file="ferrua_report.report_invoice"
+                attachment_use="False"
+                attachment="False"
+        />
+
+
+        <template id="report_invoice">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="ferrua_report.ferrua_invoice_report" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="ferrua_invoice_report" name="Ferrua Sale Order">
+            <t t-if="doc and 'company_id' in doc">
+                <t t-set="company" t-value="doc.company_id"></t>
+            </t>
+            <t t-if="not doc or not 'company_id' in doc">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <img t-if="company.report_logo" t-att-src="'data:image/png;base64,%s' % company.report_logo"
+                             style="max-height: 70px;"/>
+                        <img t-if="not company.report_logo" t-att-src="'data:image/png;base64,%s' % company.logo"
+                             style="max-height: 70px;"/>
+                    </div>
+
+                    <div class="col-xs-6" style="padding-bottom:11px;" name="company_address">
+                        <p style="text-align:justify;font-size:11px !important;">
+                            <span class="fa fa-map-marker fa-lg"/>
+                            <span t-field="company.street"/>
+                            <span t-if="company.street and company.street2">,</span>
+                            <span t-field="company.street2"/>
+                            <br/>
+                            <span class="fa fa-map-marker fa-lg"/>
+                            <span t-field="company.zip"/>
+                            <span t-if="company.city" t-field="company.city"/>
+                            <span t-if="company.city and company.country_id">,</span>
+                            <span t-if="company.country_id" t-field="company.country_id"/>
+                            <br/>
+                            <span class="fa fa-phone fa-lg"/>
+                            Tels.:
+                            <span t-field="company.phone"/>
+                            <span t-if="company.fax">Fax.:</span>
+                            <span t-if="company.fax" t-field="company.fax"/>
+                            <br/>
+                            <span class="fa fa-globe fa-lg"/>
+                            <span t-field="company.email"/>
+                            <span t-field="company.website"/>
+                            <br/>
+                            <span class="fa fa-building-o fa-lg"/>
+                            <b>RNC.:
+                                <span t-field="company.vat"/>
+                            </b>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="row text-center" style="background-color: #0a4b6e;color:white;">
+                    <h4>
+                        <span t-if="doc.type == 'out_invoice' and doc.sale_fiscal_type == 'final' and (doc.state == 'open' or doc.state == 'paid')">
+                            Factura para consumidor final -
+                        </span>
+                        <span t-if="doc.type == 'out_invoice' and doc.sale_fiscal_type == 'fiscal' and (doc.state == 'open' or doc.state == 'paid')">
+                            Factura para crédito fiscal -
+                        </span>
+                        <span t-if="doc.type == 'out_invoice' and doc.sale_fiscal_type == 'gov' and (doc.state == 'open' or doc.state == 'paid')">
+                            Factura Gubernamental -
+                        </span>
+                        <span t-if="doc.type == 'out_invoice' and doc.sale_fiscal_type == 'special' and (doc.state == 'open' or doc.state == 'paid')">
+                            Factura para regímenes especiales -
+                        </span>
+                        <span t-if="doc.type == 'out_invoice' and doc.sale_fiscal_type == 'unico' and (doc.state == 'open' or doc.state == 'paid')">
+                            Registro de unico ingreso -
+                        </span>
+
+                        <span t-if="doc.type == 'out_invoice' and doc.state == 'proforma2'">PRO-FORMA</span>
+                        <span t-if="doc.type == 'out_invoice' and doc.state == 'draft'">Draft Invoice</span>
+                        <span t-if="doc.type == 'out_invoice' and doc.state == 'cancel'">Cancelled Invoice</span>
+                        <span t-if="doc.type == 'out_refund'">Nota de crédito -</span>
+                        <span t-if="doc.type == 'in_refund'">Nota de crédito proveedor -</span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'normal'">FACTURA DE
+                            COMPRA -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'minor'">GASTO MENOR
+                            -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'informal'">PROVEEDOR
+                            INFORMAL -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'exterior'">PAGOS AL
+                            EXTERIOR -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'import'">IMPORTACION
+                            -
+                        </span>
+                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'others'">OTRAS COMPRAS
+                            -
+                        </span>
+                        <span t-field="doc.number"/>
+                    </h4>
+                </div>
+            </div>
+
+            <div class="page">
+
+                <style>
+                    .info-row {
+                        border-top: 2px solid;
+                        border-top-color: #0a4b6e;
+                        border-bottom: 2px solid;
+                        border-bottom-color: #0a4b6e;
+                        font-size: 11px !important;
+                        background-color: #e6e6e6;
+                        padding-bottom: 11px;
+                    }
+
+                    .info-table {
+                        background-color: #75feff;
+                        padding-top: 11px;
+                        margin-top: 15px
+                    }
+                </style>
+
+                <div class="container">
+
+                    <div class="row info-row">
+                        <div class="col-xs-7">
+
+                            <h4 t-if="doc.partner_id">
+                                <t t-if="doc.type == 'out_invoice'">
+                                    CLIENTE:
+                                </t>
+                                <t t-if="doc.type == 'in_invoice'">
+                                    SUPLIDOR:
+                                </t>
+                            </h4>
+
+                            <h5 t-if="doc.partner_id"
+                                t-attf-style="margin-top:2px; margin-bottom:5px; margin-left:0px;">
+                                <span t-if="doc.partner_id.title" t-field="doc.partner_id.title"/>
+                                <span t-field="doc.partner_id"/>
+                            </h5>
+                            <div t-if="doc.partner_id.vat">
+                                <span class="fa fa-building fa-lg"/>
+                                RNC/Cédula:
+                                <span t-field="doc.partner_id.vat"/>
+                            </div>
+                            <div>
+                                <span class="fa fa-map-marker fa-lg"/>
+                                <span t-if="doc.partner_id.street" t-field="doc.partner_id.street"/>
+                                <span t-if="doc.partner_id.street and doc.partner_id.street2 ">,</span>
+                                <span t-if="doc.partner_id.street2" t-field="doc.partner_id.street2"/>
+                                <span t-if="doc.partner_id.zip and doc.partner_id.street or doc.partner_id.street2 ">,
+                                </span>
+                                <span t-if="doc.partner_id.zip ">zip:
+                                    <span t-field="doc.partner_id.zip"/>
+                                </span>
+                                <span t-if="doc.partner_id.zip and doc.partner_id.city">,</span>
+                                <span t-if="doc.partner_id.city or doc.partner_id.country_id"
+                                      t-field="doc.partner_id.city"/>
+                                <span t-if="doc.partner_id.country_id and doc.partner_id.city ">,</span>
+                                <span t-field="doc.partner_id.country_id"/>
+                                <div t-if="doc.partner_id.phone or doc.partner_id.mobile">
+                                    <span class="fa fa-phone-square fa-lg"/>
+                                    <span t-field="doc.partner_id.phone"/>
+                                    <span t-if="doc.partner_id.mobile and doc.partner_id.phone ">,</span>
+                                    <span t-field="doc.partner_id.mobile"/>
+                                </div>
+                                <div t-if="doc.partner_id.email">
+                                    <span class="fa fa-envelope-square fa-lg"/>
+                                    <span t-field="doc.partner_id.email"/>
+                                </div>
+                                <div t-if="doc.partner_id.website">
+                                    <span class="fa fa-globe fa-lg"/>
+                                    <span t-field="doc.partner_id.website"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <table class="table table-condensed info-table">
+                                <tbody>
+                                    <tr>
+                                        <th>FECHA</th>
+                                        <td>
+                                            <span t-field="doc.date_invoice"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>FECHA DE PAGO</th>
+                                        <td>
+                                            <span t-field="doc.date_due"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>PLAZO DE PAGO</th>
+                                        <td>
+                                            <span t-field="doc.payment_term_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>REFERENCIA</th>
+                                        <td>
+                                            <span t-field="doc.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>ORIGEN</th>
+                                        <td>
+                                            <span t-field="doc.origin"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--line start-->
+                    <t t-if="not doc.payment_term_id.invoice_report_type">
+                        <div class="row">
+                            <div class="col-xs-12"
+                                 t-attf-style="font-size:11px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+                                <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
+                                    <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
+                                        <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
+                                            <th t-if="doc.type == 'out_invoice'" class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Conduce
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Cantidad
+                                            </th>
+                                            <th t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Descripción
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Precio
+                                                unitario
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">ITBIS
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Total
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="itbis_total_amount" t-value="0"/>
+                                        <t t-foreach="doc.invoice_line_ids" t-as="l">
+                                            <tr t-if="l.quantity"
+                                                t-attf-style="page-break-inside: avoid !important;">
+                                                <!--<td t-if="doc.type == 'out_invoice'" class="text-right">-->
+                                                    <!--<span t-field="l.picking_names"/>-->
+                                                <!--</td>-->
+                                                <td class="text-right">
+                                                    <t t-set="format_qty" t-value="l.format_qty()"/>
+                                                    <span t-esc="format_qty"/>
+                                                    <span t-field="l.uom_id" groups="product.group_uom"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="l.name"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="l.price_unit"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+
+                                                <td t-if="doc.journal_id.purchase_type != 'informal'"
+                                                    class="text-right">
+                                                    <span t-esc="l.amount_tax"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td t-if="doc.journal_id.purchase_type == 'informal'"
+                                                    class="text-right">
+                                                    <t t-set="itbis_total_amount"
+                                                       t-value="itbis_total_amount+l.itbis_amount"/>
+                                                    <span t-esc="l.itbis_amount"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="l.price_subtotal"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div><!--End of DATA-->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" t-attf-style="font-size:12px !important;">
+                                <div class="col-xs-6 pull-right"
+                                     style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+
+                                    <table class="table table-condensed text-right" t-attf-style="color:#0a4b6e;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-right">SUBTOTAL</th>
+                                                <th class="text-right">ITBIS</th>
+                                                <th class="text-right">TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-right">
+                                                    <span t-field="doc.amount_untaxed"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td t-if="doc.journal_id.purchase_type != 'informal'"
+                                                    class="text-right">
+                                                    <span t-field="doc.amount_tax"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td t-if="doc.journal_id.purchase_type == 'informal'"
+                                                    class="text-right">
+                                                    <span t-esc="itbis_total_amount"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td t-if="doc.journal_id.purchase_type != 'informal'"
+                                                    class="text-right">
+                                                    <span style="font-weight:bold; text-decoration:underline;"
+                                                          t-field="doc.amount_total"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td t-if="doc.journal_id.purchase_type == 'informal'"
+                                                    class="text-right">
+                                                    <span style="font-weight:bold; text-decoration:underline;"
+                                                          t-esc="doc.amount_untaxed+itbis_total_amount"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+
+                    <t t-if="doc.payment_term_id.invoice_report_type">
+                        <t t-set="second_currency" t-value="doc.payment_term_id.currency_id"/>
+                        <t t-set="second_rate" t-value="doc.payment_term_id._get_rate(doc.date_invoice)"/>
+                        <t t-debug="pdb"/>
+
+
+                        <t t-set="local_amount_untaxed" t-value="doc.payment_term_id.get_amount_untaxed(doc)"/>
+
+                        <t t-set="local_amount_tax" t-value="doc.payment_term_id.amount_tax(doc)"/>
+
+                        <t t-set="local_amount_total" t-value="local_amount_untaxed+local_amount_tax"/>
+
+                        <div class="row">
+                            <div class="col-xs-12"
+                                 t-attf-style="font-size:11px !important;padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+                                <table class="table table-condensed" t-attf-style="color:#0a4b6e;">
+                                    <thead t-attf-style="background-color: #0a4b6e; page-break-inside: avoid;color:white;">
+                                        <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #0a4b6e !important;">
+                                            <!--<th class="text-right"-->
+                                                <!--t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Conduce-->
+                                            <!--</th>-->
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Cantidad
+                                            </th>
+                                            <th t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Descripción
+                                            </th>
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Precio
+                                                unitario
+                                            </th>
+                                            <!--<th class="text-right"-->
+                                                <!--t-attf-style="border-bottom: 1px solid #0a4b6e !important;">ITBIS-->
+                                            <!--</th>-->
+                                            <th class="text-right"
+                                                t-attf-style="border-bottom: 1px solid #0a4b6e !important;">Total
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.invoice_line_ids" t-as="l">
+                                            <tr t-if="l.quantity"
+                                                t-attf-style="page-break-inside: avoid !important;">
+                                                <!--<td class="text-right">-->
+                                                    <!--<span t-field="l.picking_names"/>-->
+                                                <!--</td>-->
+                                                <td class="text-right">
+                                                    <t t-set="format_qty" t-value="l.format_qty()"/>
+                                                    <span t-esc="format_qty"/>
+                                                    <span t-field="l.uom_id" groups="product.group_uom"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="l.name"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="l.price_unit*doc.rate"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                                <!--<td class="text-right">-->
+                                                    <!--<span t-esc="l.amount_tax*doc.rate"-->
+                                                          <!--t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>-->
+                                                <!--</td>-->
+                                                <td class="text-right">
+                                                    <span t-esc="l.price_subtotal*doc.rate"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div><!--End of DATA-->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12" t-attf-style="font-size:12px !important;">
+
+                                <div class="col-xs-6 pull-right"
+                                     style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+
+                                    <table class="table table-condensed text-right" t-attf-style="color:#0a4b6e;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-right">SUBTOTAL</th>
+                                                <th class="text-right">ITBIS</th>
+                                                <th class="text-right">TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="local_amount_untaxed"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                                <!--<td>-->
+                                                    <!--<span t-esc="local_amount_tax"-->
+                                                          <!--t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>-->
+                                                <!--</td>-->
+                                                <td>
+                                                    <span style="font-weight:bold; text-decoration:underline;"
+                                                          t-esc="local_amount_total"
+                                                          t-esc-options='{"widget": "monetary", "display_currency": "second_currency"}'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span t-field="doc.amount_untaxed"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="doc.amount_tax"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                                <td>
+                                                    <span style="font-weight:bold; text-decoration:underline;"
+                                                          t-field="doc.amount_total"
+                                                          t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+
+                    <t t-if="doc.journal_id.purchase_type == 'informal'">
+                        <div class="row" t-if="doc.tax_line_ids" t-attf-style="font-size:12px !important;">
+                            <div class="col-xs-6">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">Impuesto</th>
+                                            <!--<th class="text-left">Base</th>-->
+                                            <th class="text-left">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="doc.tax_line_ids" t-as="tax">
+                                            <td class="text-left">
+                                                <span t-field="tax.name"/>
+                                            </td>
+                                            <!--<td class="text-right">-->
+                                            <!--<span t-field="tax.base"-->
+                                            <!--t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>-->
+                                            <!--</td>-->
+                                            <td class="text-right">
+                                                <span t-field="tax.amount"
+                                                      t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <strong>Total a pagar:
+                                    <span t-esc="doc.amount_total"
+                                          t-esc-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
+                                </strong>
+                            </div>
+                        </div>
+                    </t>
+                    <!--lines end-->
+
+                    <div class="row last-page" style="page-break-inside: avoid; font-size:11px !important;">
+                        <br></br>
+                        <p t-if="doc.comment">
+                            <span t-field="doc.comment"/>
+                        </p>
+                        <p t-if="doc.payment_term_id.note">
+                            <span t-raw="doc.render_report_payment_term_note()"/>
+                        </p>
+                        <!--<p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">-->
+                        <!--<span t-field="doc.partner_id.property_payment_term_id.note"/>-->
+                        <!--</p>-->
+                        <!--<p id="fiscal_position_remark"-->
+                        <!--t-if="doc.fiscal_position_id.note and doc.fiscal_position_id">-->
+                        <!--<strong>Posición fiscal:</strong>-->
+                        <!--<span t-field="doc.fiscal_position_id.note"/>-->
+                        <!---->
+                        <!--</p>-->
+                        <!--<div class="oe_structure"/>-->
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="footer col-xs-12"
+                 t-attf-style="color:#0a4b6e !important; padding-left:0px; padding-right:0px;font-size:11px !important;">
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="text-center" t-attf-style="border-top: 2px solid #0a4b6e;">
+                            <span t-field="company.name"/>
+                            <br></br>
+                            Firma Autorizada
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="text-center" t-attf-style="border-top: 2px solid #0a4b6e;">
+                            En nombre y representación de "EL ACEPTANTE"
+                            <br></br>
+                            (Firma y Sello)
+                        </div>
+                    </div>
+                </div>
+                <br></br>
+
+                <div class="text-center">
+                    <ul t-if="not company.custom_footer" class="list-inline">
+                        <li t-if="company.phone">
+                            <span class="fa fa-phone-square fa-lg"/>
+                            <span t-field="company.phone"/>
+                        </li>
+                        <li t-if="company.fax and company.phone">&amp;bull;</li>
+                        <li t-if="company.fax">
+                            <span class="fa fa-phone-square fa-lg"/>
+                            <span t-field="company.fax"/>
+                        </li>
+                        <li t-if="company.email">&amp;bull;</li>
+                        <li t-if="company.email">
+                            <span class="fa fa-envelope-o fa-lg"/>
+                            <span t-field="company.email"/>
+                        </li>
+                        <li t-if="company.website">&amp;bull;</li>
+                        <li t-if="company.website">
+                            <span class="fa fa-globe fa-lg"/>
+                            <span t-field="company.website"/>
+                        </li>
+                    </ul>
+                    <t t-if="company.custom_footer">
+                        <span t-raw="company.rml_footer"/>
+                    </t>
+
+                    <ul class="list-inline">
+                        <li>Pagina:</li>
+                        <li>
+                            <span class="page"/>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+            </div><!--End of FOOTER-->
+
+        </template>
+    </data>
+</openerp>
