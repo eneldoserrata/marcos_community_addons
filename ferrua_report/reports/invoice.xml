@@ -114,7 +114,11 @@
                             -
                         </span>
                         <span t-field="doc.number"/>
+
                     </h4>
+                    Válida hasta:
+                    <span t-if="doc.client_fiscal_type in ['fiscal','unico','esp','gov']"
+                          t-field="doc.ncf_expiration_date"></span>
                 </div>
             </div>
 
@@ -122,19 +126,19 @@
 
                 <style>
                     .info-row {
-                        border-top: 2px solid;
-                        border-top-color: #0a4b6e;
-                        border-bottom: 2px solid;
-                        border-bottom-color: #0a4b6e;
-                        font-size: 11px !important;
-                        background-color: #e6e6e6;
-                        padding-bottom: 11px;
+                    border-top: 2px solid;
+                    border-top-color: #0a4b6e;
+                    border-bottom: 2px solid;
+                    border-bottom-color: #0a4b6e;
+                    font-size: 11px !important;
+                    background-color: #e6e6e6;
+                    padding-bottom: 11px;
                     }
 
                     .info-table {
-                        background-color: #75feff;
-                        padding-top: 11px;
-                        margin-top: 15px
+                    background-color: #75feff;
+                    padding-top: 11px;
+                    margin-top: 15px
                     }
                 </style>
 
