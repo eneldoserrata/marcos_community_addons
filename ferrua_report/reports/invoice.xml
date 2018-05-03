@@ -39,9 +39,6 @@
                              style="max-height: 70px;"/>
                         <img t-if="not company.report_logo" t-att-src="'data:image/png;base64,%s' % company.logo"
                              style="max-height: 70px;"/>
-                    </div>
-
-                    <div class="col-xs-6" style="padding-bottom:11px;" name="company_address">
                         <p style="text-align:justify;font-size:11px !important;">
                             <span class="fa fa-map-marker fa-lg"/>
                             <span t-field="company.street"/>
@@ -71,55 +68,91 @@
 
                         </p>
                     </div>
-                </div>
-                <div class="row text-center" style="background-color: #0a4b6e;color:white;">
-                    <h4>
-                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'final' and (doc.state == 'open' or doc.state == 'paid')">
-                            Factura para consumidor final -
-                        </span>
-                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'fiscal' and (doc.state == 'open' or doc.state == 'paid')">
-                            Factura para crédito fiscal -
-                        </span>
-                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'gov' and (doc.state == 'open' or doc.state == 'paid')">
-                            Factura Gubernamental -
-                        </span>
-                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'special' and (doc.state == 'open' or doc.state == 'paid')">
-                            Factura para regímenes especiales -
-                        </span>
-                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'unico' and (doc.state == 'open' or doc.state == 'paid')">
-                            Registro de unico ingreso -
-                        </span>
 
-                        <span t-if="doc.type == 'out_invoice' and doc.state == 'proforma2'">PRO-FORMA</span>
-                        <span t-if="doc.type == 'out_invoice' and doc.state == 'draft'">Draft Invoice</span>
-                        <span t-if="doc.type == 'out_invoice' and doc.state == 'cancel'">Cancelled Invoice</span>
-                        <span t-if="doc.type == 'out_refund'">Nota de crédito -</span>
-                        <span t-if="doc.type == 'in_refund'">Nota de crédito proveedor -</span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'normal'">FACTURA DE
-                            COMPRA -
-                        </span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'minor'">GASTO MENOR
-                            -
-                        </span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'informal'">PROVEEDOR
-                            INFORMAL -
-                        </span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'exterior'">PAGOS AL
-                            EXTERIOR -
-                        </span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'import'">IMPORTACION
-                            -
-                        </span>
-                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'others'">OTRAS COMPRAS
-                            -
-                        </span>
-                        <span t-field="doc.number"/>
+                    <div class="col-xs-6" style="padding-bottom:11px;" name="company_address">
 
-                    </h4>
-                    Válida hasta:
-                    <span t-if="doc.client_fiscal_type in ['fiscal','unico','esp','gov']"
-                          t-field="doc.ncf_expiration_date"></span>
+                        <table class="tg">
+                            <tr>
+                                <th class="tg-yw4l pull-right" colspan="2">
+                                    <h4>
+                                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'final' and (doc.state == 'open' or doc.state == 'paid')">
+                                            Factura de consumo
+                                        </span>
+                                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'fiscal' and (doc.state == 'open' or doc.state == 'paid')">
+                                            Factura de crédito fiscal
+                                        </span>
+                                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'gov' and (doc.state == 'open' or doc.state == 'paid')">
+                                            Factura Gubernamental
+                                        </span>
+                                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'special' and (doc.state == 'open' or doc.state == 'paid')">
+                                            Factura para regímenes especiales
+                                        </span>
+                                        <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'unico' and (doc.state == 'open' or doc.state == 'paid')">
+                                            Registro de unico ingreso
+                                        </span>
+
+                                        <span t-if="doc.type == 'out_invoice' and doc.state == 'proforma2'">PRO-FORMA
+                                        </span>
+                                        <span t-if="doc.type == 'out_invoice' and doc.state == 'draft'">Draft Invoice
+                                        </span>
+                                        <span t-if="doc.type == 'out_invoice' and doc.state == 'cancel'">Cancelled
+                                            Invoice
+                                        </span>
+                                        <span t-if="doc.type == 'out_refund'">Nota de crédito -</span>
+                                        <span t-if="doc.type == 'in_refund'">Nota de crédito proveedor -</span>
+                                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'normal'">
+                                            FACTURA DE
+                                            COMPRA -
+                                        </span>
+                                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'minor'">
+                                            GASTO
+                                            MENOR
+                                            -
+                                        </span>
+                                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'informal'">
+                                            PROVEEDOR
+                                            INFORMAL -
+                                        </span>
+                                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'exterior'">
+                                            PAGOS AL
+                                            EXTERIOR -
+                                        </span>
+                                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'import'">
+                                            IMPORTACION
+                                            -
+                                        </span>
+                                        <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'others'">
+                                            OTRAS
+                                            COMPRAS
+                                            -
+                                        </span>
+
+
+                                    </h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td class="tg-yw4l">NCF:</td>
+                                <td class="tg-yw4l">
+                                    <span t-field="doc.number"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tg-yw4l">Válida hasta:</td>
+                                <td class="tg-yw4l">
+                                    <span t-if="doc.client_fiscal_type in ['fiscal','unico','esp','gov']"
+                                          t-field="doc.ncf_expiration_date"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <div class="row text-center" style="background-color: #0a4b6e;color:white;">
+
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
             <div class="page">
