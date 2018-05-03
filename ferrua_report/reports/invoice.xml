@@ -70,10 +70,10 @@
                     </div>
 
                     <div class="col-xs-6" style="padding-bottom:11px;" name="company_address">
-
+                        <br/>
                         <table class="tg">
                             <tr>
-                                <th class="tg-yw4l pull-right" colspan="2">
+                                <th class="tg-yw4l">
                                     <h4>
                                         <span t-if="doc.type == 'out_invoice' and doc.fiscal_position_id.client_fiscal_type == 'final' and (doc.state == 'open' or doc.state == 'paid')">
                                             Factura de consumo
@@ -132,20 +132,16 @@
                                 </th>
                             </tr>
                             <tr>
-                                <td class="tg-yw4l">NCF:</td>
-                                <td class="tg-yw4l">
+                                <td class="tg-yw4l">NCF:
                                     <span t-field="doc.number"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="tg-yw4l">Válida hasta:</td>
-                                <td class="tg-yw4l">
-                                    <span t-if="doc.client_fiscal_type in ['fiscal','unico','esp','gov']"
+                                <td class="tg-yw4l">Válida hasta: <span t-if="doc.client_fiscal_type in ['fiscal','unico','esp','gov']"
                                           t-field="doc.ncf_expiration_date"></span>
                                 </td>
                             </tr>
                         </table>
-
 
                         <div class="row text-center" style="background-color: #0a4b6e;color:white;">
 
