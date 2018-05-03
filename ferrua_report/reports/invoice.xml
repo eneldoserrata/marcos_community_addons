@@ -137,7 +137,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="tg-yw4l">Válida hasta: <span t-if="doc.client_fiscal_type in ['fiscal','unico','esp','gov']"
+                                <td class="tg-yw4l">Válida hasta:
+                                    <span t-if="doc.client_fiscal_type in ['fiscal','unico','esp','gov']"
                                           t-field="doc.ncf_expiration_date"></span>
                                 </td>
                             </tr>
@@ -379,7 +380,7 @@
 
                                         </tbody>
                                     </table>
-
+                                    <p class="text-right">Original: Cliente</p>
                                 </div>
                             </div>
                         </div>
@@ -389,8 +390,6 @@
                     <t t-if="doc.payment_term_id.invoice_report_type">
                         <t t-set="second_currency" t-value="doc.payment_term_id.currency_id"/>
                         <t t-set="second_rate" t-value="doc.payment_term_id._get_rate(doc.date_invoice)"/>
-                        <t t-debug="pdb"/>
-
 
                         <t t-set="local_amount_untaxed" t-value="doc.payment_term_id.get_amount_untaxed(doc)"/>
 
@@ -462,7 +461,6 @@
 
                                 <div class="col-xs-6 pull-right"
                                      style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
-
                                     <table class="table table-condensed text-right" t-attf-style="color:#0a4b6e;">
                                         <thead>
                                             <tr>
@@ -505,7 +503,6 @@
 
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -558,17 +555,6 @@
                         <p t-if="doc.payment_term_id.note">
                             <span t-raw="doc.render_report_payment_term_note()"/>
                         </p>
-                        <!--<p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">-->
-                        <!--<span t-field="doc.partner_id.property_payment_term_id.note"/>-->
-                        <!--</p>-->
-                        <!--<p id="fiscal_position_remark"-->
-                        <!--t-if="doc.fiscal_position_id.note and doc.fiscal_position_id">-->
-                        <!--<strong>Posición fiscal:</strong>-->
-                        <!--<span t-field="doc.fiscal_position_id.note"/>-->
-                        <!---->
-                        <!--</p>-->
-                        <!--<div class="oe_structure"/>-->
-
                     </div>
 
                 </div>
