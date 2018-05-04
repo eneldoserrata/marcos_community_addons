@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </xpath>
+
+        <xpath expr="//*[@id='oe_main_menu_navbar']" position="replace">
+            <nav class="navbar-default navbar-static-side" role="navigation">
+                <div class="logo-area">
+                    <img t-attf-src="/theme_extensia/static/src/img/logo.png" class="logo" />
+                    <img t-attf-src="/theme_extensia/static/src/img/logo_mini.png" class="logo_mini" />
+                </div>
+                <div class="sidebar-collapse" id="oe_main_menu_placeholder">
+                    <t t-call="web.menu"/>
+                </div>
+            </nav>
+        </xpath>
+
+        <xpath expr="//div[@class='o_main']" position="replace">
+            <div id="page-wrapper" class="gray-bg">
+                <div class="row border-bottom">
+                    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                        <div class="navbar-header">
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        </div>
+                        <ul class="nav navbar-top-links navbar-right oe_user_menu_placeholder oe_systray" />
+                    </nav>
+                </div>
+<!--
+                <div class="openerp openerp_webclient_container oe_webclient">
+                    <div class="oe_application"/>
+                </div>
+-->
+				<div class="o_main_content"/>
+                <div class="footer">
+                    <div class="pull-right"><strong>Extensia</strong></div>
+                    <div><strong>Copyright</strong> &#169; 2017</div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="web.menu">
+        <ul class="nav metismenu oe_application_menu_placeholder" id="side-menu">
+            <li t-foreach="menu_data['children']" t-as="menu">
+                <t t-if="menu['children']">
+                    <a>
+                        <t t-set="icon" t-value="menu['name'].lower().replace(' ', '-')"/>
+                        <i t-attf-class="fa fa-menu-{{icon}}"></i>
+                        <span class="oe_menu_text nav-label">
+                            <t t-esc="menu['name']"/>
+                        </span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <t t-call="web.menu_secondary"/>
+                </t>
+                <t t-if="not menu['children']">
+                    <a t-att-href="'/web%s#menu_id=%s&amp;action=%s' % (debug_param, menu['id'], menu['action'] and menu['action'].split(',')[1] or '')"
+                        t-att-class="'oe_menu_toggler' if menu.get('children') else 'oe_menu_leaf'"
+                        t-att-data-menu="menu['id']"
+                        t-att-data-action-model="menu['action'] and menu['action'].split(',')[0] or ''"
+                        t-att-data-action-id="menu['action'] and menu['action'].split(',')[1] or ''">
+                        <t t-set="icon" t-value="menu['name'].lower().replace(' ', '-')"/>
+                        <i t-attf-class="fa fa-menu-{{icon}}"></i>
+                        <span class="oe_menu_text nav-label">
+                            <t t-esc="menu['name']"/>
+                        </span>
+                    </a>
+                </t>
+            </li>
+        </ul>
+    </template>
+
+    <template id="web.menu_secondary">
+        <ul class="nav nav-second-level collapse">
+            <t t-foreach="menu['children']" t-as="menu">
+                <li>
+                    <t t-if="menu['children']">
+                        <a>
+                            <t t-esc="menu['name']"/>
+                            <span class="fa arrow"></span>
+                        </a>
+                    </t>
+                    <t t-if="not menu['children']">
+                        <t t-call="web.menu_link"/>
+                    </t>
+                    <t t-call="web.menu_secondary_submenu"/>
+                </li>
+            </t>
+        </ul>
+    </template>
+
+    <template id="web.menu_secondary_submenu">
+        <ul t-if="menu['children']" class="oe_secondary_submenu nav nav-second-level collapse">
+            <li t-foreach="menu['children']" t-as="menu">
+                <t t-call="web.menu_link"/>
+                <t t-call="web.menu_secondary_submenu"/>
+            </li>
+        </ul>
+    </template>
+
+    <template id="web.menu_link">
+        <t t-set="debug_param" t-value="'?&amp;debug=' if debug else ''"/>
+        <a t-att-href="'/web%s#menu_id=%s&amp;action=%s' % (debug_param, menu['id'], menu['action'] and menu['action'].split(',')[1] or '')"
+            t-att-class="'oe_menu_toggler' if menu.get('children') else 'oe_menu_leaf'"
+            t-att-data-menu="menu['id']"
+            t-att-data-action-model="menu['action'] and menu['action'].split(',')[0] or ''"
+            t-att-data-action-id="menu['action'] and menu['action'].split(',')[1] or ''">
+                <t t-esc="menu['name']"/>
+        </a>
+    </template>
+
+    <template id="layout" inherit_id="web.layout">
+        <xpath expr="//body" position="replace">
+            <body t-att-class="body_classname">
+                <div id="wrapper">
+                    <t t-raw="0"/>
+                </div>
+            </body>
+        </xpath>
+    </template>
+</odoo>

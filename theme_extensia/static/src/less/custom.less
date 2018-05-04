@@ -1,0 +1,424 @@
+// Layout
+body {
+    overflow: auto;
+    overflow-x: hidden;
+}
+#wrapper { 
+    height: 100%;
+    overflow: visible;
+}
+.wrapper-content {
+    padding: 20px 10px 60px;
+}
+#page-wrapper {
+    min-height: 100%;
+}
+.oe_systray #oe_attendance_sign_in_out_icon {
+    color: #999c9e;
+}
+.nav-second-level .nav-second-level li a {
+    padding-left: 72px;
+}
+.mini-navbar  .nav-second-level .nav-second-level {
+    z-index: 2;
+    li a {
+        padding: 10px 10px 10px 15px;
+    }
+}
+.nav.nav-second-level > li.active {
+    border-left: 4px solid darken(@navy, 2%);
+}
+
+// Logo
+.logo-area {
+    background: #101d29;
+    width: 220px;
+    height: 61px;
+    transition: width 0.4s;
+    overflow: hidden;
+    position: relative;
+    img {
+        position: absolute;
+        transition: opacity 1s;
+        padding: 15px;
+    }
+}
+.logo {
+    width: 220px;
+    opacity: 1;
+}
+.logo_mini {
+    width: 70px;
+    opacity: 0;
+}
+.mini-navbar {
+    .logo-area {
+        width: 70px;
+    }
+    .logo {
+        opacity: 0;
+    }
+    .logo_mini {
+        opacity: 1;
+    }
+}
+
+// Menu icons
+.fa-menu {
+  &-discuss:before, &-email:before { // envelope
+    content: "\f0e0";
+  }
+  &-calendar:before { // calendar
+    content: "\f073";
+  }
+  &-contacts:before { // phone-square
+    content: "\f098";
+  }
+  &-sales:before { // line-chart
+    content: "\f201";
+  }
+  &-link-tracker:before { // link
+    content: "\f0c1";
+  }
+  &-accounting:before { // calculator
+    content: "\f1ec";
+  }
+  &-timesheets:before, &-timetables:before { // clock-o
+    content: "\f017";
+  }
+  &-employees:before, &-human-resources:before, &-parents:before { // users
+    content: "\f0c0";
+  }
+  &-attendances:before { // check-square-o
+    content: "\f046";
+  }
+  &-apps:before { // th-large
+    content: "\f009";
+  }
+  &-settings:before { // cog
+    content: "\f013";
+  }
+  &-contract-management:before { // briefcase
+    content: "\f0b1";
+  }
+  &-expenses:before { // money
+    content: "\f0d6";
+  }
+  &-leaves:before, &-events:before { // calendar-check-o 
+    content: "\f274";
+  }
+  &-mass-mailing:before { // bullseye
+    content: "\f140";
+  }
+  &-offboard:before { // arrow-up
+    content: "\f062";
+  }
+  &-onboard:before { // arrow-down
+    content: "\f063";
+  }
+  &-payroll:before, &-faculties:before { // university
+    content: "\f19c";
+  }
+  &-projects:before, &-project:before { // fa-flask
+    content: "\f0c3";
+  }
+  &-questionnaire:before { // question-circle-o
+    content: "\f29c";
+  }
+  &-recruitment:before, &-students:before { // graduation-cap
+    content: "\f19d";
+  }
+  &-supplier-management:before { // truck
+    content: "\f0d1";
+  }
+  &-website:before { // link
+    content: "\f0c1";
+  }
+  &-website-admin:before { // code
+    content: "\f121";
+  }
+  &-audit:before { // check
+    content: "\f00c";
+  }
+  &-management:before { // sitemap
+    content: "\f0e8";
+  }
+  &-admissions:before { // fa-user-plus
+    content: "\f234";
+  }
+  &-assignments:before { // fa-plus-square
+    content: "\f0fe";
+  }
+  &-surveys:before { // commenting-o
+    content: "\f27b";
+  }
+  &-exams:before { // pencil
+    content: "\f040";
+  }
+  &-library:before { // archive
+    content: "\f187";
+  }
+  &-dashboards:before { // tachometer
+    content: "\f0e4";
+  }
+}
+
+// Control panel header
+.openerp .oe-control-panel {
+    background: #fff;
+    h2 {
+        font-weight: 200;
+        color: #676a6c;
+    }
+    .oe-view-title {
+        background: none;
+        font-size: 13px;
+        color: #676a6c;
+        font-weight: 200;
+        .active {
+            font-weight: bold;
+        }
+    }
+    .oe-cp-search-view {
+        .oe_searchview {
+            border-radius: 3px;
+            .oe-autocomplete ul li.oe-selection-focus {
+                background: #18a689;
+            }
+        }
+        .oe_tag {
+            border-radius: 4px;
+            .label {
+                display: none;
+            }
+            .oe_facet_values {
+                border-radius: 4px;
+                .oe_facet_value {
+                    background-color: #e4e4e4;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+    .oe-cp-buttons {
+        margin-top: 10px;
+        display: flex;
+        .oe_form_buttons {
+            margin-right: 5px;
+        }
+    }
+    .oe-cp-sidebar {
+        float: none;
+    }
+}
+
+// Main content area
+#wrapper {
+    .openerp {
+        padding-bottom: 50px;
+        background: #f3f3f4;
+        font-family: inherit;
+        .oe_loading {
+            background: #18a689;
+            border: none;
+        }
+        .oe-view-manager {
+            background: none!important;
+            .oe-view-manager-content {
+                position: static;
+            }
+        }
+        .oe_application {
+            .oe_form_sheetbg {
+                background: none;
+                border: none;
+                padding: 0;
+                margin: 20px 10px;
+                .oe_form_sheet_width {
+                    width: 100%;
+                    max-width: none;
+                    margin: 0;
+                    box-shadow: none;
+                }
+            }
+        }
+        .oe_formview {
+            background: none;
+        }
+        .o_kanban_view {
+            background: #f3f3f4;
+            .o_kanban_record {
+                background-color: #ffffff;
+                border: 1px solid #e7eaec;
+                padding: 20px;
+                margin: 10px;
+                box-shadow: none;
+            }
+        }
+        .o_statusbar_buttons {
+            background: none;
+            border: none;
+            margin: 20px 10px;
+            padding: 0;
+            .oe_form_status {
+                li {
+                    background: none;
+                    border: none;
+                    margin: 0;
+                    .label {
+                        background: none;
+                        border: none;
+                        text-shadow: none;
+                        padding-left: 0;
+                    }
+                    .arrow {
+                        margin-left: 5px;
+                        span {
+                            width: 17px;
+                            height: 17px;
+                            top: 3px;
+                            background: none;
+                        }
+                    }
+                    &.oe_active {
+                        .label {
+                            color: #000;
+                            font-weight: bold;
+                        }
+                        .arrow span {
+                            background: none;
+                        }
+                    }
+                }
+            }
+        }
+        .oe_horizontal_separator {
+            color: inherit;
+        }
+        .oe_stat_button .o_button_icon {
+            color: inherit;
+        }
+    }
+}
+
+// Form
+#wrapper .openerp, .openerp {
+    .oe_form {
+        .oe_form_required input:not([disabled]):not([readonly]),
+        .oe_form_required select:not([disabled]):not([readonly]),
+        .oe_form_required textarea:not([disabled]):not([readonly]) {
+            background: none!important;
+        }
+        input, textarea, select {
+            border-radius: 0px;
+            &:focus {
+                outline: none;
+                border-color: #1ab394 !important;
+            }
+        }
+        input[type="text"], input[type="password"], input[type="file"], select {
+            height: 30px;
+            margin-bottom: 5px;
+        }
+        .oe_form_field_many2one {
+            .oe_m2o_drop_down_button {
+                top: 5px;
+                right: 3px;
+            }
+            .oe_m2o_cm_button {
+                color: inherit;
+                margin: 3px 0 0 10px;
+            }
+        }
+        .oe_timesheet_weekly_today {
+            background-color: #1ab394;
+            color: #fff;
+        }
+    }
+    .oe_form_editable {
+        .oe_required {
+            background-color: inherit;
+        }
+    }
+    .oe_list.oe_list_editable.oe_editing .oe_form_field input,
+    .oe_list.oe_list_editable.oe_editing .oe_form_field textarea {
+        border-color: #666;
+    }
+    .oe_import {
+        position: static;
+        .oe_import_report_error {
+            color: #fff;
+            a {
+                color: #fff;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+.ui-autocomplete.ui-menu {
+    .ui-state-focus, .ui-state-active {
+        background-color: #1ab394!important;
+        border-color: #1ab394!important;
+    }
+}
+.ui-widget-content {
+    z-index: 3000!important;
+}
+
+
+// Listing
+#wrapper, .openerp {
+    .oe-view-manager-view-list {
+        margin-top: 20px;
+        .oe_list {
+            &:extend(.ibox-content);
+            tr:nth-child(odd) {
+                background: #f9f9f9;
+            }
+        }
+    }
+    .oe_list_content > tbody > tr:nth-child(odd) {
+        background: #f9f9f9;
+    }
+}
+
+// Timesheet
+#wrapper .openerp {
+    .oe_timesheet_weekly {
+        th, .oe_timesheet_total, .o_add_timesheet_line {
+            color: inherit;
+            background-color: #f9f9f9;
+        }
+    }
+}
+
+// Export
+.openerp .oe_export {
+    margin: 10px;
+    background: none!important;
+    width: auto;
+    .oe_export_fields_selector_left {
+        width: 45%;
+    }
+    .oe_export_fields_selector_center {
+        padding: 0 10px;
+        button {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+
+// Print
+@media print {
+  nav.navbar-static-side {
+    display: none;
+  }
+
+  body { overflow: visible !important; }
+
+  #page-wrapper {
+    margin: 0;
+  }
+}

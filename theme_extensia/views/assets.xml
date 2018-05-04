@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="Extensia Assets" inherit_id="web.assets_backend">
+            <xpath expr=".">
+                <link rel="stylesheet" href="/theme_extensia/static/src/css/bootstrap.css"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/css/animate.css"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/css/style.css"/>
+
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/variables.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/mixins.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/typography.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/navigation.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/top_navigation.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/buttons.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/dropdown.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/badgets_labels.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/elements.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/sidebar.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/base.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/pages.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/chat.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/metismenu.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/spinners.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/landing.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/rtl.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/theme-config.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/skins.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/md-skin.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/media.less"/>
+                <link rel="stylesheet" href="/theme_extensia/static/src/less/custom.less"/>
+
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/metisMenu/jquery.metisMenu.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/slimscroll/jquery.slimscroll.min.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/pace/pace.min.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/inspinia.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/bootstrap.min.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/bootstrap.js"/>
+                
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/blueimp/jquery.blueimp-gallery.min.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/bootstrap-markdown/bootstrap-markdown.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/bootstrap-markdown/markdown.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/c3/c3.min.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/chartist/chartist.min.js"/>
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/chartJs/Chart.min.js"/>
+                
+
+                
+                <script type="application/javascript" src="/theme_extensia/static/src/js/plugins/peity/jquery.peity.min.js"/>
+<!--
+                <script type="application/javascript" src="/theme_extensia/static/src/js/custom.js"/>
+-->
+            </xpath>
+        </template>
+    </data>
+</odoo>

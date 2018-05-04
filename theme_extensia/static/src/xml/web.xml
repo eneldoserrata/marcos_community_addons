@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-extend="UserMenu">
+        <t t-jquery=".oe_topbar_avatar" t-operation="replace" />
+    </t>
+
+<!--
+    <t t-extend="ControlPanel">
+        <t t-jquery=".o_control_panel" t-operation="replace">
+            <div class="o_control_panel row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-5">
+                    <h2 class="o_cp_title">List View</h2>
+                    <ol class="o_viewtitle breadcrumb">
+                    </ol> 
+                    <div class="o_cp_buttons o_cp_sidebar"></div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="o_cp_searchview" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="o_search_options btn-group"/>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="o_right_toolbar">
+                                <div class="o_cp_pager"></div>
+                                <div class="o_cp_switch_buttons btn-group btn-group-sm"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+-->
+</templates>
