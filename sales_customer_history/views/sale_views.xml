@@ -1,0 +1,15 @@
+<odoo>
+    <record model="ir.ui.view" id="sale_order_form_views_customer_history">
+        <field name="name">sale.order.form.views.customer.history</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="customer_history" string="Customer History">
+                    <field name="customer_history_ids">
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
