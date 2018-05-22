@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <template id="assets_mtheme" name="mtheme assets" inherit_id="web.assets_backend">
+            <xpath expr="//link[last()]" position="after">
+                <link rel="stylesheet" href="/ge_theme/static/src/less/style.less"/>
+            </xpath>
+
+            <xpath expr="//script[last()]" position="after">
+                <script type="text/javascript" src="/ge_theme/static/src/js/ge_script.js"></script>
+            </xpath>
+        </template>
+
+        <!--Override this template in module 'web'-->
+        <template id="web.webclient_bootstrap">
+            <t t-call="web.layout">
+                <t t-set="head_web">
+                    <script type="text/javascript">
+                        odoo.session_info =<t t-raw="session_info"/>;
+                    </script>
+
+                    <t t-call-assets="web.assets_common" t-js="false"/>
+                    <t t-call-assets="web.assets_backend" t-js="false"/>
+                    <t t-call-assets="web.assets_common" t-css="false"/>
+                    <t t-call-assets="web.assets_backend" t-css="false"/>
+
+                    <![CDATA[
+                    <!--[if lt IE 10]>
+                        <body class="ie9">
+                    <![endif]-->
+                ]]>
+
+                    <script type="text/javascript">
+                        odoo.define('web.web_client', function (require) {
+                        var WebClient = require('web.WebClient');
+                        var web_client = new WebClient();
+                        $(function() {
+                        web_client.setElement($(document.body));
+                        web_client.start();
+                        });
+                        return web_client;
+                        });
+                    </script>
+                </t>
+                <t t-set="head" t-value="head_web + (head or '')"/>
+                <t t-set="body_classname" t-value="'o_web_client'"/>
+
+                <nav id="oe_main_menu_navbar" class="navbar navbar-inverse" groups="base.group_user,base.group_portal">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <!--ThanhNT-->
+                        <i class="ge_toggle_button fa fa-bars" aria-hidden="true"/>
+                        <t t-call="web.menu"/>
+                    </div>
+                </nav>
+                <div class="o_main">
+                    <div class="o_sub_menu" groups="base.group_user,base.group_portal">
+                        <t t-call="web.menu_secondary"/>
+                    </div>
+                    <div class="o_main_content"/>
+                </div>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

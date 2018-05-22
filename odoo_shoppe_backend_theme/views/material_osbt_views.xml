@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="icon_edit_menu_access" model="ir.ui.view">
+        <field name="name">ir.ui.menu.form</field>
+        <field name="model">ir.ui.menu</field>
+        <field name="inherit_id" ref="base.edit_menu_access"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="menu_icon"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_kanban_view_inherit" model="ir.ui.view" >
+        <field name="name">res.partner.kanban.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//t[@t-name='kanban-box']" position="replace">
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click o_res_partner_kanban" style="display: none;">
+                        <div class="o_kanban_image">
+                            <t t-if="record.image_small.raw_value">
+                                <img t-att-src="kanban_image('res.partner', 'image_small', record.id.value)"/>
+                            </t>
+                            <t t-if="!record.image_small.raw_value">
+                                <t t-if="record.type.raw_value === 'delivery'">
+                                    <img t-att-src='_s + "/base/static/src/img/truck.png"' class="o_kanban_image oe_kanban_avatar_smallbox"/>
+                                </t>
+                                <t t-if="record.type.raw_value === 'invoice'">
+                                    <img t-att-src='_s + "/base/static/src/img/money.png"' class="o_kanban_image oe_kanban_avatar_smallbox"/>
+                                 </t>
+                                <t t-if="record.type.raw_value != 'invoice' &amp;&amp; record.type.raw_value != 'delivery'">
+                                    <t t-if="record.is_company.raw_value === true">
+                                        <img t-att-src='_s + "/base/static/src/img/company_image.png"'/>
+                                    </t>
+                                    <t t-if="record.is_company.raw_value === false">
+                                        <img t-att-src='_s + "/base/static/src/img/avatar.png"'/>
+                                    </t>
+                                </t>
+                            </t>
+                        </div>
+                        <div class="oe_kanban_details">
+                            <strong class="oe_partner_heading"><field name="display_name"/></strong>
+                            <ul>
+                                <li t-if="record.parent_id.raw_value and !record.function.raw_value"><field name="parent_id"/></li>
+                                <li t-if="!record.parent_id.raw_value and record.function.raw_value"><field name="function"/></li>
+                                <li t-if="record.parent_id.raw_value and record.function.raw_value"><field name="function"/> at <field name="parent_id"/></li>
+                                <li t-if="record.city.raw_value and !record.country_id.raw_value"><field name="city"/></li>
+                                <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
+                                <li t-if="record.city.raw_value and record.country_id.raw_value"><field name="city"/>, <field name="country_id"/></li>
+                                <li t-if="record.email.raw_value" class="o_text_overflow"><field name="email"/></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="oe_kanban_vignette oe_semantic_html_override az_box">
+                        <div class="card_header">
+                            <a type="open" class="az_image_box">
+                                <t t-if="record.image_small.raw_value">
+                                    <img t-att-src="kanban_image('res.partner', 'image_small', record.id.value)" class="oe_kanban_image"/>
+                                </t>
+                                <t t-if="!record.image_small.raw_value">
+                                    <t t-if="record.is_company.raw_value === true">
+                                        <img t-att-src='_s + "/base/static/src/img/company_image.png"' class="oe_kanban_image"/>
+                                    </t>
+                                    <t t-if="record.is_company.raw_value === false">
+                                        <img t-att-src='_s + "/base/static/src/img/avatar.png"' class="oe_kanban_image"/>
+                                    </t>
+                                </t>
+                                <div class="oe_functional">
+                                    <h4 class="oe_partner_heading">
+                                        <field name="name"/>
+                                    </h4>
+                                    <h4 class="oe_partner_company" t-if="record.parent_id.raw_value">
+                                        <field name="parent_id"/>
+                                    </h4>
+                                    <h4 class="oe_partner_func" t-if="record.function.raw_value">
+                                        <field name="function"/>
+                                    </h4>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card_details">
+                            <div class="az_location text-center">
+                                <t t-if="record.city.raw_value and !record.country_id.raw_value">
+                                    <a t-attf-href="http://maps.google.com/?q=#{record.street.raw_value} #{record.city.raw_value} #{record.zip.raw_value}" target="_blank">
+                                        <i class="fa fa-street-view"></i>
+                                        <field name="city"/>
+                                    </a>
+                                </t>
+                                <t t-if="!record.city.raw_value and record.country_id.raw_value">
+                                    <a t-attf-href="http://maps.google.com/?q=#{record.street.raw_value} #{record.city.raw_value} #{record.zip.raw_value}" target="_blank">
+                                        <i class="fa fa-street-view"></i>
+                                        <field name="country_id"/>
+                                    </a>
+                                </t>
+                                <t t-if="record.city.raw_value and record.country_id.raw_value">
+                                    <a t-attf-href="http://maps.google.com/?q=#{record.street.raw_value} #{record.city.raw_value} #{record.zip.raw_value}" target="_blank">
+                                        <i class="fa fa-street-view"></i>
+                                        <field name="city"/>, <field name="country_id"/>
+                                    </a>
+                                </t>
+                            </div>
+                            <div class="oe_kanban_partner_links"/>
+                            <div class="o_kanban_tags_section oe_kanban_partner_categories" style="    margin-left: 7px;"/>
+                            <div class="call_contact row">
+                                <div class="col-md-6 col-sm-6 col-xs-12" t-if="record.phone.raw_value">
+                                    <i class="fa fa-phone"></i>
+                                    <field name="phone"/> &amp;nbsp;
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12" t-if="record.mobile.raw_value">
+                                    <i class="fa fa-mobile pl10 bl"></i>
+                                    <field name="mobile"/>
+                                </div>
+                            </div>
+                            <ul class="card_contact">
+                                <li t-if="record.email.raw_value">
+                                    <a t-attf-href="mailto:#{record.email.raw_value}">
+                                        <i class="fa fa-envelope"></i><field name="email"/></a>
+                                </li>
+                                <li t-if="record.website.raw_value">
+                                    <a t-att-href="record.website.raw_value" target="_blank">
+                                        <i class="fa fa-globe"></i><field name="website"/></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_res_uses_form_view_inherit" model="ir.ui.view" >
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[last()]" position="inside">
+                <page string="Theme">
+                    <group>
+                        <field name="company_theme" invisible="1"/>
+                        <field name="hide_theme_switcher" attrs="{'invisible': [('company_theme', '=', True)]}"/>
+                        <field name="theme" widget="radio" attrs="{'invisible': [('company_theme', '=', True)]}"/>
+                        <field name="menu_style" widget="radio"/>
+                    </group>
+                    <group colspan="4">
+                        <label string="Theme will applied based on Compnay Configuration" attrs="{'invisible': [('company_theme', '=', False)]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_company_form_view_inherit" model="ir.ui.view" >
+        <field name="name">res.company.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[last()]" position="inside">
+                <page string="About">
+                    <group>
+                        <field name="about_company"/>
+                    </group>
+                </page>
+                <page string="Theme">
+                    <group>
+                        <field name="theme_type" widget='radio'/>
+                        <field name="theme" widget="theme_radio" attrs="{'invisible': [('theme_type', '=', 'user_theme')]}"/>
+                        <field name='theme_lables_color'/>
+                    </group>
+                    <group>
+                        <field name="flag_image" widget="image" width="50" heigh="50"/>
+                    </group>
+                    <group>
+                        <field name="flag" widget="radio"/>
+                    </group>
+                    <group>
+                        <field name='app_background_image' widget="image"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!--<record id="res_lang_theme_form" model="ir.ui.view">-->
+            <!--<field name="name">res.lang.form.inherit</field>-->
+            <!--<field name="model">res.lang</field>-->
+            <!--<field name="inherit_id" ref="base.res_lang_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//sheet" position="inside">-->
+                    <!--<group string="Theme Date Time Format">-->
+                        <!--<field name="theme_time_format"/>-->
+                    <!--</group>-->
+                    <!--<group string="Example">-->
+                        <!--<div>LT - 3:59 PM</div>-->
+                        <!--<div>LTS - 3:59:11 PM</div>-->
+                        <!--<div>L - 05/11/2017</div>-->
+                        <!--<div>l - 5/11/2017</div>-->
+                        <!--<div>LL - May 11, 2017</div>-->
+                        <!--<div>ll - May 11, 2017</div>-->
+                        <!--<div>LLL - May 11, 2017 3:59 PM</div>-->
+                        <!--<div>lll - May 11, 2017 3:59 PM</div>-->
+                        <!--<div>LLLL - Thursday, May 11, 2017 3:59 PM</div>-->
+                        <!--<div>llll - Thu, May 11, 2017 3:59 PM</div>-->
+                    <!--</group>-->
+                <!--</xpath>-->
+            <!--</field>-->
+    <!--</record>-->
+</odoo>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="material_osbt_assets_apps" inherit_id="web.assets_backend" name="Material OSBT Assets">
+      <xpath expr="." position="inside">
+        <link rel="stylesheet" href="/odoo_shoppe_backend_theme/static/apps/src/less/bootswatch/variables.less" />
+        <link rel="stylesheet" type="text/css" href="/odoo_shoppe_backend_theme/static/apps/lib/css/drawer.3.2.0.css" />
+        <link rel="stylesheet" href="/odoo_shoppe_backend_theme/static/apps/src/less/navbar.less" />
+        <link rel="stylesheet" href="/odoo_shoppe_backend_theme/static/apps/src/less/app_drawer.less" />
+        <link rel="stylesheet" href="/odoo_shoppe_backend_theme/static/apps/src/less/variables.less" />
+        <script type="application/javascript" src="/odoo_shoppe_backend_theme/static/apps/lib/js/iscroll-probe.5.2.0.js" />
+        <script type="application/javascript" src="/odoo_shoppe_backend_theme/static/apps/lib/js/drawer.3.2.0.js" />
+        <script type="application/javascript" src="/odoo_shoppe_backend_theme/static/apps/src/js/web_responsive.js" />
+      </xpath>
+  </template>
+  <template id="odoo_shoppe_backend_theme.menu_apps">
+    <div class="panel-default app-drawer-app-panel" id="appDrawerAppMenu">
+      <div id="appDrawerAppPanelHead">
+         <nav class="navbar navbar-default main-nav" role="navigation" groups="base.group_user,base.group_portal">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a href="#" class="app-drawer-icon-close drawer-toggle app-name">
+                <i class="fa fa-1x fa-chevron-left" /> Apps
+              </a>
+            </div>
+          <!--   <div class="collapse navbar-collapse text-center">
+              <div class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right oe_user_menu_placeholder" style="display: none;" />
+                <ul class="nav navbar-nav navbar-right oe_systray" style="display: none;" />
+              </div>
+            </div> -->
+          </div>
+        </nav>
+      </div>
+      <div class="panel-body" id="appDrawerAppPanelBody">
+        <ul class="row list-unstyled oe_application_menu_placeholder" style="display: none;">
+          <li t-foreach="menu_data['children']" t-as="menu" class="col-xs-4 col-sm-3 col-md-3 col-lg-2 text-center mt16">
+            <t t-call="odoo_shoppe_backend_theme.menu_link_apps">
+              <t t-set="display_images" t-value="1" />
+            </t>
+          </li>
+          <li id="menu_more_container" class="dropdown" style="display: none;">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+            <ul id="menu_more" class="dropdown-menu"></ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </template>
+  <template id="odoo_shoppe_backend_theme.menu_secondary_apps">
+    <!--   <a class="o_sub_menu_logo" t-att-href="'/web/?debug' if debug else '/web'">
+      <span class="oe_logo_edit">Edit Company data</span>
+      <img src='/web/binary/company_logo' />
+    </a> -->
+    <div class="o_sub_menu_content">
+      <t t-foreach="menu_data['children']" t-as="menu">
+        <ul style="display: none" class="oe_secondary_menu nav navbar-nav" t-att-data-menu-parent="menu['id']">
+          <li class="app-name">
+            <span class="oe_menu_text">
+            <t t-esc="menu['name']"/> 
+          </span>
+          </li>
+          <li>
+            <t t-call="odoo_shoppe_backend_theme.menu_secondary_submenu_apps" />
+          </li>
+        </ul>
+      </t>
+    </div>
+    <!--  <div class="o_sub_menu_footer">
+      Powered by <a href="http://www.odoo.com" target="_blank"><span>Odoo</span></a>
+    </div> -->
+  </template>
+  <template id="odoo_shoppe_backend_theme.menu_secondary_submenu_apps">
+    <t t-foreach="menu['children']" t-as="menu">
+      <t t-if="menu['children']">
+        <li t-attf-class="{{ 'dropdown-header' if submenu else '' }}">
+          <t t-if="submenu">
+            <t t-esc="menu['name']" />
+            <t t-call="odoo_shoppe_backend_theme.menu_secondary_submenu_apps">
+              <t t-set="submenu" t-value="True" />
+            </t>
+          </t>
+          <t t-if="not submenu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <t t-esc="menu['name']" />
+              <span class="caret" />
+            </a>
+            <ul t-if="menu['children']" t-attf-class="dropdown-menu oe_secondary_submenu dropdown-scrollable">
+              <t t-call="odoo_shoppe_backend_theme.menu_secondary_submenu_apps">
+                <t t-set="submenu" t-value="True" />
+              </t>
+            </ul>
+          </t>
+        </li>
+      </t>
+      <t t-if="not menu['children']">
+        <li>
+          <t t-call="odoo_shoppe_backend_theme.menu_link_apps" />
+        </li>
+      </t>
+    </t>
+  </template>
+  <template id="odoo_shoppe_backend_theme.menu_link_apps">
+    <t t-set="debug_param" t-value="'?&amp;debug=' if debug else ''" />
+    <a t-att-href="'/web%s#menu_id=%s&amp;action=%s' % (debug_param, menu['id'], menu['action'] and menu['action'].split(',')[1] or '')" t-att-class="'oe_menu_toggler' if menu.get('children') else 'oe_menu_leaf'" t-att-data-menu="menu['id']" t-att-data-menu-xmlid="menu.get('xmlid')" t-att-data-action-model="menu['action'] and menu['action'].split(',')[0] or None" t-att-data-action-id="menu['action'] and menu['action'].split(',')[1] or None" t-att-data-menu-name="menu['name']">
+      <span class="oe_menu_text">
+          <t t-if="display_images">
+                <img t-attf-src="/web/image/ir.ui.menu/{{ menu['id'] }}/web_icon_data"
+                     class="app-drawer-icon-app img-rounded"
+                     t-att-alt="menu['name']"
+                     t-att-title="menu['name']"
+                     style="height:75px; width:75px;"/>
+                <p class="app-drawer-title text-center">
+                    <t t-esc="menu['name']" />
+                </p>
+            </t>
+            <t t-if="not display_images">
+                <span class="oe_menu_text">
+                    <t t-esc="menu['name']" />
+                </span>
+            </t>
+      </span>
+    </a>
+  </template>
+  <template id="odoo_shoppe_backend_theme.webclient_bootstrap_apps">
+    <t t-call="web.layout">
+      <t t-set="head_website">
+        <meta charset="utf-8" />
+        <meta http-equiv="cleartype" content="on" />
+        <meta name="MobileOptimized" content="320" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <script type="text/javascript">
+        odoo.session_info = <t t-raw="session_info" />;
+        </script>
+        <t t-call-assets="web.assets_common" t-js="false" />
+        <t t-call-assets="web.assets_backend" t-js="false" />
+        <t t-call-assets="web_editor.summernote" t-js="false" />
+        <t t-call-assets="web_editor.assets_editor" t-js="false" />
+        <t t-call-assets="website.assets_editor" t-js="false" />
+        <t t-call-assets="web.assets_common" t-css="false" />
+        <t t-call-assets="web.assets_backend" t-css="false" />
+        <t t-call-assets="web_editor.summernote" t-css="false" />
+        <t t-call-assets="web_editor.assets_editor" t-css="false" />
+        <!-- <t t-call-assets="website.assets_editor" t-css="false" groups="website.group_website_publisher" /> -->
+        <!-- <t t-call-assets="odoo_shoppe_backend_theme.material_osbt_assets_apps" t-js="false" /> -->
+        <![CDATA[
+                    <!--[if lt IE 10]>
+
+        <body class="ie9">
+          <![endif]-->
+                ]]>
+        <t t-call-assets="odoo_shoppe_backend_theme.material_osbt_theme_assets" t-js="false" />
+        <script type="text/javascript">
+            odoo.define('web.web_client', function (require) {
+                var WebClient = require('web.WebClient');
+                var web_client = new WebClient();
+                $(function() {
+                    web_client.setElement($(document.body));
+                    web_client.start();
+                });
+                return web_client;
+            });
+        </script>
+         <script src="/odoo_shoppe_backend_theme/static/apps/src/js/apps_js.js" type="text/javascript"></script>
+      </t>
+      <t t-set="head" t-value="head_website + (head or '')" />
+      <t t-set="body_classname" t-value="'o_web_client'" />
+      <t t-set="body_classname" t-value="'drawer drawer--left o_web_client'" />
+      <header role="banner" style="margin-bottom: 4px;">
+        <t t-if="app_background_image">
+          <nav id="odooAppDrawer" class="app-drawer-nav drawer-nav" role="navigation" t-attf-style="background: url(/web/image/res.company/#{company_id}/app_background_image) no-repeat scroll center center / cover">
+            <t t-call="odoo_shoppe_backend_theme.menu_apps" />
+          </nav>
+        </t>
+        <t t-if="not app_background_image">
+          <nav id="odooAppDrawer" class="app-drawer-nav drawer-nav" role="navigation">
+            <t t-call="odoo_shoppe_backend_theme.menu_apps" />
+          </nav>
+        </t>
+        <nav class="navbar navbar-default main-nav" role="navigation" groups="base.group_user,base.group_portal">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a href="#" class="drawer-toggle navbar-collapse collapse app-drawer-toggle" accesskey="A">
+                <span class="sr-only">Toggle App Drawer</span>
+                <i class="fa fa-th fa-lg app-drawer-icon-open" />
+              </a>
+              <button type="button" class="app-drawer-toggle drawer-toggle pull-left navbar-toggle collapsed">
+                <span class="sr-only">Toggle App Drawer</span>
+                <div class="fa fa-th fa-lg app-drawer-icon-open" />
+              </button>
+              <button type="button" id="odooMenuBarToggle" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#odooMenuBarNav">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa fa-bars fa-lg" />
+              </button>
+            </div>
+            <div class="collapse navbar-collapse text-center" id="odooMenuBarNav" data-parent="#odooMenuBarToggle" aria-expanded="false">
+              <div class="o_sub_menu" id="oe_sub_menu_apps" groups="base.group_user,base.group_portal">
+                <t t-call="odoo_shoppe_backend_theme.menu_secondary_apps" />
+              </div>
+              <div class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right oe_user_menu_placeholder" style="display: none;" />
+                <ul class="nav navbar-nav navbar-right oe_systray" style="display: none;" />
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="o_main">
+        <!-- <div classl="o_sub_menu" groups="base.group_user,base.group_portal">
+          <t t-call="odoo_shoppe_backend_theme.menu_secondary_apps" />
+        </div> -->
+        <div class="o_main_content" />
+      </div>
+    </t>
+  </template>
+</odoo>

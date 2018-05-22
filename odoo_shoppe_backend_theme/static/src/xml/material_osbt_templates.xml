@@ -1,0 +1,247 @@
+<template>
+  <div t-name="theme-switcher">
+    <div class="theme-switcher">
+      <div class="form_holder">
+        <div class="row">
+          <div class="text-center s_heading">Theme Switcher</div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="theme_switcher">
+              <div class="s_subheading">Change Theme</div>
+              <a class="switch_style" data-theme="orange" href="#" title="Orange">
+                      <img alt="Orange" class="img-thumbnail" src="/odoo_shoppe_backend_theme/static/src/img/theme_switcher/orange.png"/>
+                  </a>
+                  <a class="switch_style" data-theme="gray_black" href="#" title="Gray Black">
+                      <img alt="Gray Black" class="img-thumbnail" src="/odoo_shoppe_backend_theme/static/src/img/theme_switcher/gray_black.png"/>
+                  </a>
+                  <a class="switch_style" data-theme="white" href="#" title="Odoo">
+                      <img alt="White" class="img-thumbnail" src="/odoo_shoppe_backend_theme/static/src/img/theme_switcher/white.png"/>
+                  </a>
+                  <a class="switch_style" data-theme="dark_blue" href="#" title="Dark Blue">
+                      <img alt="Dark Blue" class="img-thumbnail" src="/odoo_shoppe_backend_theme/static/src/img/theme_switcher/dark_blue.png"/>
+                  </a>
+                  <a class="switch_style" data-theme="blue" href="#" title="Blue">
+                      <img alt="Blue" class="img-thumbnail" src="/odoo_shoppe_backend_theme/static/src/img/theme_switcher/blue.png"/>
+                  </a>
+                  <a class="switch_style" data-theme="grey" href="#" title="Grey">
+                      <img alt="Grey" class="img-thumbnail" src="/odoo_shoppe_backend_theme/static/src/img/theme_switcher/grey.png"/>
+                  </a>
+                  <a class="switch_style" data-theme="dark_red" href="#" title="Dark Red">
+                      <img alt="Dark Red" class="img-thumbnail" src="/odoo_shoppe_backend_theme/static/src/img/theme_switcher/dark_red.png"/>
+                  </a>
+                  <a class="switch_style" data-theme="pink" href="#" title="Pink">
+                      <img alt="Pink" class="img-thumbnail" src="/odoo_shoppe_backend_theme/static/src/img/theme_switcher/pink.png"/>
+                  </a>
+                  <a class="switch_style" data-theme="yellow_green" href="#" title="Yellow Green">
+                      <img alt="Yellow Green" class="img-thumbnail" src="/odoo_shoppe_backend_theme/static/src/img/theme_switcher/yellow_green.png"/>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <t t-name="ThemeSwicherSysTray">
+    <li class="o_theme_swicher_navbar_item">
+       <a class="theme-switcher-toggler" href="#">
+          <i class="fa fa-cog fa-spin"/>
+      </a>
+    </li>
+  </t>
+
+  <t t-extend="UserMenu">
+    <t t-jquery=".o_user_menu" t-operation="replace">
+      <li>
+        <a href="#" data-menu="settings">
+          <img src="/odoo_shoppe_backend_theme/static/src/img/flag/en_US.png" title="User Preferences" width="27px"/>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-menu="logout" class="quick_menu" title="Logout">
+          Logout
+          <i class="fa fa-sign-out pl5"></i>
+        </a>
+      </li>
+    </t>
+  </t>
+
+  <t t-name="UserLeft">
+    <div class="photo">
+      <img class="oe_topbar_avatar" t-att-data-default-src="_s + '/web/static/src/img/user_menu_avatar.png'"/>
+    </div>
+    <div class="info">
+      <a class="collapsed" data-toggle="collapse" href="#userleft" id="user_name" aria-expanded="false"><span class="oe_topbar_name"/> <b class="caret"></b></a>
+      <div class="collapse" id="userleft" aria-expanded="false" style="height: 0px;">
+        <ul class="nav">
+          <li><a href="#" data-menu="settings"><i class="fa fa-cog"></i> Settings </a></li>
+          <li><a href="#" data-menu="documentation"><i class="fa fa-info-circle"></i> Help</a></li>
+          <!-- <li><a href="#" data-menu="about"><i class="fa fa-cubes fa-fw"></i> About</a></li> -->
+          <li><a href="#" data-menu="logout"><i class="fa fa-sign-out"></i> Log out</a></li>
+        </ul>
+      </div>
+    </div>
+  </t>
+
+  <t t-extend="SearchView">
+      <t t-jquery="span.o_searchview_more" t-operation="before">
+          <div class="o_searchview_search fa fa-lg fa-search" title="Search Again"></div>
+      </t>
+  </t>
+
+<!--   <t t-extend="ImportView.import_button">
+    <t t-jquery="button" t-operation="replace">
+      <button t-if='widget.options.import_enabled' type="button" class="btn btn-sm btn-default o_button_import">
+        <i class="fa fa-download btn_ico" aria-hidden="true"></i>
+          <span class="btn_txt">Import</span>
+      </button>
+    </t>
+  </t>
+  <t t-extend="ListView.buttons">
+      <t t-jquery="div.o_list_buttons" t-operation="replace">
+          <div class="o_list_buttons">
+              <t t-if="widget.options.addable and widget.is_action_enabled('create')">
+                  <button type="button" class="btn btn-primary btn-sm o_list_button_add" accesskey="c">
+                    <i class="fa fa-plus btn_ico" aria-hidden="true"></i>
+                      <span class="btn_txt"><t t-esc="widget.options.addable"/></span>
+                  </button>
+              </t>
+              <button type="button" class="btn btn-primary btn-sm o_list_button_save" accesskey="s">
+                <i class="fa fa-floppy-o btn_ico" aria-hidden="true"></i>
+                <span class="btn_txt">Save</span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm o_list_button_discard" accesskey="j">
+                <i class="fa fa-times btn_ico" aria-hidden="true"></i>
+                <span class="btn_txt">Discard</span>
+              </button>
+          </div>
+      </t>
+  </t>
+  <t t-extend="ListView.buttons">
+      <t t-jquery="button.o_list_button_add" t-operation="after">
+        <t t-call="ImportView.import_button"/>
+      </t>
+  </t> -->
+  <t t-name="FormView.buttons">
+    <t t-jquery="div.o_form_buttons_view" t-operation="replace">
+      <div class="o_form_buttons_view">
+          <button t-if="widget.is_action_enabled('edit')" type="button"
+                  class="btn btn-primary btn-sm o_form_button_edit" accesskey="a">
+            <i class="fa fa-pencil btn_ico" aria-hidden="true"></i>
+            <span class="btn_txt">Edit</span>
+          </button>
+          <button t-if="widget.is_action_enabled('create')" type="button"
+                  class="btn btn-default btn-sm o_form_button_create" accesskey="c">
+            <i class="fa fa-plus btn_ico" aria-hidden="true"></i>
+            <span class="btn_txt">Create</span>
+          </button>
+      </div>
+      <div class="o_form_buttons_edit">
+          <button type="button"
+                  class="btn btn-primary btn-sm o_form_button_save" accesskey="s">
+            <i class="fa fa-floppy-o btn_ico" aria-hidden="true"></i>
+            <span class="btn_txt">Save</span>
+          </button>
+          <button type="button"
+                  class="btn btn-default btn-sm o_form_button_cancel" accesskey="j">
+            <i class="fa fa-times btn_ico" aria-hidden="true"></i>
+            <span class="btn_txt">Discard</span>
+          </button>
+      </div>
+    </t>
+  </t>
+
+  <t t-extend="Sidebar">
+    <t t-jquery="div.o_dropdown button:first-child" t-operation="replace">
+      <button type="button" class="btn btn-default dropdown-toggle"
+              t-if="section.name != 'buttons'"
+              data-toggle="dropdown">
+        <t t-if="section.name == 'files'" t-raw="widget.items[section.name].length || ''"/>
+        <t t-if="section.label == 'Print'">
+            <i class="fa fa-print btn_ico" aria-hidden="true"></i>
+            <span class="btn_txt"><t t-esc="section.label"/></span>
+        </t>
+        <t t-if="section.label == 'Attachment(s)'">
+            <i class="fa fa-paperclip btn_ico" aria-hidden="true"></i>
+            <span class="btn_txt"><t t-esc="section.label"/></span>
+        </t>
+        <t t-if="section.label != 'Attachment(s)' and section.label != 'Print'">
+          <i class="fa fa-chevron-circle-down btn_ico" aria-hidden="true"></i>
+            <span class="btn_txt"><t t-esc="section.label"/></span>
+        </t>
+        <span class="caret"></span>
+      </button>
+    </t>
+  </t>
+
+  <t t-extend="ControlPanel">
+    <t t-jquery="div.o_control_panel" t-operation="replace">
+      <div class="o_control_panel">
+        <div class="container" style="width: 100%; padding-left: 0px; padding-right: 0px;">
+          <div class="row visible-sm visible-xs" style="width: 100%;">
+            <div class="col-xs-9">
+              <ol class="breadcrumb"/>
+            </div>
+            <div class="col-xs-3 text-right">
+              <a class="toogle_control_panel" title="Toggle Actions">
+                <i class="fa fa-bars"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <ol class="breadcrumb hidden-sm hidden-xs"/>
+        <div class="o_cp_searchview"/>
+        <div class="o_cp_left">
+            <div class="o_cp_buttons"/>
+            <div class="o_cp_sidebar"/>
+        </div>
+        <div class="o_cp_right">
+            <div class="btn-group o_search_options"/>
+            <div class="o_cp_pager"/>
+            <div class="btn-group btn-group-sm o_cp_switch_buttons"/>
+        </div>
+      </div>
+    </t>
+  </t>
+
+  <t t-extend="SearchView.FilterMenu">
+    <t t-jquery="button.o_dropdown_toggler_btn" t-operation="replace">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="fa fa-filter"/> <span class="btn1_txt">Filters</span> <span class="caret"/>
+      </button>
+    </t>
+  </t>
+
+  <t t-extend="SearchView.GroupByMenu">
+    <t t-jquery="button.o_dropdown_toggler_btn" t-operation="replace">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="fa fa-bars"/> <span class="btn1_txt">Group By</span> <span class="caret"/>
+      </button>
+    </t>
+  </t>
+
+  <t t-extend="SearchView.FavoriteMenu">
+    <t t-jquery="button.o_dropdown_toggler_btn" t-operation="replace">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="fa fa-star"/> <span class="btn1_txt">Favorites</span> <span class="caret"/>
+      </button>
+    </t>
+  </t>
+
+<!--   <t t-name="FieldThemeRadio">
+    <span t-attf-class="o_form_field o_form_field_radio #{widget.options.horizontal ? 'oe_horizontal' : 'oe_vertical'}" t-att-style="widget.node.attrs.style">
+      <span t-if="!widget.get('effective_readonly')">
+        <t t-foreach="widget.selection" t-as="selection">
+          <div>
+            <span class="oe_radio_input">
+              <input type="radio" t-att-id="widget.uniqueId + '_' + selection[0]" t-att-name="widget.uniqueId" t-att-value="selection[0]"/>
+            </span>
+            <label t-att-id="'theme_' +selection[0]" t-if="!widget.options.no_radiolabel" t-att-for="widget.uniqueId + '_' + selection[0]">
+              <t t-esc="selection[1]"/>
+            </label>
+          </div>
+        </t>
+      </span>
+    </span>
+  </t> -->
+  
+</template>

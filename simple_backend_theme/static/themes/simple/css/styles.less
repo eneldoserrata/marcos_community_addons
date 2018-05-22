@@ -1,0 +1,429 @@
+// DEVELOP ---------------------
+@import (less) "variables";
+
+// --- general -----
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 1px solid @ity-simple-separate-line-color;
+}
+
+input[type="text"], 
+input[type="password"], 
+input[type="number"], 
+textarea, 
+select {
+  color: darken(@ity-simple-font-color,10%);
+}
+
+.nav-pills {
+  > li > a:hover {
+    color: @ity-simple-font-color !important;
+    background-color: transparent !important;
+    &::after {
+      content: '❭  ';
+      display: block;
+      float: right;
+    }
+  }
+  > li.active {
+    > a, 
+    > a:hover, 
+    > a:focus {
+      color: @ity-simple-font-color !important;
+      background-color: transparent !important;
+      font-weight: bold !important;
+    }
+  }
+}
+
+.nav-pills > li.active > a {
+  &::after {
+    content: '❱  ';
+    display: block;
+    float: right;
+    font-weight: bold;
+  }
+}
+
+body.o_web_client {
+    background-color: @ity-simple-background-color;
+    font-size: 12px;
+  
+  // --- navigation bar on top ---
+  .simple-logo {
+    display: block;
+    float: left;
+    padding: 10px 15px 10px 15px;
+    overflow: hidden;
+    text-align: center;
+    img {
+      height: 24px;
+    }
+  }
+  .navbar {
+    li {
+      > a {
+        padding: 15px 8px 15px 8px;
+        margin: 0 0 0 0;
+        line-height: unset;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+    }
+  }
+  .navbar-default {
+    background-color: white;
+    border: 1px solid @ity-simple-controlpanel-background-color;
+    .navbar-nav {
+      > .active {
+        > a, 
+        > a:hover, 
+        > a:focus {
+          color: @ity-simple-nav-color;
+          background-color: @ity-simple-controlpanel-background-color;
+          font-weight: bold;
+        }
+      }
+    }
+    .navbar-collapse, .navbar-form {
+      line-height: 20px;
+    }    
+  }
+
+  // --- submenu (sidebar) ---
+  #slider_strip {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    bottom: 0px;
+    left: 200px;
+    border-radius: 0 4px 4px 0;
+    background-color: lighten(@odoo-color, 10%);
+    cursor: pointer;
+    z-index: 100;
+    i.fa {
+      font-size: 16px;
+      padding: 7px 7px 7px 7px;
+      color: white;
+    }
+    &:hover {
+      background-color: @odoo-color, 20%;
+    }
+  }
+  
+  .o_main {
+    .o_sub_menu {
+      flex: 0 0 200px;
+      background-color: white;
+      border-right: 1px solid @ity-simple-separate-line-color;
+
+        .o_sub_menu_content .oe_secondary_menu_section {
+          margin: 10px 0 0 0;
+          color: @ity-simple-submenu-header-color;
+          text-transform: uppercase;
+          background-color: @ity-simple-submenu-header-bg;
+          padding: 4px 6px 4px 6px + 12px;
+          font-size: 11px;
+      }
+      
+    }
+  }
+  > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu .oe_menu_text {
+    max-width: 180px;
+  }
+      
+  
+  // --- control panel on top ---
+  .o_control_panel {
+    background-color: @ity-simple-controlpanel-background-color;
+    border-bottom: 1px solid @ity-simple-separate-line-color;
+    
+    .breadcrumb {
+      background-color: transparent;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+  }
+
+  
+  
+  
+  
+  
+  // --- menu footer ---
+  > .o_main .o_sub_menu .o_sub_menu_footer > a > span {   
+  }
+
+  
+  // --- footer ---
+  footer {
+    border-top: 1px solid @ity-simple-separate-line-color;
+    background-color: white;
+    height: 95px;
+    margin: 0;
+  }
+  #slider_footer {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    bottom: 30px;
+    right: -100%;
+    margin-left: -35px;
+    border-radius: 4px 4px 0 0;
+    background-color: lighten(@odoo-color, 10%);
+    cursor: pointer;
+    z-index: 110;
+    &:hover {
+      background-color: @odoo-color;
+    }
+    i.fa {
+      font-size: 16px;
+      padding: 7px 7px 7px 8px;
+      color: white;
+    }    
+  }
+
+  // --- Lade ... ---
+  .o_loading {
+    padding: 4px 12px;
+  }
+}
+
+// ==== VIEW-SPECIFIC ==========================
+
+// --- kanban view ---
+.o_kanban_view {
+  &.o_kanban_dashboard {
+    &.o_kanban_ungrouped .o_kanban_card_content .o_kanban_primary_bottom, 
+    &.o_kanban_grouped .o_kanban_card_content .o_kanban_primary_bottom {
+      background-color: @ity-simple-kanban-card-footer-bgcolor;
+    }
+  }
+  &.o_kanban_dashboard {
+    &.o_kanban_ungrouped, 
+    &.o_kanban_grouped {
+      .o_kanban_card_header {
+        background-color: @ity-simple-kanban-card-header-bgcolor;
+      }
+    }
+  }  
+  
+  &.o_kanban_dashboard.o_salesteam_kanban .o_sales_dashboard > div > table > tbody > tr > td.o_secondary {
+    background-color: @ity-simple-kanban-card-header-bgcolor;
+  }
+  // --- canban-colors ---
+  .generate-canban-colors(length(@kanban-colors));
+  .generate-canban-colors(@n, @i: 1) when (@i =< @n) {
+    .oe_kanban_color_@{i} {
+      background-color: extract(@kanban-colors, @i) !important; 
+      color: #333;
+    }
+    .generate-canban-colors(@n, (@i + 1));
+  }  
+
+  .o_kanban_group {
+    &:nth-child(odd) {
+      background-color: @ity-simple-workflow-odd-bg-color;
+    }
+    &:nth-child(even) {
+      background-color: @ity-simple-workflow-even-bg-color;
+    }
+    .o_kanban_header {
+      .o_kanban_quick_add i:hover {
+        background-color: transparent; //lighten(@odoo-color, 30%) !important;
+        color: @ity-simple-font-color !important;
+      }
+      .o_kanban_config i:hover {
+        background-color:  transparent; //lighten(@odoo-color, 30%) !important;
+      }
+    }
+  }
+  .o_kanban_record {
+    box-shadow: none;
+    border: 1px solid @ity-simple-separate-line-color;
+    background-color: @ity-simple-kanban-bg-color;
+  }
+  .o_column_quick_create {
+    background-color: @ity-simple-workflow-create-bg-color;
+  }
+  &.o_kanban_grouped {
+    padding: 0px 0px;
+  }
+}
+
+// --- tree/list view --------------
+.o_list_view {
+  thead {
+    background-color: darken(@ity-simple-table-thead-color,6%);
+    border-bottom: 1px solid @ity-simple-separate-line-color;
+  }
+  tfoot {
+    background-color: transparent;
+    border-top: none;
+    border-bottom: none;
+  }
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: @ity-simple-table-odd-color;
+}
+
+// --- form view -----------------
+.o_form_view {
+  header {
+    button {
+      padding-top: 1px !important;
+      padding-bottom: 1px !important; // statt 5px
+      margin-top: 4px;
+      border-radius: 1px !important;
+    }
+  }
+  .oe_title {
+    > h1 {font-size: 20px}
+    > h2 {font-size: 18px}
+    > h2 {font-size: 16px}
+  }  
+  .o_form_sheet_bg {
+    padding: 16px;
+    .o_form_sheet {
+      min-width: 320px;
+      max-width: unset;
+      background: white;
+      padding: 16px;
+      margin: 0 auto;
+      border: 1px solid @ity-simple-separate-line-color;
+      box-shadow: none;
+    }
+  }
+  .oe_chatter {
+    display: block;
+    min-width: 320px;
+    max-width: 100%;
+    margin: 0 0px;
+    padding: 16px 16px 48px;
+  }
+  .o_chatter {
+    border-bottom: 1px solid @ity-simple-separate-line-color;
+  }
+  > header {
+    border-bottom: 1px solid @ity-simple-separate-line-color;
+    background-color: @ity-simple-workflow-status;
+    background-image: none;
+  }
+
+  ul.oe_form_status,
+  ul.oe_form_status_clickable {
+    li {
+      background-color: @ity-simple-workflow-status;
+      background-image: none;      
+      > .arrow span {
+        box-shadow: none;
+        background-color: @ity-simple-workflow-status; 
+        background-image: none;        
+      }
+      > .label {
+        text-shadow: none;
+        padding-top: 8px;        
+      }
+      &:first-child > .label {
+        border-left: none;      
+      }
+      &.oe_active {
+        background-image: none;
+        > .label {
+          text-shadow: none;    
+        }
+        > .arrow span {
+          background: none;
+          background-color: lighten(@odoo-color,1%);
+        }
+      }
+    }
+  }
+  ul.oe_form_status_clickable li:hover {
+    background-image: none !important;
+    background-color: lighten(@odoo-color,1%) !important;
+    text-shadow: none;    
+    color: white;
+    &.oe_active {
+      > .arrow span {
+        background: none;
+        background-color: lighten(@odoo-color,1%);        
+      }
+      
+    }
+    > .arrow span {
+      background: none;
+      background-color: lighten(@odoo-color,1%);
+    }
+    > .label {
+      text-shadow: none;
+      color: white;
+    }
+  }
+  
+  .o_form_required.o_form_input, 
+  .o_form_required .o_form_input, 
+  .o_form_required.o_form_textarea, 
+  .o_form_required .o_form_textarea {
+    background-color: lighten(@odoo-color,40%);
+  }
+  
+}
+
+
+
+// --- message --
+.o_mail_thread .o_thread_message .o_thread_message_core.o_mail_note {
+  background-color: transparent;
+}
+.o_mail_thread .o_thread_message {
+  padding: 16px;
+  border-bottom: none;
+}
+.o_mail_thread .o_thread_message:nth-of-type(2n+1) {
+  background-color: @ity-simple-table-odd-color;
+}
+
+.o_mail_chat {
+  .o_mail_chat_sidebar {
+    background-color: @ity-simple-submenu-bg-color;
+    color: @ity-simple-font-color;
+    opacity: 0.9;
+
+    .o_mail_sidebar_title {
+      padding: 4px 8px 4px 15px;
+      align-items: center;
+      background-color: @ity-simple-submenu-header-bg;
+      margin: 15px 0 15px 0;
+    }
+    .o_mail_chat_channel_item:hover {
+     background-color: transparent;
+    }
+    .o_mail_chat_channel_item.o_active {
+      background-color: transparent;
+      font-weight: bold;
+      &::before {
+        content: '❱ ';
+        display: block;
+        float: left;
+        font-weight: bold;
+        margin-left: -12px;
+        width: 12px;
+        font-size: 10px;
+      }
+    }
+    .o_mail_chat_channel_item.o_unread_message {
+      color: @ity-simple-font-color;
+    }
+  }
+}
+
+// debug modus ---
+.o_planner_systray > .progress {
+    margin-top: 18px;
+    margin-bottom: -18px;
+}
+
+// -- responsive patches -------------
+@import (less) "responsive";

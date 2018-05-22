@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="ge_theme.list">
+      <field name="name">ge_theme list</field>
+      <field name="model">ge_theme.ge_theme</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="ge_theme.action_window">
+      <field name="name">ge_theme window</field>
+      <field name="res_model">ge_theme.ge_theme</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="ge_theme.action_server">
+      <field name="name">ge_theme server</field>
+      <field name="model_id" ref="model_ge_theme_ge_theme"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="ge_theme" id="ge_theme.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="ge_theme.menu_1" parent="ge_theme.menu_root"/>
+    <menuitem name="Menu 2" id="ge_theme.menu_2" parent="ge_theme.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="ge_theme.menu_1_list" parent="ge_theme.menu_1"
+              action="ge_theme.action_window"/>
+    <menuitem name="Server to list" id="ge_theme" parent="ge_theme.menu_2"
+              action="ge_theme.action_server"/>
+    -->
+  </data>
+</odoo>

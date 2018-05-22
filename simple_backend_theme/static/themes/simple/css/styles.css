@@ -1,0 +1,276 @@
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 1px solid #e7e7e7;
+}
+input[type="text"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+  color: #4d4d4d;
+}
+.nav-pills > li > a:hover {
+  color: #666 !important;
+  background-color: transparent !important;
+}
+.nav-pills > li > a:hover::after {
+  content: '❭  ';
+  display: block;
+  float: right;
+}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #666 !important;
+  background-color: transparent !important;
+  font-weight: bold !important;
+}
+.nav-pills > li.active > a::after {
+  content: '❱  ';
+  display: block;
+  float: right;
+  font-weight: bold;
+}
+body.o_web_client {
+  background-color: #f8f8f8;
+  font-size: 12px;
+}
+body.o_web_client .navbar li > a {
+  padding: 15px 10px 15px 10px;
+  margin: 0 0 0 0;
+  line-height: unset;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+body.o_web_client .navbar-default {
+  background-color: white;
+}
+body.o_web_client .navbar-default .navbar-nav > .active > a,
+body.o_web_client .navbar-default .navbar-nav > .active > a:hover,
+body.o_web_client .navbar-default .navbar-nav > .active > a:focus {
+  color: #333336;
+  background-color: #e0e0e6;
+  font-weight: bold;
+}
+body.o_web_client .navbar-default .navbar-collapse,
+body.o_web_client .navbar-default .navbar-form {
+  line-height: 20px;
+}
+body.o_web_client .o_main .o_sub_menu {
+  background-color: white;
+  border-right: 1px solid #e7e7e7;
+}
+body.o_web_client .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section {
+  margin: 10px 0 0 0;
+  color: #454545;
+  text-transform: uppercase;
+  background-color: #e9e9ef;
+  padding: 4px 6px 4px 18px;
+}
+body.o_web_client .o_control_panel {
+  background-color: #e0e0e6;
+  border-bottom: 1px solid #e7e7e7;
+}
+body.o_web_client .o_control_panel .breadcrumb {
+  background-color: transparent;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.o_loading {
+  padding: 4px 12px;
+}
+.o_kanban_view.o_kanban_dashboard.o_kanban_ungrouped .o_kanban_card_content .o_kanban_primary_bottom,
+.o_kanban_view.o_kanban_dashboard.o_kanban_grouped .o_kanban_card_content .o_kanban_primary_bottom {
+  background-color: #f3f3f6;
+}
+.o_kanban_view.o_kanban_dashboard.o_kanban_ungrouped .o_kanban_card_header,
+.o_kanban_view.o_kanban_dashboard.o_kanban_grouped .o_kanban_card_header {
+  background-color: #f0f0f3;
+}
+.o_kanban_view .oe_kanban_color_1 {
+  background-color: #d1ffd5 !important;
+  color: #333;
+}
+.o_kanban_view .oe_kanban_color_2 {
+  background-color: #f2ffcb !important;
+  color: #333;
+}
+.o_kanban_view .oe_kanban_color_3 {
+  background-color: #fff8cb !important;
+  color: #333;
+}
+.o_kanban_view .oe_kanban_color_4 {
+  background-color: #ffe3cb !important;
+  color: #333;
+}
+.o_kanban_view .oe_kanban_color_5 {
+  background-color: #ffcbcc !important;
+  color: #333;
+}
+.o_kanban_view .oe_kanban_color_6 {
+  background-color: #ffcbe9 !important;
+  color: #333;
+}
+.o_kanban_view .oe_kanban_color_7 {
+  background-color: #e8cbff !important;
+  color: #333;
+}
+.o_kanban_view .oe_kanban_color_8 {
+  background-color: #cbd0ff !important;
+  color: #333;
+}
+.o_kanban_view .oe_kanban_color_9 {
+  background-color: #cbf1ff !important;
+  color: #333;
+}
+.o_kanban_view .oe_kanban_color_10 {
+  background-color: #d1fff0 !important;
+  color: #333;
+}
+.o_kanban_view .o_kanban_group:nth-child(odd) {
+  background-color: #f0f0f3;
+}
+.o_kanban_view .o_kanban_group:nth-child(even) {
+  background-color: #f4f4f7;
+}
+.o_kanban_view .o_kanban_group .o_kanban_header .o_kanban_quick_add i:hover {
+  background-color: transparent;
+  color: #666 !important;
+}
+.o_kanban_view .o_kanban_group .o_kanban_header .o_kanban_config i:hover {
+  background-color: transparent;
+}
+.o_kanban_view .o_kanban_record {
+  box-shadow: none;
+  border: 1px solid #e7e7e7;
+  background-color: #ffffff;
+}
+.o_kanban_view .o_column_quick_create {
+  background-color: #f0f0f3;
+}
+.o_kanban_view.o_kanban_grouped {
+  padding: 0px 0px;
+}
+.o_list_view thead {
+  background-color: #cfcfd8;
+  border-bottom: 1px solid #e7e7e7;
+}
+.o_list_view tfoot {
+  background-color: transparent;
+  border-top: none;
+  border-bottom: none;
+}
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+  background-color: #f9f9fa;
+}
+.o_form_view .oe_title > h1 {
+  font-size: 20px;
+}
+.o_form_view .oe_title > h2 {
+  font-size: 18px;
+}
+.o_form_view .oe_title > h2 {
+  font-size: 16px;
+}
+.o_form_view .o_form_sheet_bg {
+  padding: 16px;
+}
+.o_form_view .o_form_sheet_bg .o_form_sheet {
+  min-width: 320px;
+  max-width: unset;
+  background: white;
+  padding: 16px;
+  margin: 0 auto;
+  border: 1px solid #e7e7e7;
+  box-shadow: none;
+}
+.o_form_view .oe_chatter {
+  display: block;
+  min-width: 320px;
+  max-width: 100%;
+  margin: 0 0px;
+  padding: 16px 16px 48px;
+}
+.o_form_view .o_chatter {
+  border-bottom: 1px solid #e7e7e7;
+}
+.o_form_view > header {
+  border-bottom: 1px solid #e7e7e7;
+  background-color: #d2d2db;
+  background-image: none;
+}
+.o_form_view ul.oe_form_status li,
+.o_form_view ul.oe_form_status_clickable li {
+  background-color: #d2d2db;
+  background-image: none;
+}
+.o_form_view ul.oe_form_status li:hover,
+.o_form_view ul.oe_form_status_clickable li:hover {
+  background-color: transparent;
+  background-image: none;
+}
+.o_form_view ul.oe_form_status li > .arrow span,
+.o_form_view ul.oe_form_status_clickable li > .arrow span {
+  box-shadow: none;
+  background-color: #d2d2db;
+  background: -webkit-gradient(linear, left top, right bottom, from(#d2d2db), to(#d2d2db));
+  background: -ms-linear-gradient(top, #d2d2db, #d2d2db);
+}
+.o_form_view ul.oe_form_status li > .arrow:hover,
+.o_form_view ul.oe_form_status_clickable li > .arrow:hover {
+  box-shadow: none;
+  background-color: #d2d2db;
+  background: -webkit-gradient(linear, left top, right bottom, from(#d2d2db), to(#d2d2db)) !important;
+  background: -ms-linear-gradient(top, #d2d2db, #d2d2db) !important;
+}
+.o_form_view ul.oe_form_status li > .label,
+.o_form_view ul.oe_form_status_clickable li > .label {
+  text-shadow: none;
+  padding-top: 8px;
+}
+.o_form_view .o_form_required.o_form_input,
+.o_form_view .o_form_required .o_form_input,
+.o_form_view .o_form_required.o_form_textarea,
+.o_form_view .o_form_required .o_form_textarea {
+  background-color: #f9f9fb;
+}
+.o_mail_thread .o_thread_message .o_thread_message_core.o_mail_note {
+  background-color: transparent;
+}
+.o_mail_thread .o_thread_message {
+  padding: 16px;
+  border-bottom: none;
+}
+.o_mail_thread .o_thread_message:nth-of-type(2n+1) {
+  background-color: #f9f9fa;
+}
+.o_mail_chat .o_mail_chat_sidebar {
+  background-color: #f6f6f9;
+  color: #666;
+  opacity: 0.9;
+}
+.o_mail_chat .o_mail_chat_sidebar .o_mail_sidebar_title {
+  padding: 4px 8px 4px 15px;
+  align-items: center;
+  background-color: #e9e9ef;
+  margin: 15px 0 15px 0;
+}
+.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {
+  background-color: transparent;
+}
+.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {
+  background-color: transparent;
+  font-weight: bold;
+}
+.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active::before {
+  content: '❱ ';
+  display: block;
+  float: left;
+  font-weight: bold;
+  margin-left: -12px;
+  width: 12px;
+  font-size: 10px;
+}
+.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_unread_message {
+  color: #666;
+}

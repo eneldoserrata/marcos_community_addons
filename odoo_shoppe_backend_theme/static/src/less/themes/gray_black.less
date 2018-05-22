@@ -1,0 +1,1393 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("/odoo_shoppe_backend_theme/static/src/fonts/OpenSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans Light";
+  src: url("/odoo_shoppe_backend_theme/static/src/fonts/OpenSans-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@gray_black_default: #3D3D3D;
+@gray_black_hover: #303030;
+@gray_black_color: #cacaca;
+@gray_black_border_color: #cacaca;  // border color could be different in other theme
+@gray_black_tag_bg: #ebebeb;
+
+
+// .fix_icon_width {
+//     width: 80px !important;
+// }
+
+// TOP Navbar 
+#oe_main_menu_navbar {
+    background-color: #FFF;
+    border: none;
+    font-family: "Open Sans Light";
+    a.o_sub_menu_logo{
+        margin-right: 25px;
+        float: left;
+        &:hover {
+            .o_sub_menu_logo_edit_admin {
+                display: block;
+            }
+        }
+        img {
+            height: 45px;
+            max-width: 180px;
+        }
+        .o_sub_menu_logo_edit {
+            @media (max-width: 768px) {
+                display: none
+            }
+            font-size: 13px;
+            color: #FFF;
+            padding: 18px 8px 18px 8px;
+            font-weight: 300;
+            position: absolute;
+            display: none;
+            text-align: center;
+            background: rgba(104, 104, 104, 0.9);
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+    }
+    ul.user_top_header_menu {
+        float: left;
+        > li.header_menu_item {
+            display: inline-block;
+        }
+    }
+    .navbar-nav > li > a {
+        color: #888888;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 45px;
+        margin-top: 0px;
+        @media (max-width: 767px) {
+            line-height: 25px;
+        }
+        &:hover,
+        &:focus {
+            color: @gray_black_default;
+            background: none;
+        }
+    }
+    .navbar-nav > .active > a {
+        &,
+        &:hover,
+        &:focus {
+            color: @gray_black_color;
+            background-color: @gray_black_hover;
+        }
+    }
+    .navbar-nav > .open > a {
+        &,
+        &:hover,
+        &:focus {
+            color: @gray_black_color;
+            background-color: @gray_black_hover;
+        }
+    }
+    .navbar-toggle {
+        background-color: @gray_black_default;
+        &:hover,
+        &:focus {
+            background-color: @gray_black_hover;
+        }
+        .icon-bar {
+            background-color: #FFF;
+        }
+     }
+    .oe_topbar_avatar {
+        height: 40px;
+        width: 40px;
+        max-height: 50px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+    }
+    .o_planner_systray>.progress{
+        margin-top: 20px;
+    }
+    .o_selected {
+        color: @gray_black_default;
+    }
+    .o_new_message {
+        color: @gray_black_default;
+    }
+    .odoo_clock {
+        float: left;
+        line-height: 53px;
+        margin-left: 20%;  // it sucks
+        color: #888888;
+        @media (max-width: 768px) {
+            display: none
+        }
+    }
+}
+
+//Chat Window
+.o_chat_window {
+    height: 340px;
+    border-radius: 0px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    .o_chat_header {
+        background-color: @gray_black_default;
+        padding: 8px;
+    }
+    .o_chat_input > input {
+        width: 96%;
+        margin-bottom: 4px;
+    }
+}
+
+.o_loading {
+    bottom: 0;
+    right: 10%;
+    top: inherit;
+    padding: 5px 30px;
+    text-align: center;
+    background: @gray_black_default;
+    border: 1px solid @gray_black_default;
+    border-radius: 0px !important;
+}
+
+.o_main {
+    font-family: "Roboto", sans-serif;
+    .o_sub_menu {
+        &.fix_icon_width {
+            flex: 0 0 80px;
+        }
+        display: flex; 
+        width: 230px;
+        background-color: @gray_black_default !important; 
+        text-shadow: none;
+        .o_sub_menu_content {
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-width:107px;
+            .cssmenu {
+                border-bottom: 1px solid rgba(252, 252, 252, 0.18);
+                &:hover{
+                    background-color: @gray_black_hover;
+                    .iconic_menu.oe_secondary_menu {
+                        display: block !important;
+                        margin-top: -88px !important;
+                        overflow: auto !important;
+                        width: 230px;
+                        position: fixed;
+                        z-index: 2000;
+                        left:97px;
+                        -webkit-border-radius: 0px;
+                        -moz-border-radius: 0px;
+                        -ms-border-radius: 0px;
+                        -o-border-radius: 0px;
+                        border-radius: 0px;
+                        background-color: #FFF;
+                        max-height: 280px;
+                        .side_menu_heading{
+                            display: block;
+                        }
+                    }
+                }
+                .menu_heading { 
+                    color: @gray_black_color;
+                    padding: 12px 10px 12px 15px;
+                    margin: 0px;
+                    font-family: "Open Sans", sans-serif;
+                    font-size: 1.17em;
+                    cursor: pointer;
+                    font-weight: normal !important;
+                    a {
+                        color: @gray_black_color;
+                        i {
+                            padding-right: 10px;
+                        }
+                    }
+                    i {
+                        padding-right: 10px;
+                    }
+                    &.iconic_menu_heading {
+                        padding: 12px 0px 12px 0px;
+                        text-align: center;
+                        font-size: 1em;
+                        .menu_title {
+                            display: block;
+                            padding-top: 5px;
+                            padding-right: 10px;
+                        }
+                        i {
+                            font-size: 1.2em;
+                        }
+                    }
+                }
+                .oe_secondary_menu{
+                    .side_menu_heading{
+                        background-color: @gray_black_hover;
+                        color: #FFF;
+                        padding: 12px 13px 12px 13px;
+                        margin: 0px;
+                        font-weight: normal !important;
+                        text-align: left;
+                        display: none;
+                        font-family: "Open Sans", sans-serif;
+                    }
+                    .oe_secondary_menu_section{
+                        font-weight: 300;
+                        background-color: @gray_black_hover;
+                        color: @gray_black_color; /*#1a1a1a;*/
+                        font-size: 14px;
+                        text-transform: uppercase;
+                        padding: 10px 10px 5px 5px;
+                        font-family: "Open Sans", sans-serif;
+                        text-align: center;
+                        margin-left: 0px;
+                        &:first-child{
+                            border-top: none;
+                        }
+                        > img {
+                            width: 20px;
+                            height: 20px;
+                            margin-left: 5px;
+                        }
+                        .oe_menu_leaf{
+                            color: @gray_black_color;
+                            font-weight: normal;
+                        }
+                    }
+                    ul.oe_secondary_submenu {
+                        background-color: @gray_black_hover;
+                        margin: 0 !important;
+                        line-height: 1.3em;
+                        padding: 0;
+                        border-bottom: 1px solid @gray_black_default;
+                        li {
+                            a {
+                            padding: 9px 15px 9px 14px;
+                            color: @gray_black_color;
+                            font-size: 13.5px;
+                            font-family: "Open Sans", sans-serif;
+                            &:hover{
+                                background-color: @gray_black_default;
+                                border-radius: 0px;
+                            }
+                            &:focus{
+                                background-color: @gray_black_hover;
+                                outline: none;
+                            }
+                            }
+                            .oe_menu_toggler{
+                                &:before {
+                                    float: left;
+                                    width: 10px;
+                                    margin-right: 5px;
+                                    margin-left: 5px;
+                                    margin-top: 0px;
+                                    display: inline;
+                                    font-size: 16px;
+                                    font-family: FontAwesome;
+                                    height: auto;
+                                    content: "\f105";
+                                    font-weight: 300;
+                                    text-shadow: none;
+                                    text-align: left;
+                                    border: 0px;
+                                    text-indent: 1px;
+                                    opacity: 1;
+                                }
+                                &.active {
+                                    &:before {
+                                        content: "\f107";
+                                    }
+                                }
+                            }
+                        }
+                        li.active {
+                            a {
+                                background-color: @gray_black_default;
+                            }
+                        }
+                        .oe_menu_text {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            display: inline-block;
+                            text-overflow: ellipsis;
+                            max-width: 83%;
+                            margin-top: 1px;
+                        }
+                    }
+                }
+            }
+        }
+        .o_sub_menu_footer {
+            background: @gray_black_default;
+            color: @gray_black_color;
+            a span {
+                color: @gray_black_color !important;
+                font-style: italic;
+                font-weight: normal;
+            }
+        }
+    }
+
+    // Search View
+    .o_searchview {
+        padding-left: 1px;
+        .o_searchview_input {
+            margin: 0px 0px 0px 3px;
+            &:focus,
+            &:hover,
+            &:active {
+                border-bottom: none;
+                box-shadow: none;
+            }
+        }
+        .o_searchview_search {
+            background: @gray_black_default;
+        }
+        .o_searchview_facet{
+            border: none;
+            background: @gray_black_tag_bg;
+            margin: 1px 3px 3px 3px;
+            .o_facet_remove{
+                color: @gray_black_default;
+                width: 12px;
+                height: 13px;
+                margin: 3px;
+                &:hover{
+                    background:@gray_black_color;
+                }
+            }
+            .o_searchview_facet_label {
+                color: @gray_black_default;
+                background-color: @gray_black_tag_bg;
+            }
+            .o_facet_values{
+                color: @gray_black_default;
+                background: @gray_black_tag_bg;
+                .o_facet_value {
+                    color: @gray_black_default;
+                }
+            }
+        }
+        .o_searchview_unfold_drawer {
+            color: @gray_black_default;
+        }
+        .o_searchview_autocomplete {
+            border: 1px solid @gray_black_default;
+
+            li.o-selection-focus {
+                background-color: @gray_black_default;
+            }
+        }
+    }
+
+    .o_main_content { 
+        .o_control_panel{
+            background-color: #FCFCFC;
+            border-bottom: none;
+            box-shadow: inset 0 0px 5px 0 rgba(0, 0, 0, 0.10);
+            .breadcrumb{
+                background-color: inherit;
+                li > a {
+                    color: @gray_black_default;
+                }
+            }
+            .oe-cp-pager {
+                button:disabled {
+                    color: #777777;
+                }
+            }
+            .btn:focus, .btn:active {
+                color: @gray_black_color;
+                background-color: @gray_black_default;
+            }
+            .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus,
+            .dropdown-menu > li.selected, .dropdown-menu > li.selected > a {
+                background-color: @gray_black_default;
+                color: @gray_black_color;
+            }
+            a.toogle_control_panel {
+                color: @gray_black_default;
+                &:focus, &:hover, &:active {
+                    color: @gray_black_hover;
+                }
+            }
+        }
+        .oe_button_box {
+            .btn {
+                color: @gray_black_color;
+                background-color: @gray_black_default;
+                margin: 0 3px 3px 0;
+                .o_button_icon, .o_stat_info .o_stat_value {
+                    color: @gray_black_color;
+                }
+            }
+        }
+        .btn:hover {
+            color: @gray_black_color;
+        }
+        .oe_button.oe_link, .oe_button.btn-link {
+            color: @gray_black_default;
+        }
+        .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+            background-color: @gray_black_default;
+            color: @gray_black_color;
+        }
+        .o_form_view {
+            // .o_statusbar_buttons {
+                border-bottom: none;
+                background-color: #FCFCFC;
+                background-image: none;
+                margin-bottom: 5px;
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+                ul.oe_form_status, ul.oe_form_status_clickable {
+                    li {
+                        background-color: #FFF;
+                        background-image: none;
+                        &:first-child > .label {
+                            border-left: 1px solid @gray_black_default;
+                        }
+                        &:last-child {
+                            border-left: 1px solid @gray_black_default;
+                        }
+                        > .label {
+                            color: @gray_black_default;
+                            text-shadow: none;
+                            border-radius: 0px;
+                        }
+                        > .arrow {
+                            background-color: @gray_black_color;
+                            span {
+                                border: 1px solid @gray_black_default;
+                                background-color: @gray_black_color;
+                                box-shadow: none;
+                                background: #FFFFFF;
+                                @include radius(3px);
+                                @include transform(rotate(45deg));
+                            }
+                        }
+                        &.oe_active{
+                            background-color: @gray_black_default;
+                            > span {
+                                color: @gray_black_color;
+                            }
+                            > .arrow {
+                                span {
+                                    background-color: @gray_black_default;
+                                }
+                            }
+                        }
+                    }
+                }
+                > .btn {
+                    &.oe_button {
+                        color: @gray_black_default;
+                        background-color: #ffffff;
+                    }
+                    &.btn-primary,  &.oe_highlight {
+                        color: @gray_black_color;
+                        background-color: @gray_black_default;
+                    }
+                }
+            // }
+            a {
+                color: @gray_black_default;
+            }
+            .o_form_field.o_form_field_many2one .o_external_button {
+                padding: 0;
+                margin-left: 2px;
+                font-size: 19px;
+                color: @gray_black_color;
+                background-color: #ffffff;
+                border: none;
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0), 0 2px 10px 0 rgba(0, 0, 0, 0);
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+        .oe_form_field_many2one .oe_m2o_cm_button {
+            color: @gray_black_default;
+        }
+        .oe_chatter {
+            .btn:focus, .btn:active {
+                color: @gray_black_color;
+                background-color: @gray_black_default;
+            }
+        }
+
+        // Calendar View
+        .o_calendar_container .o_calendar_view .o_calendar_widget .fc-week-number,
+        .o_calendar_container .o_calendar_view .o_calendar_widget thead .fc-widget-header {
+            background-color: @gray_black_default !important;
+            color: @gray_black_color !important;
+            font-size: 13px;
+        }
+        .o_calendar_container .o_calendar_sidebar_container .ui-datepicker {
+            .ui-widget-header {
+                color: @gray_black_color;
+                background-color: @gray_black_default;
+                border: 1px solid @gray_black_default;
+                a, a:hover {
+                    color: @gray_black_color;
+                    background-color: @gray_black_default;
+                }
+            }
+            table.ui-datepicker-calendar {
+                thead {
+                    color: @gray_black_color;
+                    background-color: @gray_black_default;
+                    border-radius: 0px;
+                    border-bottom: none;
+
+                    th {
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        text-align: center;
+                        border-radius: 0px;
+                    }
+                }
+                tbody td {
+                    a {
+                        color: #777;
+                        background-color: @gray_black_color;
+                        text-align: center;
+                    }
+                    a.ui-state-active {
+                        color: @gray_black_color;
+                        background-color: @gray_black_default;
+                        border-radius: 2px;
+                    }
+                }
+            }
+        }
+    }
+
+    /* .oe_horizontal_separator {
+        font-size: 14px;
+        border-bottom: 1px solid @gray_black_default;
+        color: @gray_black_default;
+        font-weight: normal;
+    } */
+
+    // Form element having disabled class
+    .btn-default.disabled, .btn-default[disabled], fieldset[disabled] .btn-default, .btn-default.disabled:hover, .btn-default[disabled]:hover, fieldset[disabled] .btn-default:hover, .btn-default.disabled:focus, .btn-default[disabled]:focus, fieldset[disabled] .btn-default:focus, .btn-default.disabled.focus, .btn-default[disabled].focus, fieldset[disabled] .btn-default.focus, .btn-default.disabled:active, .btn-default[disabled]:active, fieldset[disabled] .btn-default:active, .btn-default.disabled.active, .btn-default[disabled].active, fieldset[disabled] .btn-default.active {
+        background-color: @gray_black_default;
+    }
+
+    // List View
+    .oe_list_content > tbody > tr:nth-child(odd) {
+        background-color: #FCFCFC !important;
+        background-image: none !important;
+    }
+
+    // Input Radio and Checkbox
+    input[type="radio"]:before,
+    .radio input[type="radio"]:before,
+    .radio-inline input[type="radio"]:before {
+        background-color: @gray_black_default;
+    }
+    input[type="radio"]:checked:after,
+    .radio input[type="radio"]:checked:after,
+    .radio-inline input[type="radio"]:checked:after {
+        border-color: @gray_black_default;
+    }
+    input[type="checkbox"]:checked:after,
+    .checkbox input[type="checkbox"]:checked:after,
+    .checkbox-inline input[type="checkbox"]:checked:after {
+        background-color: @gray_black_default;
+        border-color: @gray_black_default;
+    }
+}
+
+.modal-dialog {
+    // Input Radio and Checkbox
+    input[type="radio"]:before,
+    .radio input[type="radio"]:before,
+    .radio-inline input[type="radio"]:before {
+        background-color: @gray_black_default;
+    }
+    input[type="radio"]:checked:after,
+    .radio input[type="radio"]:checked:after,
+    .radio-inline input[type="radio"]:checked:after {
+        border-color: @gray_black_default;
+    }
+    input[type="checkbox"]:checked:after,
+    .checkbox input[type="checkbox"]:checked:after,
+    .checkbox-inline input[type="checkbox"]:checked:after {
+        background-color: @gray_black_default;
+        border-color: @gray_black_default;
+    }
+}
+
+// OE State Button
+.oe_button_box {
+    .btn {
+        color: @gray_black_color;
+        background-color: @gray_black_default;
+        margin: 0 3px 3px 0;
+        .o_button_icon, .o_stat_info .o_stat_value {
+            color: @gray_black_color !important;
+        }
+    }
+}
+
+// Nav Tabs
+.nav-tabs > li > a {
+    color: @gray_black_default;
+}
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus:hover {
+    background-color: transparent;
+    -webkit-box-shadow: inset 0 -2px 0 @gray_black_default;
+    box-shadow: inset 0 -2px 0 @gray_black_default;
+    color: @gray_black_default;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus {
+    -webkit-box-shadow: inset 0 -2px 0 @gray_black_default;
+    box-shadow: inset 0 -2px 0 @gray_black_default;
+    color: @gray_black_default;
+}
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus:hover {
+    color: @gray_black_default;
+}
+
+// Scrollbar
+::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+    border-radius: 0px;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: @gray_black_color;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    background-color: @gray_black_default;
+    border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+    background-color: @gray_black_default;
+    border-radius: 0px;
+}
+
+// Many2one Dropdown List
+.ui-menu .ui-state-focus, .ui-menu .ui-state-active {
+    background-color: @gray_black_default !important;
+    border-color: @gray_black_default !important;
+}
+
+// form elements color and background color
+.btn, .btn-large, .btn-floating {
+  color: @gray_black_color;
+  background-color: @gray_black_default;
+}
+.btn-floating:hover {
+  background-color: @gray_black_default;
+}
+.oe_button.oe_highlight, .oe_button.btn-primary {
+    background-color: @gray_black_default;
+    border-color: @gray_black_default;
+}
+.oe_button.oe_highlight:hover, .oe_button.btn-primary:hover {
+    color: @gray_black_color;
+    background-color: @gray_black_default;
+    border-color: @gray_black_default;
+}
+.dropdown-content li > a, .dropdown-content li > span {
+  color: @gray_black_default;
+}
+input:not([type]):focus:not([readonly]),
+input[type=text]:focus:not([readonly]),
+input[type=password]:focus:not([readonly]),
+input[type=email]:focus:not([readonly]),
+input[type=url]:focus:not([readonly]),
+input[type=time]:focus:not([readonly]),
+input[type=date]:focus:not([readonly]),
+input[type=datetime]:focus:not([readonly]),
+input[type=datetime-local]:focus:not([readonly]),
+input[type=tel]:focus:not([readonly]),
+input[type=number]:focus:not([readonly]),
+input[type=search]:focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid @gray_black_default;
+  box-shadow: 0 1px 0 0 @gray_black_default;
+}
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:focus:not([readonly]) + label,
+input[type=password]:focus:not([readonly]) + label,
+input[type=email]:focus:not([readonly]) + label,
+input[type=url]:focus:not([readonly]) + label,
+input[type=time]:focus:not([readonly]) + label,
+input[type=date]:focus:not([readonly]) + label,
+input[type=datetime]:focus:not([readonly]) + label,
+input[type=datetime-local]:focus:not([readonly]) + label,
+input[type=tel]:focus:not([readonly]) + label,
+input[type=number]:focus:not([readonly]) + label,
+input[type=search]:focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: @gray_black_default;
+}
+.input-field .prefix.active {
+  color: @gray_black_default;
+}
+[type="radio"]:checked + label:after,
+[type="radio"].with-gap:checked + label:before,
+[type="radio"].with-gap:checked + label:after {
+  border: 2px solid @gray_black_default;
+}
+[type="radio"]:checked + label:after,
+[type="radio"].with-gap:checked + label:after {
+  background-color: @gray_black_default;
+  z-index: 0;
+}
+[type="checkbox"]:checked + label:before {
+  border-right: 2px solid @gray_black_default;
+  border-bottom: 2px solid @gray_black_default;
+}
+[type="checkbox"]:indeterminate + label:before {
+  border-right: 2px solid @gray_black_default;
+}
+[type="checkbox"].filled-in:checked + label:after {
+  border: 2px solid @gray_black_default;
+  background-color: @gray_black_default;
+}
+[type="checkbox"].filled-in.tabbed:checked:focus + label:after {
+  background-color: @gray_black_default;
+  border-color: @gray_black_default;
+}
+.switch label input[type=checkbox]:checked + .lever:after {
+  background-color: @gray_black_default;
+}
+input[type=range] + .thumb {
+  background-color: @gray_black_default;
+}
+input[type=range] + .thumb .value {
+  color: @gray_black_default;
+}
+input[type=range]::-webkit-slider-thumb {
+  background-color: @gray_black_default;
+}
+input[type=range]::-moz-range-thumb {
+  background: @gray_black_default;
+}
+input[type=range]::-ms-thumb {
+  background: @gray_black_default;
+}
+.side-nav a.btn-floating:hover {
+  background-color: @gray_black_default;
+}
+.spinner-layer {
+  border-color: @gray_black_default;
+}
+.picker__date-display {
+  background-color: @gray_black_default;
+}
+.picker__day.picker__day--today {
+  color: @gray_black_default;
+}
+.picker__day--selected,
+.picker__day--selected:hover,
+.picker--focused .picker__day--selected {
+  background-color: @gray_black_default;
+  color: @gray_black_color;
+}
+.picker__close, .picker__today {
+  color: @gray_black_default;
+}
+
+.btn:hover, .btn-large:hover {
+  background-color: @gray_black_hover;
+}
+.side-nav a.btn:hover, .side-nav a.btn-large:hover, .side-nav a.btn-large:hover {
+  background-color: @gray_black_hover;
+}
+
+// Chat Sidebar
+.o_mail_chat .o_mail_chat_sidebar {
+    border-right: 1px solid @gray_black_default;
+}
+.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {
+    background-color: @gray_black_hover;
+    color: @gray_black_color;
+}
+.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {
+    background-color: @gray_black_hover;
+    color: @gray_black_color;
+}
+.o_mail_chat .o_mail_annoying_notification_bar {
+    background-color: @gray_black_default;
+}
+.o_mail_chat .o_mail_chat_content .o_chat_composer {
+    border-top: 1px solid @gray_black_default;
+    background-color: @gray_black_color;
+}
+
+// Separators
+.o_horizontal_separator {
+    color: @gray_black_default !important;
+}
+
+.o_form_image_controls {
+    background-color: @gray_black_default !important;
+}
+
+.o_form_uri {
+    color: @gray_black_default !important;
+    &:first-line {
+        color: @gray_black_default !important;
+    }
+    &:hover {
+        color: darken(@gray_black_default, 1%); // hack required on chrome
+        &:first-line {
+            color: darken(@gray_black_default, 15%) !important;
+        }
+    } 
+}
+
+.o_tooltip {
+    border-color:@gray_black_default !important;
+
+    &.right::before {
+        border-right-color: @gray_black_default;
+    }
+    &.top::before {
+        border-top-color: @gray_black_default;
+    }
+    &.left::before {
+        border-left-color: @gray_black_default;
+    }
+    &.bottom::before {
+        border-bottom-color: @gray_black_default;
+    }
+
+    &::after {
+        border-color: @gray_black_default;
+        background: radial-gradient(lighten(@gray_black_default, 7%), @gray_black_default);
+    }
+    &.active {
+        &.right {
+            &::before {
+                border-right-color: @gray_black_default;
+            }
+        }
+        &.top {
+            &::before {
+                border-top-color: @gray_black_default;
+            }
+        }
+        &.left {
+            &::before {
+                border-left-color: @gray_black_default;
+            }
+        }
+        &.bottom {
+            &::before {
+                border-bottom-color: @gray_black_default;
+            }
+        }
+    }
+}
+
+// Customer Kanban View
+.o_kanban_view {
+    h4 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .az_box {
+        .card_header {
+            background-color: @gray_black_default;
+        }
+        .card_details {
+            a {
+                &:hover {
+                    color: @gray_black_default;
+                }
+            }
+            .az_location {
+                a {
+                    &:hover {
+                        color: @gray_black_default;
+                    }
+                }
+            }
+            .oe_kanban_partner_links {
+                a {
+                    &:hover {
+                        color: @gray_black_default;
+                    }
+                }
+            }
+            .card_contact {
+                li {
+                    a {
+                        &:hover {
+                            color: @gray_black_default;
+                            i {
+                                color: @gray_black_default;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.o_form_view {
+    .o_form_required.o_form_input {
+        background-color: @gray_black_tag_bg;
+    }
+    .o_form_required {
+        .o_form_input {
+            background-color: @gray_black_tag_bg;
+        }
+        .o_form_textarea {
+            background-color: @gray_black_tag_bg;
+        }
+    }
+    .o_form_required.o_form_textarea {
+        background-color: @gray_black_tag_bg;
+    }
+    .oe_link:hover{
+        color: @gray_black_default !important;
+    }
+    .oe_link:focus{
+        color: @gray_black_default !important;
+    }
+}
+
+.o_mail_chat {
+    .o_mail_chat_sidebar {
+        .o_mail_chat_channel_item {
+            >.badge {
+                color: @gray_black_hover;
+                background-color: #FFF;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 720px) {
+    button.o_list_button_add,
+    button.o_list_button_save,
+    button.o_form_button_edit,
+    button.o_form_button_save {
+        position: fixed !important;
+        right: 32px !important;
+        z-index: 15;
+        bottom: 130px;
+        padding: 2px 8px;
+        border-radius: 50%;
+        margin-right: 4px;
+        height: 50px;
+        width: 50px;
+    }
+    button.o_button_import,
+    button.o_list_button_discard,
+    button.o_form_button_create,
+    button.o_form_button_cancel {
+        z-index: 15;
+        bottom: 60px;
+        position: fixed;
+        right: 32px;
+        padding: 2px 8px;
+        border-radius: 50%;
+        margin-right: 4px;
+        height: 50px;
+        width: 50px;
+    }
+    .o_main .o_control_panel {
+        .o_cp_sidebar {
+            padding-right: 10px;
+        }
+        .o_cp_left {
+            width: 55% !important;
+            height: auto;
+        }
+        .o_cp_right {
+            width: 45% !important;
+            height: auto;
+            .o_cp_pager {
+                button[disabled] {
+                    display: none;
+                }
+            }
+            .o_cp_searchview {
+                min-height: auto !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .o_main .o_control_panel {
+        .o_cp_searchview {
+            width:100% !important;
+        }
+    }
+}
+
+.app-drawer-toggle.navbar-toggle {
+    background: @gray_black_default !important;
+    color: @gray_black_color !important;
+    border-color: @gray_black_default !important;
+}
+.navbar-default {
+    background: @gray_black_default !important;
+    color: @gray_black_color !important;
+    border-color: @gray_black_default !important;
+    .navbar-collapse {
+        background: @gray_black_default !important;
+        color: @gray_black_color !important;
+        border-color: @gray_black_default !important;
+    }
+    .navbar-form {
+        background: @gray_black_default !important;
+        color: @gray_black_color !important;
+        border-color: @gray_black_default !important;
+    }
+    .navbar-nav {
+        >.active {
+            >a {
+                background: @gray_black_hover !important;
+                color: @gray_black_color !important;
+                border-color: @gray_black_default !important;
+                &:hover {
+                    background: @gray_black_hover !important;
+                    color: @gray_black_color !important;
+                    border-color: @gray_black_default !important;
+                }
+                &:focus {
+                    background: @gray_black_hover !important;
+                    color: @gray_black_color !important;
+                    border-color: @gray_black_default !important;
+                }
+            }
+        }
+        >.open {
+            >a {
+                background: @gray_black_hover !important;
+                color: @gray_black_color !important;
+                border-color: @gray_black_default !important;
+                &:hover {
+                    background: @gray_black_hover !important;
+                    color: @gray_black_color !important;
+                    border-color: @gray_black_default !important;
+                }
+                &:focus {
+                    background: @gray_black_hover !important;
+                    color: @gray_black_color !important;
+                    border-color: @gray_black_default !important;
+                }
+            }
+        }
+        >li {
+            >a {
+                &:hover {
+                    background: @gray_black_hover !important;
+                    color: @gray_black_color !important;
+                    border-color: @gray_black_default !important;
+                }
+                &:focus {
+                    background: @gray_black_hover !important;
+                    color: @gray_black_color !important;
+                    border-color: @gray_black_default !important;
+                }
+            }
+        }
+        .open {
+            .dropdown-menu {
+                >li {
+                    >a {
+                        &:hover {
+                            background: @gray_black_hover !important;
+                            color: @gray_black_color !important;
+                            border-color: @gray_black_default !important;
+                        }
+                        &:focus {
+                            background: @gray_black_hover !important;
+                            color: @gray_black_color !important;
+                            border-color: @gray_black_default !important;
+                        }
+                    }
+                }
+                >.active {
+                    >a {
+                        background: @gray_black_hover !important;
+                        color: @gray_black_color !important;
+                        border-color: @gray_black_default !important;
+                        &:hover {
+                            background: @gray_black_hover !important;
+                            color: @gray_black_color !important;
+                            border-color: @gray_black_default !important;
+                        }
+                        &:focus {
+                            background: @gray_black_hover !important;
+                            color: @gray_black_color !important;
+                            border-color: @gray_black_default !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .navbar-toggle {
+        &:hover {
+            background: @gray_black_hover !important;
+            color: @gray_black_color !important;
+            border-color: @gray_black_default !important;
+        }
+        &:focus {
+            background: @gray_black_hover !important;
+            color: @gray_black_color !important;
+            border-color: @gray_black_default !important;
+        }
+    }
+}
+.navbar-header {
+    >a {
+        &:hover {
+            background: @gray_black_hover !important;
+            color: @gray_black_color !important;
+            border-color: @gray_black_default !important;
+        }
+    }
+}
+@media (max-width: 767px) {
+    .navbar-default {
+        .navbar-nav {
+            >.active {
+                >a {
+                    background: @gray_black_hover !important;
+                    color: @gray_black_color !important;
+                    border-color: @gray_black_default !important;
+                    &:hover {
+                        background: @gray_black_hover !important;
+                        color: @gray_black_color !important;
+                        border-color: @gray_black_default !important;
+                    }
+                    &:focus {
+                        background: @gray_black_hover !important;
+                        color: @gray_black_color !important;
+                        border-color: @gray_black_default !important;
+                    }
+                }
+            }
+            >.open {
+                >a {
+                    background: @gray_black_hover !important;
+                    color: @gray_black_color !important;
+                    border-color: @gray_black_default !important;
+                    &:hover {
+                        background: @gray_black_hover !important;
+                        color: @gray_black_color !important;
+                        border-color: @gray_black_default !important;
+                    }
+                    &:focus {
+                        background: @gray_black_hover !important;
+                        color: @gray_black_color !important;
+                        border-color: @gray_black_default !important;
+                    }
+                }
+            }
+            >li {
+                >a {
+                    &:hover {
+                        background: @gray_black_hover !important;
+                        color: @gray_black_color !important;
+                        border-color: @gray_black_default !important;
+                    }
+                    &:focus {
+                        background: @gray_black_hover !important;
+                        color: @gray_black_color !important;
+                        border-color: @gray_black_default !important;
+                    }
+                }
+            }
+            .open {
+                .dropdown-menu {
+                    >li {
+                        >a {
+                            &:hover {
+                                background: @gray_black_hover !important;
+                                color: @gray_black_color !important;
+                                border-color: @gray_black_default !important;
+                            }
+                            &:focus {
+                                background: @gray_black_hover !important;
+                                color: @gray_black_color !important;
+                                border-color: @gray_black_default !important;
+                            }
+                        }
+                    }
+                    >.active {
+                        >a {
+                            background: @gray_black_hover !important;
+                            color: @gray_black_color !important;
+                            border-color: @gray_black_default !important;
+                            &:hover {
+                                background: @gray_black_hover !important;
+                                color: @gray_black_color !important;
+                                border-color: @gray_black_default !important;
+                            }
+                            &:focus {
+                                background: @gray_black_hover !important;
+                                color: @gray_black_color !important;
+                                border-color: @gray_black_default !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .navbar-toggle {
+            &:hover {
+                background: @gray_black_hover !important;
+                color: @gray_black_color !important;
+                border-color: @gray_black_default !important;
+            }
+            &:focus {
+                background: @gray_black_hover !important;
+                color: @gray_black_color !important;
+                border-color: @gray_black_default !important;
+            }
+        }
+    }
+    .navbar-header {
+        >a {
+            &:hover {
+                background: @gray_black_hover !important;
+                color: @gray_black_color !important;
+                border-color: @gray_black_default !important;
+            }
+        }
+    }
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus,
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active,
+.oe_highlight:focus,
+.oe_highlight.focus,
+.oe_highlight:hover,
+.oe_highlight:active,
+.oe_highlight.active,
+.open > .dropdown-toggle.oe_highlight,
+.oe_highlight:active:hover,
+.oe_highlight.active:hover,
+.open > .dropdown-toggle.oe_highlight:hover,
+.oe_highlight:active:focus,
+.oe_highlight.active:focus,
+.open > .dropdown-toggle.oe_highlight:focus,
+.oe_highlight:active.focus,
+.oe_highlight.active.focus,
+.open > .dropdown-toggle.oe_highlight.focus,
+.oe_highlight.disabled,
+.oe_highlight[disabled],
+fieldset[disabled] .oe_highlight,
+.oe_highlight.disabled:hover,
+.oe_highlight[disabled]:hover,
+fieldset[disabled] .oe_highlight:hover,
+.oe_highlight.disabled:focus,
+.oe_highlight[disabled]:focus,
+fieldset[disabled] .oe_highlight:focus,
+.oe_highlight.disabled.focus,
+.oe_highlight[disabled].focus,
+fieldset[disabled] .oe_highlight.focus,
+.oe_highlight.disabled:active,
+.oe_highlight[disabled]:active,
+fieldset[disabled] .oe_highlight:active,
+.oe_highlight.disabled.active,
+.oe_highlight[disabled].active,
+fieldset[disabled] .oe_highlight.active{
+    background: @gray_black_hover !important;
+    color: @gray_black_color !important;
+    border-color: @gray_black_default !important;
+}
+.o_kanban_view.o_kanban_dashboard.o_salesteam_kanban {
+    .o_sales_dashboard {
+        > div {
+            > table {
+                > tbody > tr > td {
+                    &.o_main {
+                        background-color: @gray_black_default;
+                        &:hover {
+                            background-color: darken(@gray_black_default, 10%);
+                        }
+                        a {
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.badge {
+    color: @gray_black_color;
+    background-color: @gray_black_default;
+}
+.o_kanban_view.o_kanban_dashboard.o_project_kanban {
+    .o_project_kanban_boxes {
+        .o_project_kanban_box:nth-child(odd) {
+            background-color: @gray_black_default;
+        }
+    }
+}
+.o_kanban_view.o_event_kanban_view {
+    .o_kanban_record {
+        .o_event_left {
+            background-color: @gray_black_default;
+        }
+    }
+}
+
+// Export Wizard
+.o_web_client {
+    .o_export {
+        .o_export_panel {
+            >div {
+                .o_export_tree_item.o_selected {
+                    >.o_tree_column {
+                        background-color: @gray_black_default;
+                        color: @gray_black_color;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_cost_price" model="res.groups">
+            <field name="name">View Cost Price</field>
+            <field name="category_id" ref="base.module_category_extra"/>
+            <field name="users" eval="[(4, ref('base.group_system'))]"/>
+        </record>
+
+        <record id="view_sale_price" model="res.groups">
+            <field name="name">View Sale Price</field>
+            <field name="category_id" ref="base.module_category_extra"/>
+            <field name="users" eval="[(4, ref('base.group_system'))]"/>
+        </record>
+    </data>
+</odoo>

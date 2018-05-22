@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  <data>
+    <!-- add css to backend theme -->
+    
+    <!-- LIVE - - - - - - - - - - - - -->
+    <!-- 
+    <template id="assets_backend" inherit_id="web.assets_backend">
+      <xpath expr="//link[last()]" position="after">
+      ########### or <xpath expr="." position="replace"> ###############
+        <link href="/simple_backend_theme/static/themes/simple/css/styles.min.css"
+          type="text/css"
+          rel="stylesheet"/>
+        <script type="text/javascript" 
+          src="/simple_backend_theme/static/themes/simple/js/simple.js"></script>
+      </xpath>
+    </template>
+    -->
+
+    <!--    ITYOU/LM: for development, put your css here! 
+            you do not need to reload
+            the module, later in assets_backend -->
+    <template id="layout" inherit_id="web.layout" name="Web layout">          
+      <xpath expr="//head" position="inside">
+        <link href="/simple_backend_theme/static/themes/simple/css/styles.min.css" 
+              type="text/css" rel="stylesheet" />
+        
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script type="text/javascript" 
+                src="/simple_backend_theme/static/themes/simple/js/simple.js">
+        </script>
+      </xpath>   
+
+      <!-- todo footer up/down
+      <xpath expr="//body" position="inside">
+        <footer>
+          <div id="slider_footer">
+            <i class="fa fa-arrow-down"></i>
+          </div>          
+          <div id="worldtime">
+          </div>
+        </footer>
+      </xpath>
+      -->
+
+    </template>
+    
+    <!-- navigation: dark to white -->
+    <template id="webclient_bootstrap" 
+              inherit_id="web.webclient_bootstrap" 
+              name="Webclient Bootstrap">
+      <xpath expr="//nav[@id='oe_main_menu_navbar']" position="attributes">
+        <attribute name="class">ity-navbar navbar navbar-default</attribute>
+      </xpath>
+      <!-- place logo in header -->
+      <xpath expr="//div[@class='navbar-header']" position="inside">
+        <div class="simple-logo" style="display: none">
+          <a t-att-href="'/web/?debug' if debug else '/web'">
+            <img src="/web/binary/company_logo" alt="Company Logo"/>
+          </a>
+        </div>
+      </xpath>        
+    </template>
+
+    <!-- navigation: dark to white -->
+    <template id="menu" 
+              inherit_id="web.menu" 
+              name="Web Menu">
+      <xpath expr="//ul" position="before">
+
+        <div class="simple-logo">
+          <a t-att-href="'/web/?debug' if debug else '/web'">
+            <img src="/web/binary/company_logo" alt="Company Logo"/>
+          </a>
+        </div>
+
+      </xpath>
+    </template>
+
+    <template id="menu_secondary" inherit_id="web.menu_secondary">
+      <!-- remove logo in navbar -->
+      <xpath expr="//a" position="replace">
+        <!-- simple moved logo into header -->
+      </xpath>
+
+      <xpath expr="//div" position="after">
+        <div id="slider_strip">
+          <i class="fa fa-arrow-left"></i>
+        </div>
+      </xpath>
+    </template>
+
+  </data>
+</odoo>
