@@ -116,8 +116,7 @@
                                             -
                                         </span>
                                         <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'informal'">
-                                            PROVEEDOR
-                                            INFORMAL -
+                                            Registro Proveedores Informales
                                         </span>
                                         <span t-if="doc.type == 'in_invoice' and doc.journal_id.purchase_type == 'exterior'">
                                             PAGOS AL
