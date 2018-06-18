@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        <record id="view_print_payment_summary_form" model="ir.ui.view">
+            <field name="name">print.payment.summary.form</field>
+            <field name="model">print.payment.summary</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Print Payment Summary Report">
+	                	<field name="payment_report_printed" invisible="1"/>
+	                	<group attrs="{'invisible':[('payment_report_printed','=',True)]}">
+	                		<group>
+	                			<field name="from_date" required="1" style="width:200px;"/>
+	                			<field name="to_date" required="1" style="width:200px;"/>
+	                		</group>
+	                		<group>
+	                			<field name="currency_id" required="1" style="width:200px;"/>
+	                		</group>
+	                	</group>
+	                	<group attrs="{'invisible':[('payment_report_printed','=',False)]}">
+	                	    <field name="file_name" invisible="1"/>
+	                		<field name="payment_summary_file" readonly="1" filename="file_name"/>
+	                	</group>
+	                <footer>
+	                <button string='Print' name="action_print_payment_summary" 
+	                	type="object" class="btn-primary" attrs="{'invisible':[('payment_report_printed','=',True)]}"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+	                </footer>
+	            </form>
+            </field>
+        </record>
+       
+        <record id="action_print_payment_summary" model="ir.actions.act_window">
+            <field name="name">Informe de resumen de pagos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">print.payment.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+       <menuitem action="action_print_payment_summary" id="menu_print_payment_summary_report" 
+       	sequence="200" parent="account.menu_finance_legal_statement" />
+        
+</odoo>

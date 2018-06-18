@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_payment_form" model="ir.ui.view">
+        <field name="name">account.payment.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <form>
+                <field name="payment_method_ids" invisible="1"/>
+                <field name="journal_ids" invisible="1"/>
+                <field name="destination_journal_ids" invisible="1"/>
+                <field name="company_id" invisible="1"/>
+            </form>
+            <field name="journal_id" position="attributes">
+                <attribute name="domain">[('id', 'in', journal_ids)]</attribute>
+            </field>
+            <field name="destination_journal_id" position="attributes">
+                <attribute name="domain">[('id', 'in', destination_journal_ids)]</attribute>
+            </field>
+            <field name="payment_method_id" position="attributes">
+                <attribute name="domain">[('id', 'in', payment_method_ids)]</attribute>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[(partner_type, '=', True)]</attribute>
+            </field>
+
+        </field>
+    </record>
+
+    <record id="account.menu_finance_entries" model="ir.ui.menu">
+        <field name="sequence" eval="5"/>
+    </record>
+    <record id="account.menu_finance_reports" model="ir.ui.menu">
+        <field name="sequence" eval="6"/>
+    </record>
+    <menuitem id="account_payment_fix.menu_finance_bank_and_cash" parent="account.menu_finance" sequence="4" groups="account.group_account_user" name="Bank and Cash"/>
+
+
+    <record id="view_account_payment_tree" model="ir.ui.view">
+        <field name="name">payment.tree.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <field name="payment_method_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="payment_method_id" position="after">
+                <field name="payment_method_description"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
