@@ -22,6 +22,7 @@ class GeneralLedgerReport(models.TransientModel):
     """
 
     _name = 'report_general_ledger_qweb'
+    _inherit = 'report_qweb_abstract'
 
     # Filters fields, used for data computation
     date_from = fields.Date()
@@ -69,7 +70,9 @@ class GeneralLedgerReport(models.TransientModel):
 
 
 class GeneralLedgerReportAccount(models.TransientModel):
+
     _name = 'report_general_ledger_qweb_account'
+    _inherit = 'report_qweb_abstract'
     _order = 'code ASC'
 
     report_id = fields.Many2one(
@@ -109,7 +112,9 @@ class GeneralLedgerReportAccount(models.TransientModel):
 
 
 class GeneralLedgerReportPartner(models.TransientModel):
+
     _name = 'report_general_ledger_qweb_partner'
+    _inherit = 'report_qweb_abstract'
 
     report_account_id = fields.Many2one(
         comodel_name='report_general_ledger_qweb_account',
@@ -142,18 +147,20 @@ class GeneralLedgerReportPartner(models.TransientModel):
     def _generate_order_by(self, order_spec, query):
         """Custom order to display "No partner allocated" at last position."""
         return """
-        ORDER BY
-            CASE
-                WHEN "report_general_ledger_qweb_partner"."partner_id" IS NOT NULL
-                THEN 0
-                ELSE 1
-            END,
-            "report_general_ledger_qweb_partner"."name"
-                """
+ORDER BY
+    CASE
+        WHEN "report_general_ledger_qweb_partner"."partner_id" IS NOT NULL
+        THEN 0
+        ELSE 1
+    END,
+    "report_general_ledger_qweb_partner"."name"
+        """
 
 
 class GeneralLedgerReportMoveLine(models.TransientModel):
+
     _name = 'report_general_ledger_qweb_move_line'
+    _inherit = 'report_qweb_abstract'
 
     report_account_id = fields.Many2one(
         comodel_name='report_general_ledger_qweb_account',
@@ -221,8 +228,8 @@ class GeneralLedgerReportCompute(models.TransientModel):
 
         # Add unaffected earnings account
         if (not self.filter_account_ids or
-                    self.unaffected_earnings_account.id in
-                    self.filter_account_ids.ids):
+                self.unaffected_earnings_account.id in
+                self.filter_account_ids.ids):
             self._inject_unaffected_earnings_account_values()
 
         # Call this function even if we don't want line details because,
@@ -249,8 +256,8 @@ class GeneralLedgerReportCompute(models.TransientModel):
 
         # Complete unaffected earnings account
         if (not self.filter_account_ids or
-                    self.unaffected_earnings_account.id in
-                    self.filter_account_ids.ids):
+                self.unaffected_earnings_account.id in
+                self.filter_account_ids.ids):
             self._complete_unaffected_earnings_account_values()
 
         if with_line_details:
@@ -260,7 +267,9 @@ class GeneralLedgerReportCompute(models.TransientModel):
         # Refresh cache because all data are computed with SQL requests
         self.refresh()
 
-    def _get_account_sub_subquery_sum_amounts(self, include_initial_balance):
+    def _get_account_sub_subquery_sum_amounts(
+            self, include_initial_balance, date_included
+    ):
         """ Return subquery used to compute sum amounts on accounts """
         sub_subquery_sum_amounts = """
             SELECT
@@ -275,9 +284,15 @@ class GeneralLedgerReportCompute(models.TransientModel):
             INNER JOIN
                 account_move_line ml
                     ON a.id = ml.account_id
-                    AND ml.date <= %s
         """
-
+        if date_included:
+            sub_subquery_sum_amounts += """
+                    AND ml.date <= %s
+            """
+        else:
+            sub_subquery_sum_amounts += """
+                    AND ml.date < %s
+            """
         if not include_initial_balance:
             sub_subquery_sum_amounts += """
                 AND at.include_initial_balance != TRUE AND ml.date >= %s
@@ -306,8 +321,8 @@ class GeneralLedgerReportCompute(models.TransientModel):
         """
         return sub_subquery_sum_amounts
 
-    def _inject_account_values(self):
-        """Inject report values for report_general_ledger_qweb_account."""
+    def _get_final_account_sub_subquery_sum_amounts(self, date_included):
+        """ Return final subquery used to compute sum amounts on accounts """
         subquery_sum_amounts = """
             SELECT
                 sub.account_id AS account_id,
@@ -318,33 +333,37 @@ class GeneralLedgerReportCompute(models.TransientModel):
             (
         """
         subquery_sum_amounts += self._get_account_sub_subquery_sum_amounts(
-            include_initial_balance=False
+            include_initial_balance=False, date_included=date_included
         )
         subquery_sum_amounts += """
                 UNION
         """
         subquery_sum_amounts += self._get_account_sub_subquery_sum_amounts(
-            include_initial_balance=True
+            include_initial_balance=True, date_included=date_included
         )
         subquery_sum_amounts += """
             ) sub
             GROUP BY
                 sub.account_id
         """
+        return subquery_sum_amounts
+
+    def _inject_account_values(self):
+        """Inject report values for report_general_ledger_qweb_account."""
         query_inject_account = """
-        WITH
-            accounts AS
-                (
-                    SELECT
-                        a.id,
-                        a.code,
-                        a.name,
-                        a.internal_type IN ('payable', 'receivable')
-                            AS is_partner_account,
-                        a.user_type_id
-                    FROM
-                        account_account a
-                    """
+WITH
+    accounts AS
+        (
+            SELECT
+                a.id,
+                a.code,
+                a.name,
+                a.internal_type IN ('payable', 'receivable')
+                    AS is_partner_account,
+                a.user_type_id
+            FROM
+                account_account a
+            """
         if self.filter_partner_ids or self.filter_cost_center_ids:
             query_inject_account += """
             INNER JOIN
@@ -383,66 +402,74 @@ class GeneralLedgerReportCompute(models.TransientModel):
             GROUP BY
                 a.id
             """
+
+        init_subquery = self._get_final_account_sub_subquery_sum_amounts(
+            date_included=False
+        )
+        final_subquery = self._get_final_account_sub_subquery_sum_amounts(
+            date_included=True
+        )
+
         query_inject_account += """
-                ),
-            initial_sum_amounts AS ( """ + subquery_sum_amounts + """ ),
-            final_sum_amounts AS ( """ + subquery_sum_amounts + """ )
-            INSERT INTO
-                report_general_ledger_qweb_account
-                (
-                report_id,
-                create_uid,
-                create_date,
-                account_id,
-                code,
-                name,
-                initial_debit,
-                initial_credit,
-                initial_balance,
-                final_debit,
-                final_credit,
-                final_balance,
-                is_partner_account
-                )
-            SELECT
-                %s AS report_id,
-                %s AS create_uid,
-                NOW() AS create_date,
-                a.id AS account_id,
-                a.code,
-                COALESCE(tr.value, a.name) AS name,
-                COALESCE(i.debit, 0.0) AS initial_debit,
-                COALESCE(i.credit, 0.0) AS initial_credit,
-                COALESCE(i.balance, 0.0) AS initial_balance,
-                COALESCE(f.debit, 0.0) AS final_debit,
-                COALESCE(f.credit, 0.0) AS final_credit,
-                COALESCE(f.balance, 0.0) AS final_balance,
-                a.is_partner_account
-            FROM
-                accounts a
-            LEFT JOIN
-                initial_sum_amounts i ON a.id = i.account_id
-            LEFT JOIN
-                final_sum_amounts f ON a.id = f.account_id
-            LEFT JOIN
-                ir_translation tr ON a.id = tr.res_id
-                    AND tr.lang = %s
-                    AND tr.type = 'model'
-                    AND tr.name = 'account.account,name'
-            WHERE
-                (
-                    i.debit IS NOT NULL AND i.debit != 0
-                    OR i.credit IS NOT NULL AND i.credit != 0
-                    OR i.balance IS NOT NULL AND i.balance != 0
-                    OR f.debit IS NOT NULL AND f.debit != 0
-                    OR f.credit IS NOT NULL AND f.credit != 0
-                    OR f.balance IS NOT NULL AND f.balance != 0
-                )
+        ),
+    initial_sum_amounts AS ( """ + init_subquery + """ ),
+    final_sum_amounts AS ( """ + final_subquery + """ )
+INSERT INTO
+    report_general_ledger_qweb_account
+    (
+    report_id,
+    create_uid,
+    create_date,
+    account_id,
+    code,
+    name,
+    initial_debit,
+    initial_credit,
+    initial_balance,
+    final_debit,
+    final_credit,
+    final_balance,
+    is_partner_account
+    )
+SELECT
+    %s AS report_id,
+    %s AS create_uid,
+    NOW() AS create_date,
+    a.id AS account_id,
+    a.code,
+    COALESCE(tr.value, a.name) AS name,
+    COALESCE(i.debit, 0.0) AS initial_debit,
+    COALESCE(i.credit, 0.0) AS initial_credit,
+    COALESCE(i.balance, 0.0) AS initial_balance,
+    COALESCE(f.debit, 0.0) AS final_debit,
+    COALESCE(f.credit, 0.0) AS final_credit,
+    COALESCE(f.balance, 0.0) AS final_balance,
+    a.is_partner_account
+FROM
+    accounts a
+LEFT JOIN
+    initial_sum_amounts i ON a.id = i.account_id
+LEFT JOIN
+    final_sum_amounts f ON a.id = f.account_id
+LEFT JOIN
+    ir_translation tr ON a.id = tr.res_id
+        AND tr.lang = %s
+        AND tr.type = 'model'
+        AND tr.name = 'account.account,name'
+WHERE
+    (
+        i.debit IS NOT NULL AND i.debit != 0
+        OR i.credit IS NOT NULL AND i.credit != 0
+        OR i.balance IS NOT NULL AND i.balance != 0
+        OR f.debit IS NOT NULL AND f.debit != 0
+        OR f.credit IS NOT NULL AND f.credit != 0
+        OR f.balance IS NOT NULL AND f.balance != 0
+    )
         """
         if self.hide_account_balance_at_0:
             query_inject_account += """
-            AND
-                f.balance IS NOT NULL AND f.balance != 0
+AND
+    f.balance IS NOT NULL AND f.balance != 0
             """
         query_inject_account_params = ()
         if self.filter_cost_center_ids:
@@ -499,7 +526,7 @@ class GeneralLedgerReportCompute(models.TransientModel):
         self.env.cr.execute(query_inject_account, query_inject_account_params)
 
     def _get_partner_sub_subquery_sum_amounts(
-            self, only_empty_partner, include_initial_balance
+            self, only_empty_partner, include_initial_balance, date_included
     ):
         """ Return subquery used to compute sum amounts on partners """
         sub_subquery_sum_amounts = """
@@ -514,8 +541,15 @@ class GeneralLedgerReportCompute(models.TransientModel):
             INNER JOIN
                 account_move_line ml
                     ON ap.account_id = ml.account_id
+            """
+        if date_included:
+            sub_subquery_sum_amounts += """
                     AND ml.date <= %s
-        """
+            """
+        else:
+            sub_subquery_sum_amounts += """
+                    AND ml.date < %s
+            """
         if not only_empty_partner:
             sub_subquery_sum_amounts += """
                     AND ap.partner_id = ml.partner_id
@@ -551,11 +585,10 @@ class GeneralLedgerReportCompute(models.TransientModel):
         """
         return sub_subquery_sum_amounts
 
-    def _inject_partner_values(self, only_empty_partner=False):
-        """ Inject report values for report_general_ledger_qweb_partner.
-
-        Only for "partner" accounts (payable and receivable).
-        """
+    def _get_final_partner_sub_subquery_sum_amounts(
+            self, only_empty_partner, date_included
+    ):
+        """ Return final subquery used to compute sum amounts on partners """
         subquery_sum_amounts = """
 
             SELECT
@@ -569,49 +602,58 @@ class GeneralLedgerReportCompute(models.TransientModel):
         """
         subquery_sum_amounts += self._get_partner_sub_subquery_sum_amounts(
             only_empty_partner,
-            include_initial_balance=False
+            include_initial_balance=False,
+            date_included=date_included
         )
         subquery_sum_amounts += """
             UNION
         """
         subquery_sum_amounts += self._get_partner_sub_subquery_sum_amounts(
             only_empty_partner,
-            include_initial_balance=True
+            include_initial_balance=True,
+            date_included=date_included
         )
         subquery_sum_amounts += """
             ) sub
             GROUP BY
                 sub.account_id, sub.partner_id
         """
+        return subquery_sum_amounts
+
+    def _inject_partner_values(self, only_empty_partner=False):
+        """ Inject report values for report_general_ledger_qweb_partner.
+
+        Only for "partner" accounts (payable and receivable).
+        """
         query_inject_partner = """
-        WITH
-            accounts_partners AS
-                (
-                    SELECT
-                        ra.id AS report_account_id,
-                        a.id AS account_id,
-                        at.include_initial_balance AS include_initial_balance,
-                        p.id AS partner_id,
-                        COALESCE(
-                            CASE
-                                WHEN
-                                    NULLIF(p.name, '') IS NOT NULL
-                                    AND NULLIF(p.ref, '') IS NOT NULL
-                                THEN p.name || ' (' || p.ref || ')'
-                                ELSE p.name
-                            END,
-                            '""" + _('No partner allocated') + """'
-                        ) AS partner_name
-                    FROM
-                        report_general_ledger_qweb_account ra
-                    INNER JOIN
-                        account_account a ON ra.account_id = a.id
-                    INNER JOIN
-                        account_account_type at ON a.user_type_id = at.id
-                    INNER JOIN
-                        account_move_line ml ON a.id = ml.account_id
-                    LEFT JOIN
-                        res_partner p ON ml.partner_id = p.id
+WITH
+    accounts_partners AS
+        (
+            SELECT
+                ra.id AS report_account_id,
+                a.id AS account_id,
+                at.include_initial_balance AS include_initial_balance,
+                p.id AS partner_id,
+                COALESCE(
+                    CASE
+                        WHEN
+                            NULLIF(p.name, '') IS NOT NULL
+                            AND NULLIF(p.ref, '') IS NOT NULL
+                        THEN p.name || ' (' || p.ref || ')'
+                        ELSE p.name
+                    END,
+                    '""" + _('No partner allocated') + """'
+                ) AS partner_name
+            FROM
+                report_general_ledger_qweb_account ra
+            INNER JOIN
+                account_account a ON ra.account_id = a.id
+            INNER JOIN
+                account_account_type at ON a.user_type_id = at.id
+            INNER JOIN
+                account_move_line ml ON a.id = ml.account_id
+            LEFT JOIN
+                res_partner p ON ml.partner_id = p.id
                     """
         if self.filter_cost_center_ids:
             query_inject_partner += """
@@ -648,48 +690,58 @@ class GeneralLedgerReportCompute(models.TransientModel):
             AND
                 p.id IN %s
             """
+
+        init_subquery = self._get_final_partner_sub_subquery_sum_amounts(
+            only_empty_partner,
+            date_included=False
+        )
+        final_subquery = self._get_final_partner_sub_subquery_sum_amounts(
+            only_empty_partner,
+            date_included=True
+        )
+
         query_inject_partner += """
             GROUP BY
                 ra.id,
                 a.id,
                 p.id,
                 at.include_initial_balance
-                    ),
-                initial_sum_amounts AS ( """ + subquery_sum_amounts + """ ),
-                final_sum_amounts AS ( """ + subquery_sum_amounts + """ )
-            INSERT INTO
-                report_general_ledger_qweb_partner
-                (
-                report_account_id,
-                create_uid,
-                create_date,
-                partner_id,
-                name,
-                initial_debit,
-                initial_credit,
-                initial_balance,
-                final_debit,
-                final_credit,
-                final_balance
-                )
-            SELECT
-                ap.report_account_id,
-                %s AS create_uid,
-                NOW() AS create_date,
-                ap.partner_id,
-                ap.partner_name,
-                COALESCE(i.debit, 0.0) AS initial_debit,
-                COALESCE(i.credit, 0.0) AS initial_credit,
-                COALESCE(i.balance, 0.0) AS initial_balance,
-                COALESCE(f.debit, 0.0) AS final_debit,
-                COALESCE(f.credit, 0.0) AS final_credit,
-                COALESCE(f.balance, 0.0) AS final_balance
-            FROM
-                accounts_partners ap
-            LEFT JOIN
-                initial_sum_amounts i
-                    ON
-                        (
+        ),
+    initial_sum_amounts AS ( """ + init_subquery + """ ),
+    final_sum_amounts AS ( """ + final_subquery + """ )
+INSERT INTO
+    report_general_ledger_qweb_partner
+    (
+    report_account_id,
+    create_uid,
+    create_date,
+    partner_id,
+    name,
+    initial_debit,
+    initial_credit,
+    initial_balance,
+    final_debit,
+    final_credit,
+    final_balance
+    )
+SELECT
+    ap.report_account_id,
+    %s AS create_uid,
+    NOW() AS create_date,
+    ap.partner_id,
+    ap.partner_name,
+    COALESCE(i.debit, 0.0) AS initial_debit,
+    COALESCE(i.credit, 0.0) AS initial_credit,
+    COALESCE(i.balance, 0.0) AS initial_balance,
+    COALESCE(f.debit, 0.0) AS final_debit,
+    COALESCE(f.credit, 0.0) AS final_credit,
+    COALESCE(f.balance, 0.0) AS final_balance
+FROM
+    accounts_partners ap
+LEFT JOIN
+    initial_sum_amounts i
+        ON
+            (
         """
         if not only_empty_partner:
             query_inject_partner += """
@@ -702,10 +754,10 @@ class GeneralLedgerReportCompute(models.TransientModel):
         query_inject_partner += """
             )
             AND ap.account_id = i.account_id
-            LEFT JOIN
-                final_sum_amounts f
-                    ON
-                        (
+LEFT JOIN
+    final_sum_amounts f
+        ON
+            (
         """
         if not only_empty_partner:
             query_inject_partner += """
@@ -718,20 +770,20 @@ class GeneralLedgerReportCompute(models.TransientModel):
         query_inject_partner += """
             )
             AND ap.account_id = f.account_id
-            WHERE
-                (
-                    i.debit IS NOT NULL AND i.debit != 0
-                    OR i.credit IS NOT NULL AND i.credit != 0
-                    OR i.balance IS NOT NULL AND i.balance != 0
-                    OR f.debit IS NOT NULL AND f.debit != 0
-                    OR f.credit IS NOT NULL AND f.credit != 0
-                    OR f.balance IS NOT NULL AND f.balance != 0
-                )
+WHERE
+    (
+        i.debit IS NOT NULL AND i.debit != 0
+        OR i.credit IS NOT NULL AND i.credit != 0
+        OR i.balance IS NOT NULL AND i.balance != 0
+        OR f.debit IS NOT NULL AND f.debit != 0
+        OR f.credit IS NOT NULL AND f.credit != 0
+        OR f.balance IS NOT NULL AND f.balance != 0
+    )
         """
         if self.hide_account_balance_at_0:
             query_inject_partner += """
-            AND
-                f.balance IS NOT NULL AND f.balance != 0
+AND
+    f.balance IS NOT NULL AND f.balance != 0
             """
         query_inject_partner_params = ()
         if self.filter_cost_center_ids:
@@ -804,31 +856,31 @@ INSERT INTO
         """
         if is_account_line:
             query_inject_move_line += """
-            report_account_id,
+    report_account_id,
             """
         elif is_partner_line:
             query_inject_move_line += """
-            report_partner_id,
+    report_partner_id,
             """
         query_inject_move_line += """
-                create_uid,
-                create_date,
-                move_line_id,
-                date,
-                entry,
-                journal,
-                account,
-                partner,
-                label,
-                cost_center,
-                matching_number,
-                debit,
-                credit,
-                cumul_balance,
-                currency_name,
-                amount_currency
-                )
-            SELECT
+    create_uid,
+    create_date,
+    move_line_id,
+    date,
+    entry,
+    journal,
+    account,
+    partner,
+    label,
+    cost_center,
+    matching_number,
+    debit,
+    credit,
+    cumul_balance,
+    currency_name,
+    amount_currency
+    )
+SELECT
         """
         if is_account_line:
             query_inject_move_line += """
@@ -1183,9 +1235,17 @@ WHERE id = %s
     ):
         """ Return subquery used to compute sum amounts on
         unaffected earnings accounts """
-        sub_subquery_sum_amounts = """
+        if not include_initial_balance:
+            sub_subquery_sum_amounts = """
+        SELECT
+            -SUM(ml.balance) AS balance
+            """
+        else:
+            sub_subquery_sum_amounts = """
         SELECT
             SUM(ml.balance) AS balance
+            """
+        sub_subquery_sum_amounts += """
         FROM
             account_account a
         INNER JOIN
@@ -1193,7 +1253,7 @@ WHERE id = %s
         INNER JOIN
             account_move_line ml
                 ON a.id = ml.account_id
-                AND ml.date <= %s
+                AND ml.date < %s
         """
 
         if not include_initial_balance:

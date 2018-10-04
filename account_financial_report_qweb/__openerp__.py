@@ -5,7 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': 'QWeb Financial Reports',
-    'version': '9.0.1.0.2',
+    'version': '9.0.1.0.5',
     'category': 'Reporting',
     'summary': 'OCA Financial Reports',
     'author': 'Camptocamp SA,'
@@ -17,7 +17,6 @@
         'account',
         'account_full_reconcile',
         'date_range',
-        'account_fiscal_year',
         'report_xlsx',
         'report',
     ],

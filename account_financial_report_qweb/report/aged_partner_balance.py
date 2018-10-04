@@ -19,6 +19,7 @@ class AgedPartnerBalanceReport(models.TransientModel):
     """
 
     _name = 'report_aged_partner_balance_qweb'
+    _inherit = 'report_qweb_abstract'
 
     # Filters fields, used for data computation
     date_at = fields.Date()
@@ -41,6 +42,7 @@ class AgedPartnerBalanceReport(models.TransientModel):
 class AgedPartnerBalanceReportAccount(models.TransientModel):
 
     _name = 'report_aged_partner_balance_qweb_account'
+    _inherit = 'report_qweb_abstract'
     _order = 'code ASC'
 
     report_id = fields.Many2one(
@@ -84,6 +86,7 @@ class AgedPartnerBalanceReportAccount(models.TransientModel):
 class AgedPartnerBalanceReportPartner(models.TransientModel):
 
     _name = 'report_aged_partner_balance_qweb_partner'
+    _inherit = 'report_qweb_abstract'
 
     report_account_id = fields.Many2one(
         comodel_name='report_aged_partner_balance_qweb_account',
@@ -128,6 +131,7 @@ ORDER BY
 class AgedPartnerBalanceReportLine(models.TransientModel):
 
     _name = 'report_aged_partner_balance_qweb_line'
+    _inherit = 'report_qweb_abstract'
 
     report_partner_id = fields.Many2one(
         comodel_name='report_aged_partner_balance_qweb_partner',
@@ -149,6 +153,7 @@ class AgedPartnerBalanceReportLine(models.TransientModel):
 class AgedPartnerBalanceReportMoveLine(models.TransientModel):
 
     _name = 'report_aged_partner_balance_qweb_move_line'
+    _inherit = 'report_qweb_abstract'
 
     report_partner_id = fields.Many2one(
         comodel_name='report_aged_partner_balance_qweb_partner',
@@ -307,17 +312,18 @@ WITH
     date_range AS
         (
             SELECT
-                %s AS date_current,
+                DATE %s AS date_current,
                 DATE %s - INTEGER '30' AS date_less_30_days,
                 DATE %s - INTEGER '60' AS date_less_60_days,
                 DATE %s - INTEGER '90' AS date_less_90_days,
-                DATE %s - INTEGER '120' AS date_less_120_days,
-                DATE %s - INTEGER '150' AS date_older
+                DATE %s - INTEGER '120' AS date_less_120_days
         )
 INSERT INTO
     report_aged_partner_balance_qweb_line
     (
         report_partner_id,
+        create_uid,
+        create_date,
         partner,
         amount_residual,
         current,
@@ -329,49 +335,51 @@ INSERT INTO
     )
 SELECT
     rp.id AS report_partner_id,
+    %s AS create_uid,
+    NOW() AS create_date,
     rp.name,
     SUM(rlo.amount_residual) AS amount_residual,
     SUM(
         CASE
-            WHEN rlo.date_due > date_range.date_less_30_days
+            WHEN rlo.date_due >= date_range.date_current
             THEN rlo.amount_residual
         END
     ) AS current,
     SUM(
         CASE
             WHEN
-                rlo.date_due > date_range.date_less_60_days
-                AND rlo.date_due <= date_range.date_less_30_days
+                rlo.date_due >= date_range.date_less_30_days
+                AND rlo.date_due < date_range.date_current
             THEN rlo.amount_residual
         END
     ) AS age_30_days,
     SUM(
         CASE
             WHEN
-                rlo.date_due > date_range.date_less_90_days
-                AND rlo.date_due <= date_range.date_less_60_days
+                rlo.date_due >= date_range.date_less_60_days
+                AND rlo.date_due < date_range.date_less_30_days
             THEN rlo.amount_residual
         END
     ) AS age_60_days,
     SUM(
         CASE
             WHEN
-                rlo.date_due > date_range.date_less_120_days
-                AND rlo.date_due <= date_range.date_less_90_days
+                rlo.date_due >= date_range.date_less_90_days
+                AND rlo.date_due < date_range.date_less_60_days
             THEN rlo.amount_residual
         END
     ) AS age_90_days,
     SUM(
         CASE
             WHEN
-                rlo.date_due > date_range.date_older
-                AND rlo.date_due <= date_range.date_less_120_days
+                rlo.date_due >= date_range.date_less_120_days
+                AND rlo.date_due < date_range.date_less_90_days
             THEN rlo.amount_residual
         END
     ) AS age_120_days,
     SUM(
         CASE
-            WHEN rlo.date_due <= date_range.date_older
+            WHEN rlo.date_due < date_range.date_less_120_days
             THEN rlo.amount_residual
         END
     ) AS older
@@ -405,8 +413,9 @@ AND ra.report_id = %s
 GROUP BY
     rp.id
         """
-        query_inject_line_params = (self.date_at,) * 6
+        query_inject_line_params = (self.date_at,) * 5
         query_inject_line_params += (
+            self.env.uid,
             self.open_items_id.id,
             self.id,
         )
@@ -423,17 +432,18 @@ WITH
     date_range AS
         (
             SELECT
-                %s AS date_current,
+                DATE %s AS date_current,
                 DATE %s - INTEGER '30' AS date_less_30_days,
                 DATE %s - INTEGER '60' AS date_less_60_days,
                 DATE %s - INTEGER '90' AS date_less_90_days,
-                DATE %s - INTEGER '120' AS date_less_120_days,
-                DATE %s - INTEGER '150' AS date_older
+                DATE %s - INTEGER '120' AS date_less_120_days
         )
 INSERT INTO
     report_aged_partner_balance_qweb_move_line
     (
         report_partner_id,
+        create_uid,
+        create_date,
         date,
         date_due,
         entry,
@@ -451,6 +461,8 @@ INSERT INTO
     )
 SELECT
     rp.id AS report_partner_id,
+    %s AS create_uid,
+    NOW() AS create_date,
     rlo.date,
     rlo.date_due,
     rlo.entry,
@@ -460,35 +472,35 @@ SELECT
     rlo.label,
     rlo.amount_residual AS amount_residual,
     CASE
-        WHEN rlo.date_due > date_range.date_less_30_days
+        WHEN rlo.date_due >= date_range.date_current
         THEN rlo.amount_residual
     END AS current,
     CASE
         WHEN
-            rlo.date_due > date_range.date_less_60_days
-            AND rlo.date_due <= date_range.date_less_30_days
+            rlo.date_due >= date_range.date_less_30_days
+            AND rlo.date_due < date_range.date_current
         THEN rlo.amount_residual
     END AS age_30_days,
     CASE
         WHEN
-            rlo.date_due > date_range.date_less_90_days
-            AND rlo.date_due <= date_range.date_less_60_days
+            rlo.date_due >= date_range.date_less_60_days
+            AND rlo.date_due < date_range.date_less_30_days
         THEN rlo.amount_residual
     END AS age_60_days,
     CASE
         WHEN
-            rlo.date_due > date_range.date_less_120_days
-            AND rlo.date_due <= date_range.date_less_90_days
+            rlo.date_due >= date_range.date_less_90_days
+            AND rlo.date_due < date_range.date_less_60_days
         THEN rlo.amount_residual
     END AS age_90_days,
     CASE
         WHEN
-            rlo.date_due > date_range.date_older
-            AND rlo.date_due <= date_range.date_less_120_days
+            rlo.date_due >= date_range.date_less_120_days
+            AND rlo.date_due < date_range.date_less_90_days
         THEN rlo.amount_residual
     END AS age_120_days,
     CASE
-        WHEN rlo.date_due <= date_range.date_older
+        WHEN rlo.date_due < date_range.date_less_120_days
         THEN rlo.amount_residual
     END AS older
 FROM
@@ -519,8 +531,9 @@ WHERE
     rao.report_id = %s
 AND ra.report_id = %s
         """
-        query_inject_move_line_params = (self.date_at,) * 6
+        query_inject_move_line_params = (self.date_at,) * 5
         query_inject_move_line_params += (
+            self.env.uid,
             self.open_items_id.id,
             self.id,
         )
