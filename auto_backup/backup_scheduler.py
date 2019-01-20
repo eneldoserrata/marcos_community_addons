@@ -22,7 +22,10 @@
 
 import xmlrpclib
 import socket
+import requests
 import os
+import shutil
+import functools
 import time
 import datetime
 import base64
@@ -32,29 +35,25 @@ import logging
 try:
     import pysftp
 except ImportError:
-    raise ImportError(
-        'This module needs pysftp to automaticly write backups to the FTP through SFTP. Please install pysftp on your system. (sudo pip install pysftp)')
-from openerp.osv import fields, osv, orm
+    raise ImportError('This module needs pysftp to automaticly write backups to the FTP through SFTP. Please install pysftp on your system. (sudo pip install pysftp)')
+from openerp.osv import fields,osv,orm
 from openerp import tools, _
 
 _logger = logging.getLogger(__name__)
 
-
 def execute(connector, method, *args):
     res = False
-    try:
-        res = getattr(connector, method)(*args)
-    except socket.error, e:
-        raise e
+    try:        
+        res = getattr(connector,method)(*args)
+    except socket.error,e:        
+            raise e
     return res
-
 
 addons_path = tools.config['addons_path'] + '/auto_backup/DBbackups'
 
-
 class db_backup(osv.Model):
     _name = 'db.backup'
-
+    
     def get_db_list(self, cr, user, ids, host, port, context={}):
         _logger.debug("Host: " + host)
         _logger.debug("Port: " + port)
@@ -63,68 +62,60 @@ class db_backup(osv.Model):
         db_list = execute(conn, 'list')
         return db_list
 
-    def _get_db_name(self, cr, uid, vals, context=None):
+    def _get_db_name(self,cr,uid, vals,context=None):
         attach_pool = self.pool.get("ir.logging")
         dbName = cr.dbname
         return dbName
-
+        
     _columns = {
-        # Columns local server
-        'host': fields.char('Host', size=100, required='True'),
-        'port': fields.char('Port', size=10, required='True'),
-        'name': fields.char('Database', size=100, required='True', help='Database you want to schedule backups for'),
-        'bkp_dir': fields.char('Backup Directory', size=100, help='Absolute path for storing the backups',
-                               required='True'),
-        'backup_type': fields.selection([('zip', 'Zip'), ('dump', 'Dump')], 'Backup Type', required=True),
-        'autoremove': fields.boolean('Auto. Remove Backups',
-                                     help="If you check this option you can choose to automaticly remove the backup after xx days"),
-        'daystokeep': fields.integer('Remove after x days',
-                                     help="Choose after how many days the backup should be deleted. For example:\nIf you fill in 5 the backups will be removed after 5 days.",
-                                     required=True),
-        # Columns for external server (SFTP)
-        'sftpwrite': fields.boolean('Write to external server with sftp',
-                                    help="If you check this option you can specify the details needed to write to a remote server with SFTP."),
-        'sftppath': fields.char('Path external server',
-                                help="The location to the folder where the dumps should be written to. For example /odoo/backups/.\nFiles will then be written to /odoo/backups/ on your remote server."),
-        'sftpip': fields.char('IP Address SFTP Server',
-                              help="The IP address from your remote server. For example 192.168.0.1"),
-        'sftpport': fields.integer("SFTP Port", help="The port on the FTP server that accepts SSH/SFTP calls."),
-        'sftpusername': fields.char('Username SFTP Server',
-                                    help="The username where the SFTP connection should be made with. This is the user on the external server."),
-        'sftppassword': fields.char('Password User SFTP Server',
-                                    help="The password from the user where the SFTP connection should be made with. This is the password from the user on the external server."),
-        'daystokeepsftp': fields.integer('Remove SFTP after x days',
-                                         help="Choose after how many days the backup should be deleted from the FTP server. For example:\nIf you fill in 5 the backups will be removed after 5 days from the FTP server."),
-        'sendmailsftpfail': fields.boolean('Auto. E-mail on backup fail',
-                                           help="If you check this option you can choose to automaticly get e-mailed when the backup to the external server failed."),
-        'emailtonotify': fields.char('E-mail to notify',
-                                     help="Fill in the e-mail where you want to be notified that the backup failed on the FTP."),
-    }
+                    #Columns local server
+                    'host' : fields.char('Host', size=100, required='True'),
+                    'port' : fields.char('Port', size=10, required='True'),
+                    'name' : fields.char('Database', size=100, required='True',help='Database you want to schedule backups for'),
+                    'bkp_dir' : fields.char('Backup Directory', size=100, help='Absolute path for storing the backups', required='True'),
+                    'backup_type': fields.selection([('zip', 'Zip'), ('dump', 'Dump')], 'Backup Type', required=True),
+                    'autoremove': fields.boolean('Auto. Remove Backups', help="If you check this option you can choose to automaticly remove the backup after xx days"),
+                    'daystokeep': fields.integer('Remove after x days', 
+                     help="Choose after how many days the backup should be deleted. For example:\nIf you fill in 5 the backups will be removed after 5 days.",required=True),
+                    #Columns for external server (SFTP)
+                    'sftpwrite': fields.boolean('Write to external server with sftp', help="If you check this option you can specify the details needed to write to a remote server with SFTP."),
+                    'sftppath': fields.char('Path external server', help="The location to the folder where the dumps should be written to. For example /odoo/backups/.\nFiles will then be written to /odoo/backups/ on your remote server."),
+                    'sftpip': fields.char('IP Address SFTP Server', help="The IP address from your remote server. For example 192.168.0.1"),
+                    'sftpport': fields.integer("SFTP Port", help="The port on the FTP server that accepts SSH/SFTP calls."),
+                    'sftpusername': fields.char('Username SFTP Server', help="The username where the SFTP connection should be made with. This is the user on the external server."),
+                    'sftppassword': fields.char('Password User SFTP Server', help="The password from the user where the SFTP connection should be made with. This is the password from the user on the external server."),
+                    'daystokeepsftp': fields.integer('Remove SFTP after x days', help="Choose after how many days the backup should be deleted from the FTP server. For example:\nIf you fill in 5 the backups will be removed after 5 days from the FTP server."),
+                    'sendmailsftpfail': fields.boolean('Auto. E-mail on backup fail', help="If you check this option you can choose to automaticly get e-mailed when the backup to the external server failed."),
+                    'emailtonotify': fields.char('E-mail to notify', help="Fill in the e-mail where you want to be notified that the backup failed on the FTP."),
+                }
 
     _defaults = {
-        # 'bkp_dir' : lambda *a : addons_path,
-        'bkp_dir': '/odoo/backups',
-        'backup_type': 'zip',
-        'host': lambda *a: 'localhost',
-        'port': lambda *a: '8069',
-        'name': _get_db_name,
-        'daystokeepsftp': 30,
-        'sftpport': 22,
-    }
-
+                    #'bkp_dir' : lambda *a : addons_path,
+                    'bkp_dir' : '/odoo/backups',
+                    'backup_type': 'zip',
+                    'host' : lambda *a : 'localhost',
+                    'port' : lambda *a : '8069',
+                    'name': _get_db_name,
+                    'daystokeepsftp': 30,
+                    'sftpport': 22,
+                 }
+    
     def _check_db_exist(self, cr, user, ids):
-        for rec in self.browse(cr, user, ids):
+        for rec in self.browse(cr,user,ids):
             db_list = self.get_db_list(cr, user, ids, rec.host, rec.port)
             if rec.name in db_list:
                 return True
         return False
+    
+    _constraints = [
+                    (_check_db_exist, _('Error ! No such database exists!'), [])
+                    ]
 
-    _constraints = [(_check_db_exist, _('Error ! No such database exists!'), [])]
 
     def test_sftp_connection(self, cr, uid, ids, context=None):
-        conf_ids = self.search(cr, uid, [])
-        confs = self.browse(cr, uid, conf_ids)
-        # Check if there is a success or fail and write messages
+        conf_ids= self.search(cr, uid, [])
+        confs = self.browse(cr,uid,conf_ids)
+        #Check if there is a success or fail and write messages 
         messageTitle = ""
         messageContent = ""
         for rec in confs:
@@ -135,17 +126,17 @@ class db_backup(osv.Model):
                 portHost = rec.sftpport
                 usernameLogin = rec.sftpusername
                 passwordLogin = rec.sftppassword
-                # Connect with external server over SFTP, so we know sure that everything works.
-                srv = pysftp.Connection(host=ipHost, username=usernameLogin, password=passwordLogin, port=portHost)
+                #Connect with external server over SFTP, so we know sure that everything works.
+                srv = pysftp.Connection(host=ipHost, username=usernameLogin,
+password=passwordLogin,port=portHost)
                 srv.close()
-                # We have a success.
+                #We have a success.
                 messageTitle = "Connection Test Succeeded!"
                 messageContent = "Everything seems properly set up for FTP back-ups!"
             except Exception, e:
                 messageTitle = "Connection Test Failed!"
-                if rec.sftpip:
-                    if len(rec.sftpip) < 8:
-                        messageContent += "\nYour IP address seems to be too short.\n"
+                if len(rec.sftpip) < 8:
+                    messageContent += "\nYour IP address seems to be too short.\n"
                 messageContent += "Here is what we got instead:\n"
         if "Failed" in messageTitle:
             raise osv.except_osv(_(messageTitle), _(messageContent + "%s") % tools.ustr(e))
@@ -153,8 +144,8 @@ class db_backup(osv.Model):
             raise osv.except_osv(_(messageTitle), _(messageContent))
 
     def schedule_backup(self, cr, user, context={}):
-        conf_ids = self.search(cr, user, [])
-        confs = self.browse(cr, user, conf_ids)
+        conf_ids= self.search(cr, user, [])
+        confs = self.browse(cr,user,conf_ids)
         for rec in confs:
             db_list = self.get_db_list(cr, user, [], rec.host, rec.port)
             if rec.name in db_list:
@@ -163,48 +154,55 @@ class db_backup(osv.Model):
                         os.makedirs(rec.bkp_dir)
                 except:
                     raise
-                # Create name for dumpfile.
-                bkp_file = '%s_%s.%s' % (time.strftime('%d_%m_%Y_%H_%M_%S'), rec.name, rec.backup_type)
-                file_path = os.path.join(rec.bkp_dir, bkp_file)
+                #Create name for dumpfile.
+                bkp_file='%s_%s.%s' % (time.strftime('%d_%m_%Y_%H_%M_%S'),rec.name, rec.backup_type)
+                file_path = os.path.join(rec.bkp_dir,bkp_file)
                 uri = 'http://' + rec.host + ':' + rec.port
-                conn = xmlrpclib.ServerProxy(uri + '/xmlrpc/db')
-                bkp = ''
-                try:
-                    bkp = execute(conn, 'dump', tools.config['admin_passwd'], rec.name, rec.backup_type)
-                except:
-                    _logger.debug(
-                        "Couldn't backup database %s. Bad database administrator password for server running at http://%s:%s" % (
-                        rec.name, rec.host, rec.port))
-                    continue
-                bkp = base64.decodestring(bkp)
-                fp = open(file_path, 'wb')
-                fp.write(bkp)
-                fp.close()
-            else:
-                _logger.debug("database %s doesn't exist on http://%s:%s" % (rec.name, rec.host, rec.port))
+                bkp=''
 
-            # Check if user wants to write to SFTP or not.
+                try:
+                    bkp_resp = requests.post(
+                        uri + '/web/database/backup', stream = True,
+                        data = {
+                            'master_pwd': tools.config['admin_passwd'],
+                            'name': rec.name,
+                            'backup_format': rec.backup_type
+                        }
+                    )
+                    bkp_resp.raise_for_status()
+                except:
+                    _logger.debug("Couldn't backup database %s. Bad database administrator password for server running at http://%s:%s" %(rec.name, rec.host, rec.port))
+                    continue
+                with open(file_path,'wb') as fp:
+                    # see https://github.com/kennethreitz/requests/issues/2155
+                    bkp_resp.raw.read = functools.partial(
+                        bkp_resp.raw.read, decode_content=True)
+                    shutil.copyfileobj(bkp_resp.raw, fp)
+            else:
+                _logger.debug("database %s doesn't exist on http://%s:%s" %(rec.name, rec.host, rec.port))
+
+            #Check if user wants to write to SFTP or not.
             if rec.sftpwrite is True:
                 try:
-                    # Store all values in variables
+                    #Store all values in variables
                     dir = rec.bkp_dir
                     pathToWriteTo = rec.sftppath
                     ipHost = rec.sftpip
                     portHost = rec.sftpport
                     usernameLogin = rec.sftpusername
                     passwordLogin = rec.sftppassword
-                    # Connect with external server over SFTP
+                    #Connect with external server over SFTP
                     srv = pysftp.Connection(host=ipHost, username=usernameLogin,
-                                            password=passwordLogin, port=portHost)
-                    # set keepalive to prevent socket closed / connection dropped error
+password=passwordLogin, port=portHost)
+                    #set keepalive to prevent socket closed / connection dropped error
                     srv._transport.set_keepalive(30)
-                    # Move to the correct directory on external server. If the user made a typo in his path with multiple slashes (/odoo//backups/) it will be fixed by this regex.
-                    pathToWriteTo = re.sub('([/]{2,5})+', '/', pathToWriteTo)
+                    #Move to the correct directory on external server. If the user made a typo in his path with multiple slashes (/odoo//backups/) it will be fixed by this regex.
+                    pathToWriteTo = re.sub('([/]{2,5})+','/',pathToWriteTo)
                     _logger.debug('sftp remote path: %s' % pathToWriteTo)
                     try:
                         srv.chdir(pathToWriteTo)
                     except IOError:
-                        # Create directory and subdirs if they do not exist.
+                        #Create directory and subdirs if they do not exist.
                         currentDir = ''
                         for dirElement in pathToWriteTo.split('/'):
                             currentDir += dirElement + '/'
@@ -212,57 +210,52 @@ class db_backup(osv.Model):
                                 srv.chdir(currentDir)
                             except:
                                 _logger.info('(Part of the) path didn\'t exist. Creating it now at ' + currentDir)
-                                # Make directory and then navigate into it
+                                #Make directory and then navigate into it
                                 srv.mkdir(currentDir, mode=777)
                                 srv.chdir(currentDir)
                                 pass
                     srv.chdir(pathToWriteTo)
-                    # Loop over all files in the directory.
+                    #Loop over all files in the directory.
                     for f in os.listdir(dir):
                         fullpath = os.path.join(dir, f)
                         if os.path.isfile(fullpath):
                             if not srv.exists(f):
-                                _logger.info(
-                                    'The file %s is not yet on the remote FTP Server ------ Copying file' % fullpath)
+                                _logger.info('The file %s is not yet on the remote FTP Server ------ Copying file' % fullpath)
                                 srv.put(fullpath)
                                 _logger.info('Copying File % s------ success' % fullpath)
                             else:
-                                _logger.debug(
-                                    'File %s already exists on the remote FTP Server ------ skipped' % fullpath)
+                                _logger.debug('File %s already exists on the remote FTP Server ------ skipped' % fullpath)
 
-                    # Navigate in to the correct folder.
+                    #Navigate in to the correct folder.
                     srv.chdir(pathToWriteTo)
 
-                    # Loop over all files in the directory from the back-ups.
-                    # We will check the creation date of every back-up.
+                    #Loop over all files in the directory from the back-ups.
+                    #We will check the creation date of every back-up.
                     for file in srv.listdir(pathToWriteTo):
-                        # Get the full path
-                        fullpath = os.path.join(pathToWriteTo, file)
-                        # Get the timestamp from the file on the external server
+                        #Get the full path
+                        fullpath = os.path.join(pathToWriteTo,file) 
+                        #Get the timestamp from the file on the external server
                         timestamp = srv.stat(fullpath).st_atime
                         createtime = datetime.datetime.fromtimestamp(timestamp)
                         now = datetime.datetime.now()
                         delta = now - createtime
-                        # If the file is older than the daystokeepsftp (the days to keep that the user filled in on the Odoo form it will be removed.
+                        #If the file is older than the daystokeepsftp (the days to keep that the user filled in on the Odoo form it will be removed.
                         if delta.days >= rec.daystokeepsftp:
-                            # Only delete files, no directories!
-                            if srv.isfile(fullpath) and ".dump" in file:
+                            #Only delete files, no directories!
+                            if srv.isfile(fullpath) and ".dump" in file or ".zip" in file:
                                 _logger.info("Delete too old file from SFTP servers: " + file)
                                 srv.unlink(file)
-                    # Close the SFTP session.
+                    #Close the SFTP session.
                     srv.close()
                 except Exception, e:
                     _logger.debug('Exception! We couldn\'t back up to the FTP server..')
-                    # At this point the SFTP backup failed. We will now check if the user wants
-                    # an e-mail notification about this.
+                    #At this point the SFTP backup failed. We will now check if the user wants
+                    #an e-mail notification about this.
                     if rec.sendmailsftpfail:
                         try:
-                            ir_mail_server = self.pool.get('ir.mail_server')
-                            message = "Dear,\n\nThe backup for the server " + rec.host + " (IP: " + rec.sftpip + ") failed.Please check the following details:\n\nIP address SFTP server: " + rec.sftpip + "\nUsername: " + rec.sftpusername + "\nPassword: " + rec.sftppassword + "\n\nError details: " + tools.ustr(
-                                e) + "\n\nWith kind regards"
-                            msg = ir_mail_server.build_email("auto_backup@" + rec.name + ".com", [rec.emailtonotify],
-                                                             "Backup from " + rec.host + "(" + rec.sftpip + ") failed",
-                                                             message)
+                            ir_mail_server = self.pool.get('ir.mail_server') 
+                            message = "Dear,\n\nThe backup for the server " + rec.host + " (IP: " + rec.sftpip + ") failed.Please check the following details:\n\nIP address SFTP server: " + rec.sftpip + "\nUsername: " + rec.sftpusername + "\nPassword: " + rec.sftppassword + "\n\nError details: " + tools.ustr(e) + "\n\nWith kind regards"
+                            msg = ir_mail_server.build_email("auto_backup@" + rec.name + ".com", [rec.emailtonotify], "Backup from " + rec.host + "(" + rec.sftpip + ") failed", message) 
                             ir_mail_server.send_email(cr, user, msg)
                         except Exception:
                             pass
@@ -276,19 +269,18 @@ class db_backup(osv.Model):
             """
             if rec.autoremove is True:
                 dir = rec.bkp_dir
-                # Loop over all files in the directory.
+                #Loop over all files in the directory.
                 for f in os.listdir(dir):
                     fullpath = os.path.join(dir, f)
                     timestamp = os.stat(fullpath).st_ctime
                     createtime = datetime.datetime.fromtimestamp(timestamp)
                     now = datetime.datetime.now()
-                    delta = now - createtime
+                    delta  = now - createtime
                     if delta.days >= rec.daystokeep:
-                        # Only delete files (which are .dump), no directories.
-                        if os.path.isfile(fullpath) and ".dump" in f:
+                        #Only delete files (which are .dump), no directories.
+                        if os.path.isfile(fullpath) and ".dump" in f or ".zip" in f:
                             _logger.info("Delete local out-of-date file: " + fullpath)
                             os.remove(fullpath)
-
 
 db_backup()
 
